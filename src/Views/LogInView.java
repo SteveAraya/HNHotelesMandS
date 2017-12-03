@@ -12,16 +12,16 @@ import javax.swing.JOptionPane;
 public class LogInView extends javax.swing.JFrame {
 
     /**
-     * Creates new form CreateAccountView
+     * Creates new form CreateClientAccountView
      */
     public LogInView() {
         initComponents();
     }
 
-    //this method shows the CreateAccountView view.
+    //this method shows the CreateClientAccountView view.
     public static void showCreateAccount(){
         
-    CreateAccountView oCreateAccount = new CreateAccountView();
+    CreateClientAccountView oCreateAccount = new CreateClientAccountView();
     oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     oCreateAccount.setLocationRelativeTo(null);
     oCreateAccount.setVisible(true);
@@ -32,8 +32,8 @@ public class LogInView extends javax.swing.JFrame {
     //this method cleans the textFields of the view.
     public void cleanUserTextFields(){
        
-        emailTextField.setText("");
-        passwordPasswordField.setText("");
+        txt_email.setText("");
+        psw_password.setText("");
     
     }
     
@@ -42,18 +42,18 @@ public class LogInView extends javax.swing.JFrame {
 
         String pass = "";
         
-        char [] password = passwordPasswordField.getPassword();
+        char [] password = psw_password.getPassword();
         for( int x = 0; x < password.length; x++){
             
             pass+=password[x];
             
         }
 
-        if (emailTextField.getText().equals("")){
+        if (txt_email.getText().equals("")){
             
             JOptionPane.showMessageDialog(this, "You must define an Email Address to enter",
                     "Sign In Problem", JOptionPane.ERROR_MESSAGE);
-            this.emailTextField.requestFocus();
+            this.txt_email.requestFocus();
             return;
             
         }
@@ -62,12 +62,12 @@ public class LogInView extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "You must define a Password to enter",
                     "Sign In Problem", JOptionPane.ERROR_MESSAGE);
-            this.passwordPasswordField.requestFocus();
+            this.psw_password.requestFocus();
             return;
             
         }
         
-        int userID = Integer.parseInt(emailTextField.getText());
+        int userID = Integer.parseInt(txt_email.getText());
 
         
         
@@ -126,11 +126,12 @@ public class LogInView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        emailTextField = new javax.swing.JTextField();
+        txt_email = new javax.swing.JTextField();
         logInButton = new javax.swing.JButton();
-        passwordPasswordField = new javax.swing.JPasswordField();
+        psw_password = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
-        createAccountButton = new javax.swing.JButton();
+        btn_AdminAccount = new javax.swing.JButton();
+        btn_UserAccount = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -147,9 +148,9 @@ public class LogInView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("User Password");
 
-        emailTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                emailTextFieldKeyPressed(evt);
+                txt_emailKeyPressed(evt);
             }
         });
 
@@ -161,9 +162,9 @@ public class LogInView extends javax.swing.JFrame {
             }
         });
 
-        passwordPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+        psw_password.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                passwordPasswordFieldKeyPressed(evt);
+                psw_passwordKeyPressed(evt);
             }
         });
 
@@ -172,11 +173,19 @@ public class LogInView extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("New to HNHotels?");
 
-        createAccountButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        createAccountButton.setText("Create an Account");
-        createAccountButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_AdminAccount.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_AdminAccount.setText("Create Admin Account");
+        btn_AdminAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createAccountButtonActionPerformed(evt);
+                btn_AdminAccountActionPerformed(evt);
+            }
+        });
+
+        btn_UserAccount.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_UserAccount.setText("Create User Account");
+        btn_UserAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_UserAccountActionPerformed(evt);
             }
         });
 
@@ -187,22 +196,21 @@ public class LogInView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(psw_password)
+                    .addComponent(txt_email)
+                    .addComponent(logInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(passwordPasswordField)
-                            .addComponent(emailTextField)
-                            .addComponent(logInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btn_UserAccount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(btn_AdminAccount)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,18 +220,20 @@ public class LogInView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(passwordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(psw_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(createAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_AdminAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_UserAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -233,14 +243,14 @@ public class LogInView extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(206, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(176, 176, 176))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,7 +259,7 @@ public class LogInView extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -257,8 +267,9 @@ public class LogInView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,23 +287,23 @@ public class LogInView extends javax.swing.JFrame {
    
     }//GEN-LAST:event_logInButtonActionPerformed
 
-    private void createAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonActionPerformed
+    private void btn_AdminAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdminAccountActionPerformed
         
         showCreateAccount();
         
-    }//GEN-LAST:event_createAccountButtonActionPerformed
+    }//GEN-LAST:event_btn_AdminAccountActionPerformed
 
-    private void emailTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailTextFieldKeyPressed
+    private void txt_emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emailKeyPressed
         // TODO add your handling code here:
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.passwordPasswordField.requestFocus();   
+            this.psw_password.requestFocus();   
         }
   
-    }//GEN-LAST:event_emailTextFieldKeyPressed
+    }//GEN-LAST:event_txt_emailKeyPressed
 
-    private void passwordPasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordPasswordFieldKeyPressed
+    private void psw_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psw_passwordKeyPressed
         // TODO add your handling code here:
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
@@ -300,7 +311,11 @@ public class LogInView extends javax.swing.JFrame {
             this.logInButton.requestFocus();   
         }
   
-    }//GEN-LAST:event_passwordPasswordFieldKeyPressed
+    }//GEN-LAST:event_psw_passwordKeyPressed
+
+    private void btn_UserAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UserAccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_UserAccountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,8 +354,8 @@ public class LogInView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createAccountButton;
-    private javax.swing.JTextField emailTextField;
+    private javax.swing.JButton btn_AdminAccount;
+    private javax.swing.JButton btn_UserAccount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -349,6 +364,7 @@ public class LogInView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton logInButton;
-    private javax.swing.JPasswordField passwordPasswordField;
+    private javax.swing.JPasswordField psw_password;
+    private javax.swing.JTextField txt_email;
     // End of variables declaration//GEN-END:variables
 }

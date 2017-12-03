@@ -8,24 +8,24 @@ import javax.swing.JOptionPane;
  *
  * @author Marcos and Steve
  */
-public class CreateAccountView extends javax.swing.JFrame {
+public class CreateAdminAccountView extends javax.swing.JFrame {
 
     /**
      * Creates new form LogInView
      */
-    public CreateAccountView() {
+    public CreateAdminAccountView() {
         initComponents();
     }
 
     //this method cleans the textFields of the view.
     public void cleanUserTextFields(){
        
-        userNameTextField.setText("");
-        lastNameTextField.setText("");
+        txt_userName.setText("");
+        txt_lastName.setText("");
         cbo_Gender.setSelectedIndex(0);
-        emailTextField.setText("");
-        passwordPasswordField.setText("");
-        confirmPasswordPasswordField.setText("");
+        txt_email.setText("");
+        psw_password.setText("");
+        psw_confirmPassword.setText("");
     
     }
     
@@ -37,9 +37,9 @@ public class CreateAccountView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "The PassWord is different, perform the operation again, please. ",
                         "Error", JOptionPane.ERROR_MESSAGE);
             
-            passwordPasswordField.setText("");
-            confirmPasswordPasswordField.setText("");
-            this.passwordPasswordField.requestFocus();
+            psw_password.setText("");
+            psw_confirmPassword.setText("");
+            this.psw_password.requestFocus();
             
                 return;
   
@@ -50,20 +50,20 @@ public class CreateAccountView extends javax.swing.JFrame {
     //This method creates a new user account.
     public void createAccount(){
 
-        if (userNameTextField.getText().equals("")){
+        if (txt_userName.getText().equals("")){
             
             JOptionPane.showMessageDialog(this, "You must define a NAME to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.userNameTextField.requestFocus();
+            this.txt_userName.requestFocus();
             return;
             
         }
         
-        if (lastNameTextField.getText().equals("")){
+        if (txt_lastName.getText().equals("")){
             
             JOptionPane.showMessageDialog(this, "You must define a Last Name to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.lastNameTextField.requestFocus();
+            this.txt_lastName.requestFocus();
             return;
             
         }
@@ -77,41 +77,41 @@ public class CreateAccountView extends javax.swing.JFrame {
             
         }
         
-        if (emailTextField.getText().equals("")){
+        if (txt_email.getText().equals("")){
             
             JOptionPane.showMessageDialog(this, "You must define an Email to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.emailTextField.requestFocus();
+            this.txt_email.requestFocus();
             return;
             
         }
 
-        if (passwordPasswordField.getText().equals("")){
+        if (psw_password.getText().equals("")){
             
             JOptionPane.showMessageDialog(this, "You must define a PASSWORD to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.passwordPasswordField.requestFocus();
+            this.psw_password.requestFocus();
             return;
             
         }
         
-        if (confirmPasswordPasswordField.getText().equals("")){
+        if (psw_confirmPassword.getText().equals("")){
             
             JOptionPane.showMessageDialog(this, "You must confirm the PASSWORD to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.confirmPasswordPasswordField.requestFocus();
+            this.psw_confirmPassword.requestFocus();
             return;
             
         }
         
-        String name = userNameTextField.getText();
-        String lastName = lastNameTextField.getText();
+        String name = txt_userName.getText();
+        String lastName = txt_lastName.getText();
         String  gender = cbo_Gender.getSelectedItem().toString();
-        String email = emailTextField.getText();
+        String email = txt_email.getText();
         
         String pass = "";
         
-        char [] password = passwordPasswordField.getPassword();
+        char [] password = psw_password.getPassword();
         for( int x = 0; x < password.length; x++){
             
             pass+=password[x];
@@ -120,7 +120,7 @@ public class CreateAccountView extends javax.swing.JFrame {
         
         String confirmPass = "";
         
-        char [] confirmPassword = confirmPasswordPasswordField.getPassword();
+        char [] confirmPassword = psw_confirmPassword.getPassword();
         for( int x = 0; x < confirmPassword.length; x++){
             
             confirmPass+=confirmPassword[x];
@@ -186,18 +186,18 @@ public class CreateAccountView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        userNameTextField = new javax.swing.JTextField();
-        lastNameTextField = new javax.swing.JTextField();
+        txt_userName = new javax.swing.JTextField();
+        txt_lastName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbo_Gender = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        emailTextField = new javax.swing.JTextField();
+        txt_email = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        passwordPasswordField = new javax.swing.JPasswordField();
+        psw_password = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
-        confirmPasswordPasswordField = new javax.swing.JPasswordField();
-        createAccountButton = new javax.swing.JButton();
+        psw_confirmPassword = new javax.swing.JPasswordField();
+        btn_createAccount = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,28 +208,28 @@ public class CreateAccountView extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/create-an-account.png"))); // NOI18N
 
-        userNameTextField.addActionListener(new java.awt.event.ActionListener() {
+        txt_userName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userNameTextFieldActionPerformed(evt);
+                txt_userNameActionPerformed(evt);
             }
         });
-        userNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_userName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                userNameTextFieldKeyPressed(evt);
+                txt_userNameKeyPressed(evt);
             }
         });
 
-        lastNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_lastName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                lastNameTextFieldKeyPressed(evt);
+                txt_lastNameKeyPressed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel2.setText("User Name");
+        jLabel2.setText("Hotel Name");
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel3.setText("User last name  ");
+        jLabel3.setText("Ubication");
 
         cbo_Gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Gender", "Male", "Female" }));
         cbo_Gender.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -241,40 +241,40 @@ public class CreateAccountView extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel5.setText("User Email Address");
 
-        emailTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                emailTextFieldKeyPressed(evt);
+                txt_emailKeyPressed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel6.setText("User Password");
 
-        passwordPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+        psw_password.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                passwordPasswordFieldKeyPressed(evt);
+                psw_passwordKeyPressed(evt);
             }
         });
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setText("Confirm Your Password");
 
-        confirmPasswordPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+        psw_confirmPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                confirmPasswordPasswordFieldKeyPressed(evt);
+                psw_confirmPasswordKeyPressed(evt);
             }
         });
 
-        createAccountButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        createAccountButton.setText("Create Your HNHotel Account");
-        createAccountButton.addActionListener(new java.awt.event.ActionListener() {
+        btn_createAccount.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_createAccount.setText("Create Your HNHotel Account");
+        btn_createAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createAccountButtonActionPerformed(evt);
+                btn_createAccountActionPerformed(evt);
             }
         });
-        createAccountButton.addKeyListener(new java.awt.event.KeyAdapter() {
+        btn_createAccount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                createAccountButtonKeyPressed(evt);
+                btn_createAccountKeyPressed(evt);
             }
         });
 
@@ -285,22 +285,27 @@ public class CreateAccountView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lastNameTextField)
-                    .addComponent(userNameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(emailTextField)
-                    .addComponent(passwordPasswordField)
-                    .addComponent(confirmPasswordPasswordField)
-                    .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(txt_email)
+                    .addComponent(psw_password)
+                    .addComponent(psw_confirmPassword)
+                    .addComponent(btn_createAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel1)
-                            .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(274, 274, 274)
+                                .addComponent(jLabel3)))
+                        .addGap(0, 263, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txt_userName, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(txt_lastName)
+                        .addGap(18, 18, 18)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -309,30 +314,30 @@ public class CreateAccountView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_userName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(92, 92, 92)
                 .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(passwordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(psw_password, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(confirmPasswordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(psw_confirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(createAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addComponent(btn_createAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -342,34 +347,37 @@ public class CreateAccountView extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(204, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(178, 178, 178))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -377,76 +385,76 @@ public class CreateAccountView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void createAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonActionPerformed
+    private void btn_createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createAccountActionPerformed
         
         createAccount();
    
-    }//GEN-LAST:event_createAccountButtonActionPerformed
+    }//GEN-LAST:event_btn_createAccountActionPerformed
 
-    private void userNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameTextFieldActionPerformed
+    private void txt_userNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_userNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_userNameTextFieldActionPerformed
+    }//GEN-LAST:event_txt_userNameActionPerformed
 
-    private void userNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userNameTextFieldKeyPressed
+    private void txt_userNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_userNameKeyPressed
         
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.lastNameTextField.requestFocus();   
+            this.txt_lastName.requestFocus();   
         }
  
-    }//GEN-LAST:event_userNameTextFieldKeyPressed
+    }//GEN-LAST:event_txt_userNameKeyPressed
 
-    private void lastNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lastNameTextFieldKeyPressed
+    private void txt_lastNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lastNameKeyPressed
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
             this.cbo_Gender.requestFocus();   
         }
   
-    }//GEN-LAST:event_lastNameTextFieldKeyPressed
+    }//GEN-LAST:event_txt_lastNameKeyPressed
 
     private void cbo_GenderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbo_GenderKeyPressed
       
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.emailTextField.requestFocus();
+            this.txt_email.requestFocus();
                
         }
    
     }//GEN-LAST:event_cbo_GenderKeyPressed
 
-    private void emailTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailTextFieldKeyPressed
+    private void txt_emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emailKeyPressed
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.passwordPasswordField.requestFocus();
+            this.psw_password.requestFocus();
                
         }
         
-    }//GEN-LAST:event_emailTextFieldKeyPressed
+    }//GEN-LAST:event_txt_emailKeyPressed
 
-    private void passwordPasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordPasswordFieldKeyPressed
+    private void psw_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psw_passwordKeyPressed
        
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.confirmPasswordPasswordField.requestFocus();
+            this.psw_confirmPassword.requestFocus();
                
         }
   
-    }//GEN-LAST:event_passwordPasswordFieldKeyPressed
+    }//GEN-LAST:event_psw_passwordKeyPressed
 
-    private void confirmPasswordPasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmPasswordPasswordFieldKeyPressed
+    private void psw_confirmPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psw_confirmPasswordKeyPressed
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.createAccountButton.requestFocus();
+            this.btn_createAccount.requestFocus();
                
         }
   
-    }//GEN-LAST:event_confirmPasswordPasswordFieldKeyPressed
+    }//GEN-LAST:event_psw_confirmPasswordKeyPressed
 
-    private void createAccountButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_createAccountButtonKeyPressed
+    private void btn_createAccountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_createAccountKeyPressed
         
         
         
@@ -456,7 +464,7 @@ public class CreateAccountView extends javax.swing.JFrame {
         
         
         
-    }//GEN-LAST:event_createAccountButtonKeyPressed
+    }//GEN-LAST:event_btn_createAccountKeyPressed
 
     /**
      * @param args the command line arguments
@@ -475,14 +483,42 @@ public class CreateAccountView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAdminAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAdminAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAdminAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateAdminAccountView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -491,16 +527,14 @@ public class CreateAccountView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateAccountView().setVisible(true);
+                new CreateAdminAccountView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_createAccount;
     private javax.swing.JComboBox<String> cbo_Gender;
-    private javax.swing.JPasswordField confirmPasswordPasswordField;
-    private javax.swing.JButton createAccountButton;
-    private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -510,8 +544,10 @@ public class CreateAccountView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField lastNameTextField;
-    private javax.swing.JPasswordField passwordPasswordField;
-    private javax.swing.JTextField userNameTextField;
+    private javax.swing.JPasswordField psw_confirmPassword;
+    private javax.swing.JPasswordField psw_password;
+    private javax.swing.JTextField txt_email;
+    private javax.swing.JTextField txt_lastName;
+    private javax.swing.JTextField txt_userName;
     // End of variables declaration//GEN-END:variables
 }

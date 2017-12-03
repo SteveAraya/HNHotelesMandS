@@ -19,7 +19,7 @@ public class IMPORTAN {
             lbl-- para label
             sp --para spiner
             psw-- para passwordfield 
-    
+            btn--para botones
     */       
     
 }
