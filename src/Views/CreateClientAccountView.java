@@ -26,6 +26,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         txt_email.setText("");
         psw_password.setText("");
         psw_confirmPassword.setText("");
+        cbo_UserType.setSelectedIndex(0);
     
     }
     
@@ -73,6 +74,14 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "You must define an GENDER to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.cbo_Gender.requestFocus();
+            return;
+            
+        }
+        if (cbo_UserType.getSelectedItem().toString().equals("Select a User Type")){
+            
+            JOptionPane.showMessageDialog(this, "You must define an GENDER to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.cbo_UserType.requestFocus();
             return;
             
         }
@@ -198,6 +207,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         psw_confirmPassword = new javax.swing.JPasswordField();
         btn_createAccount = new javax.swing.JButton();
+        cbo_UserType = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -278,6 +288,13 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             }
         });
 
+        cbo_UserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User Type", "Client", "Admin" }));
+        cbo_UserType.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbo_UserTypeKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -296,10 +313,11 @@ public class CreateClientAccountView extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
-                            .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbo_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -316,23 +334,25 @@ public class CreateClientAccountView extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbo_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(psw_password, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(psw_confirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_createAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -358,7 +378,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -458,6 +478,10 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_createAccountKeyPressed
 
+    private void cbo_UserTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbo_UserTypeKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbo_UserTypeKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -503,6 +527,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_createAccount;
     private javax.swing.JComboBox<String> cbo_Gender;
+    private javax.swing.JComboBox<String> cbo_UserType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
