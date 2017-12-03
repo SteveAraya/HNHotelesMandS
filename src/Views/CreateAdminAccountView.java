@@ -22,10 +22,10 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
        
         txt_hotelName.setText("");
         txt_ubication.setText("");
-        cbo_Gender.setSelectedIndex(0);
         txt_Adminemail.setText("");
         psw_adminpassword.setText("");
         psw_adminconfirmPassword.setText("");
+        txt_HotelSize.setText("");
     
     }
     
@@ -68,11 +68,11 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
             
         }
         
-        if (cbo_Gender.getSelectedItem().toString().equals("Select a Gender")){
+        if (txt_HotelSize.getText().equals("Select a Gender")){
             
             JOptionPane.showMessageDialog(this, "You must define an GENDER to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.cbo_Gender.requestFocus();
+            this.txt_HotelSize.requestFocus();
             return;
             
         }
@@ -106,7 +106,7 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
         
         String name = txt_hotelName.getText();
         String lastName = txt_ubication.getText();
-        String  gender = cbo_Gender.getSelectedItem().toString();
+        String  hotelsize = txt_HotelSize.getText();
         String email = txt_Adminemail.getText();
         
         String pass = "";
@@ -190,7 +190,6 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
         txt_ubication = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cbo_Gender = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txt_Adminemail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -203,6 +202,9 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        txt_HotelSize = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -211,7 +213,9 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/create-an-account.png"))); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/887169_home_512x512.png"))); // NOI18N
+        jLabel1.setFocusable(false);
 
         txt_hotelName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,13 +239,6 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("Telephone Number");
-
-        cbo_Gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Gender", "Male", "Female" }));
-        cbo_Gender.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cbo_GenderKeyPressed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel5.setText("Admin Email Address");
@@ -298,6 +295,22 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel10.setText("Hotel Size");
 
+        txt_HotelSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_HotelSizeActionPerformed(evt);
+            }
+        });
+        txt_HotelSize.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_HotelSizeKeyPressed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel11.setText("m² ");
+
+        jLabel12.setText("jLabel12");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -306,10 +319,10 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
+                                .addGap(267, 267, 267)
                                 .addComponent(jLabel9))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,24 +335,22 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
                                         .addComponent(txt_telephone, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txt_Adminemail, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(psw_adminpassword, javax.swing.GroupLayout.Alignment.LEADING)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(242, 242, 242))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)
-                        .addGap(308, 308, 308))
+                                .addGap(118, 118, 118)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_HotelSize, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel12))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 99, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98))))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(234, 234, 234)
                 .addComponent(btn_createAccount)
@@ -349,19 +360,20 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_hotelName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_hotelName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_HotelSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -397,22 +409,22 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(74, Short.MAX_VALUE)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addGap(65, 65, 65))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(408, 408, 408)
+                .addGap(346, 346, 346)
                 .addComponent(jLabel8)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(57, 57, 57)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -421,7 +433,7 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -457,20 +469,10 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.cbo_Gender.requestFocus();   
+            this.txt_HotelSize.requestFocus();   
         }
   
     }//GEN-LAST:event_txt_ubicationKeyPressed
-
-    private void cbo_GenderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbo_GenderKeyPressed
-      
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
-            this.txt_Adminemail.requestFocus();
-               
-        }
-   
-    }//GEN-LAST:event_cbo_GenderKeyPressed
 
     private void txt_AdminemailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_AdminemailKeyPressed
         
@@ -517,6 +519,14 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
     private void txt_telephoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telephoneKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_telephoneKeyPressed
+
+    private void txt_HotelSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_HotelSizeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_HotelSizeActionPerformed
+
+    private void txt_HotelSizeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_HotelSizeKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_HotelSizeKeyPressed
 
     /**
      * @param args the command line arguments
@@ -586,9 +596,10 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_createAccount;
-    private javax.swing.JComboBox<String> cbo_Gender;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -603,6 +614,7 @@ public class CreateAdminAccountView extends javax.swing.JFrame {
     private javax.swing.JPasswordField psw_adminconfirmPassword;
     private javax.swing.JPasswordField psw_adminpassword;
     private javax.swing.JTextField txt_Adminemail;
+    private javax.swing.JTextField txt_HotelSize;
     private javax.swing.JTextField txt_hotelName;
     private javax.swing.JTextField txt_telephone;
     private javax.swing.JTextField txt_ubication;

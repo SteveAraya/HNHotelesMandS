@@ -26,6 +26,16 @@ public class LogInView extends javax.swing.JFrame {
     oCreateAccount.setLocationRelativeTo(null);
     oCreateAccount.setVisible(true);
     
+    
+    }
+    
+    public static void showCreateAdminAccount(){
+        
+    CreateClientAccountView oCreateAccount = new CreateClientAccountView();
+    oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    oCreateAccount.setLocationRelativeTo(null);
+    oCreateAccount.setVisible(true);
+    
     }
     
     
@@ -289,7 +299,7 @@ public class LogInView extends javax.swing.JFrame {
 
     private void btn_AdminAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdminAccountActionPerformed
         
-        showCreateAccount();
+        showCreateAdminAccount();
         
     }//GEN-LAST:event_btn_AdminAccountActionPerformed
 
