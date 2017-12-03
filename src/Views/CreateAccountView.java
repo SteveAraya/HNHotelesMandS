@@ -22,7 +22,7 @@ public class CreateAccountView extends javax.swing.JFrame {
        
         userNameTextField.setText("");
         lastNameTextField.setText("");
-        genderComboBox.setSelectedIndex(0);
+        cbo_Gender.setSelectedIndex(0);
         emailTextField.setText("");
         passwordPasswordField.setText("");
         confirmPasswordPasswordField.setText("");
@@ -68,11 +68,11 @@ public class CreateAccountView extends javax.swing.JFrame {
             
         }
         
-        if (genderComboBox.getSelectedItem().toString().equals("Select a Gender")){
+        if (cbo_Gender.getSelectedItem().toString().equals("Select a Gender")){
             
             JOptionPane.showMessageDialog(this, "You must define an GENDER to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.genderComboBox.requestFocus();
+            this.cbo_Gender.requestFocus();
             return;
             
         }
@@ -106,7 +106,7 @@ public class CreateAccountView extends javax.swing.JFrame {
         
         String name = userNameTextField.getText();
         String lastName = lastNameTextField.getText();
-        String  gender = genderComboBox.getSelectedItem().toString();
+        String  gender = cbo_Gender.getSelectedItem().toString();
         String email = emailTextField.getText();
         
         String pass = "";
@@ -190,8 +190,7 @@ public class CreateAccountView extends javax.swing.JFrame {
         lastNameTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        genderComboBox = new javax.swing.JComboBox<>();
+        cbo_Gender = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         emailTextField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -232,13 +231,10 @@ public class CreateAccountView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("User last name  ");
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel4.setText("User gender");
-
-        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Gender", "Male", "Female" }));
-        genderComboBox.addKeyListener(new java.awt.event.KeyAdapter() {
+        cbo_Gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Gender", "Male", "Female" }));
+        cbo_Gender.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                genderComboBoxKeyPressed(evt);
+                cbo_GenderKeyPressed(evt);
             }
         });
 
@@ -287,32 +283,25 @@ public class CreateAccountView extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lastNameTextField)
+                    .addComponent(userNameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(emailTextField)
+                    .addComponent(passwordPasswordField)
+                    .addComponent(confirmPasswordPasswordField)
+                    .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lastNameTextField)
-                            .addComponent(userNameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(emailTextField)
-                            .addComponent(passwordPasswordField)
-                            .addComponent(confirmPasswordPasswordField)
-                            .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel2))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,11 +316,9 @@ public class CreateAccountView extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
+                .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,7 +332,7 @@ public class CreateAccountView extends javax.swing.JFrame {
                 .addComponent(confirmPasswordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(createAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -356,13 +343,13 @@ public class CreateAccountView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(204, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(178, 178, 178))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(55, 55, 55)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +358,7 @@ public class CreateAccountView extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -414,12 +401,12 @@ public class CreateAccountView extends javax.swing.JFrame {
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.genderComboBox.requestFocus();   
+            this.cbo_Gender.requestFocus();   
         }
   
     }//GEN-LAST:event_lastNameTextFieldKeyPressed
 
-    private void genderComboBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_genderComboBoxKeyPressed
+    private void cbo_GenderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbo_GenderKeyPressed
       
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
@@ -427,7 +414,7 @@ public class CreateAccountView extends javax.swing.JFrame {
                
         }
    
-    }//GEN-LAST:event_genderComboBoxKeyPressed
+    }//GEN-LAST:event_cbo_GenderKeyPressed
 
     private void emailTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailTextFieldKeyPressed
         
@@ -510,14 +497,13 @@ public class CreateAccountView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbo_Gender;
     private javax.swing.JPasswordField confirmPasswordPasswordField;
     private javax.swing.JButton createAccountButton;
     private javax.swing.JTextField emailTextField;
-    private javax.swing.JComboBox<String> genderComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
