@@ -91,18 +91,16 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                           <Component id="psw_password" alignment="0" max="32767" attributes="0"/>
                           <Component id="txt_email" alignment="0" max="32767" attributes="0"/>
                           <Component id="logInButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btn_UserAccount" alignment="0" pref="298" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="166" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -122,13 +120,9 @@
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="psw_password" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="logInButton" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="38" max="32767" attributes="0"/>
-                      <Component id="btn_UserAccount" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -176,29 +170,6 @@
             <Component class="javax.swing.JPasswordField" name="psw_password">
               <Events>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="psw_passwordKeyPressed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Lucida Grande" size="13" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="New to HNHotels?"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btn_UserAccount">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Lucida Grande" size="14" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Create User Account"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_UserAccountActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

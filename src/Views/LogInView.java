@@ -139,8 +139,6 @@ public class LogInView extends javax.swing.JFrame {
         txt_email = new javax.swing.JTextField();
         logInButton = new javax.swing.JButton();
         psw_password = new javax.swing.JPasswordField();
-        jLabel4 = new javax.swing.JLabel();
-        btn_UserAccount = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -177,19 +175,6 @@ public class LogInView extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("New to HNHotels?");
-
-        btn_UserAccount.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        btn_UserAccount.setText("Create User Account");
-        btn_UserAccount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_UserAccountActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -197,17 +182,15 @@ public class LogInView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(psw_password)
                     .addComponent(txt_email)
                     .addComponent(logInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_UserAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 166, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -223,13 +206,9 @@ public class LogInView extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(psw_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(43, 43, 43)
                 .addComponent(logInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(btn_UserAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -304,10 +283,6 @@ public class LogInView extends javax.swing.JFrame {
   
     }//GEN-LAST:event_psw_passwordKeyPressed
 
-    private void btn_UserAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UserAccountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_UserAccountActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -345,11 +320,9 @@ public class LogInView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_UserAccount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
