@@ -11,6 +11,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -27,6 +28,7 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         blockItems();
         showUserType();
+        showUserActiveInactive();
         
     }
 
@@ -66,11 +68,29 @@ public class MainView extends javax.swing.JFrame {
     
     }
     
+    public static void showHotel(){
+        
+        HotelView oHotelView = new HotelView();
+        oHotelView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        oHotelView.setLocationRelativeTo(null);
+        oHotelView.setVisible(true);
+    
+    }
+    
     public void blockItems(){
         
-        roomAmountTextField.setEditable(false);
-        adultAmountTextField.setEditable(false);
-        childremAmountTextField.setEditable(false);
+        entryjDateChooser.setEnabled(false);
+        exitjDateChooser.setEnabled(false);
+        
+        ((DefaultEditor) roomAmountjSpinner.getEditor()).getTextField().setEditable(false);
+        roomAmountjSpinner.setEnabled(false);
+        
+        ((DefaultEditor) adultAmountjSpinner.getEditor()).getTextField().setEditable(false);
+        adultAmountjSpinner.setEnabled(false);
+        
+        ((DefaultEditor) childremAmountjSpinner.getEditor()).getTextField().setEditable(false);
+        childremAmountjSpinner.setEnabled(false);
+
         searchButton.setEnabled(false);
         seeHotelButton.setEnabled(false);
         selectHotelButton.setEnabled(false);
@@ -89,9 +109,18 @@ public class MainView extends javax.swing.JFrame {
     
     public void enableItems(){
         
-        roomAmountTextField.setEditable(true);
-        adultAmountTextField.setEditable(true);
-        childremAmountTextField.setEditable(true);
+        entryjDateChooser.setEnabled(true);
+        exitjDateChooser.setEnabled(true);
+
+        ((DefaultEditor) roomAmountjSpinner.getEditor()).getTextField().setEditable(true);
+        roomAmountjSpinner.setEnabled(true);
+        
+        ((DefaultEditor) adultAmountjSpinner.getEditor()).getTextField().setEditable(true);
+        adultAmountjSpinner.setEnabled(true);
+        
+        ((DefaultEditor) childremAmountjSpinner.getEditor()).getTextField().setEditable(true);
+        childremAmountjSpinner.setEnabled(true);
+        
         searchButton.setEnabled(true);
         seeHotelButton.setEnabled(true);
         selectHotelButton.setEnabled(true);
@@ -104,60 +133,91 @@ public class MainView extends javax.swing.JFrame {
         
     }
     
-    public void cleanTextFields() {
-
-        adultAmountTextField.setText("");
-        childremAmountTextField.setText("");
+    public void cleanjSpinner() {
+//        roomAmountjSpinner.
+//        adultAmountjSpinner.
+//        childremAmountjSpinner.
         
     }
        
     public void showUserType(){
         
         ImageIcon userNormal = new ImageIcon(getClass().getResource("../images/normalUser.png"));
-        Icon iconUserNormal = new ImageIcon(userNormal.getImage().getScaledInstance(userTypeMenu.getWidth(), userTypeMenu.getHeight(), Image.SCALE_DEFAULT));
+        Icon iconUserNormal = new ImageIcon(userNormal.getImage());
         
         ImageIcon userAdmin = new ImageIcon(getClass().getResource("../images/adminUser.png"));
-        Icon iconUserAdmin = new ImageIcon(userAdmin.getImage().getScaledInstance(userTypeMenu.getWidth(), userTypeMenu.getHeight(), Image.SCALE_DEFAULT));
+        Icon iconUserAdmin = new ImageIcon(userAdmin.getImage());
         
         
-        userTypeMenu.setIcon(iconUserNormal);
+//        userTypeMenu.setIcon(iconUserNormal);
         
-//        userTypeMenu.setIcon(iconUserAdmin);
+        userTypeMenu.setIcon(iconUserAdmin);
+   
+    }
+    
+    public void showUserActiveInactive(){
+        
+        ImageIcon userActive = new ImageIcon(getClass().getResource("../images/userActive.png"));
+        Icon iconUserActive = new ImageIcon(userActive.getImage());
+        
+        ImageIcon useInactive = new ImageIcon(getClass().getResource("../images/inactiveUser.png"));
+        Icon iconUseInactive = new ImageIcon(useInactive.getImage());
+        
+        
+//        userActiveInactiveMenu.setIcon(iconUserActive);
+        
+        userActiveInactiveMenu.setIcon(iconUseInactive);
    
     }
     
     
     
-    
-    
     public void searchHotels(){
         
-        if (roomAmountTextField.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define an amount of rooms to search hotels",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.roomAmountTextField.requestFocus();
-            return;
-            
-        }
         
-        if (adultAmountTextField.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define an amount of adults to search hotels",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.adultAmountTextField.requestFocus();
-            return;
-            
-        }
         
-        if (childremAmountTextField.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define an amount of childrem to search hotels",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.childremAmountTextField.requestFocus();
-            return;
-            
-        }
+        
+        
+        
+        //ver que putas recibe un spiner
+        
+        
+//        if (roomAmountjSpinner.getText().equals("")){
+//            
+//            JOptionPane.showMessageDialog(this, "You must define an amount of rooms to search hotels",
+//                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+//            this.roomAmountjSpinner.requestFocus();
+//            return;
+//            
+//        }
+        
+//        if (adultAmountjSpinner.getText().equals("")){
+//            
+//            JOptionPane.showMessageDialog(this, "You must define an amount of adults to search hotels",
+//                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+//            this.adultAmountjSpinner.requestFocus();
+//            return;
+//            
+//        }
+        
+//        if (childremAmountjSpinner.getText().equals("")){
+//            
+//            JOptionPane.showMessageDialog(this, "You must define an amount of childrem to search hotels",
+//                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+//            this.childremAmountjSpinner.requestFocus();
+//            return;
+//            
+//        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -167,17 +227,6 @@ public class MainView extends javax.swing.JFrame {
     }
 
                 
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
     
     
     /**
@@ -196,13 +245,13 @@ public class MainView extends javax.swing.JFrame {
         roomAmountLabel = new javax.swing.JLabel();
         adultAmountjLabel = new javax.swing.JLabel();
         childremAmountjLabel = new javax.swing.JLabel();
-        roomAmountTextField = new javax.swing.JTextField();
-        adultAmountTextField = new javax.swing.JTextField();
-        childremAmountTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         searchButton = new javax.swing.JButton();
-        cal_entrydate = new com.toedter.calendar.JDateChooser();
-        cal_exitdate = new com.toedter.calendar.JDateChooser();
+        entryjDateChooser = new com.toedter.calendar.JDateChooser();
+        exitjDateChooser = new com.toedter.calendar.JDateChooser();
+        roomAmountjSpinner = new javax.swing.JSpinner();
+        adultAmountjSpinner = new javax.swing.JSpinner();
+        childremAmountjSpinner = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -248,48 +297,6 @@ public class MainView extends javax.swing.JFrame {
         childremAmountjLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         childremAmountjLabel.setText("Children Amount");
 
-        roomAmountTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomAmountTextFieldActionPerformed(evt);
-            }
-        });
-        roomAmountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                roomAmountTextFieldKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                roomAmountTextFieldKeyPressed(evt);
-            }
-        });
-
-        adultAmountTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adultAmountTextFieldActionPerformed(evt);
-            }
-        });
-        adultAmountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                adultAmountTextFieldKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                adultAmountTextFieldKeyPressed(evt);
-            }
-        });
-
-        childremAmountTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                childremAmountTextFieldActionPerformed(evt);
-            }
-        });
-        childremAmountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                childremAmountTextFieldKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                childremAmountTextFieldKeyPressed(evt);
-            }
-        });
-
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/searchHotel.png"))); // NOI18N
 
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
@@ -301,6 +308,18 @@ public class MainView extends javax.swing.JFrame {
         searchButton.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 searchButtonKeyPressed(evt);
+            }
+        });
+
+        entryjDateChooser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                entryjDateChooserKeyPressed(evt);
+            }
+        });
+
+        exitjDateChooser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                exitjDateChooserKeyPressed(evt);
             }
         });
 
@@ -317,15 +336,16 @@ public class MainView extends javax.swing.JFrame {
                     .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(exitDateLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(entryDateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(childremAmountTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(roomAmountTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(adultAmountTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(roomAmountLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(roomAmountLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
+                    .addComponent(entryjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(adultAmountjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(childremAmountjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
-                    .addComponent(cal_entrydate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cal_exitdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(childremAmountjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                        .addComponent(adultAmountjSpinner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(roomAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(childremAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchPanelLayout.setVerticalGroup(
@@ -333,27 +353,27 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(entryDateLabel)
-                .addGap(11, 11, 11)
-                .addComponent(cal_entrydate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(entryjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(exitDateLabel)
-                .addGap(12, 12, 12)
-                .addComponent(cal_exitdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(roomAmountLabel)
-                .addGap(18, 18, 18)
-                .addComponent(roomAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(exitjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(roomAmountLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(roomAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adultAmountjLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(adultAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(adultAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(childremAmountjLabel)
-                .addGap(18, 18, 18)
-                .addComponent(childremAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(childremAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jLabel7))
         );
 
@@ -394,8 +414,8 @@ public class MainView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -410,7 +430,7 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(seeHotelButton)
@@ -426,10 +446,10 @@ public class MainView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -554,6 +574,7 @@ public class MainView extends javax.swing.JFrame {
     private void searchHotelMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHotelMenuItemActionPerformed
         
         enableItems();
+        this.entryjDateChooser.requestFocus();
         
     }//GEN-LAST:event_searchHotelMenuItemActionPerformed
 
@@ -602,26 +623,15 @@ public class MainView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_createHotelMenuItemActionPerformed
 
-    private void adultAmountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adultAmountTextFieldActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_adultAmountTextFieldActionPerformed
-
-    private void childremAmountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_childremAmountTextFieldActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_childremAmountTextFieldActionPerformed
-
     private void seeHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeHotelButtonActionPerformed
-        // TODO add your handling code here:
+        
+        showHotel();
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_seeHotelButtonActionPerformed
 
     private void selectHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectHotelButtonActionPerformed
@@ -644,75 +654,6 @@ public class MainView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void roomAmountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomAmountTextFieldActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_roomAmountTextFieldActionPerformed
-
-    private void roomAmountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomAmountTextFieldKeyTyped
-
-        char c = evt.getKeyChar();
-
-        if (c < '0' || c > '9') {
-            evt.consume();
-        }
-         
-    }//GEN-LAST:event_roomAmountTextFieldKeyTyped
-
-    private void adultAmountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adultAmountTextFieldKeyTyped
-        
-        char c = evt.getKeyChar();
-
-        if (c < '0' || c > '9') {
-            evt.consume();
-        }
-        
-    }//GEN-LAST:event_adultAmountTextFieldKeyTyped
-
-    private void childremAmountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_childremAmountTextFieldKeyTyped
-
-        char c = evt.getKeyChar();
-
-        if (c < '0' || c > '9') {
-            evt.consume();
-        }
-        
-    }//GEN-LAST:event_childremAmountTextFieldKeyTyped
-
-    private void roomAmountTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomAmountTextFieldKeyPressed
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
-            this.adultAmountTextField.requestFocus();
-            
-        }
-        
-    }//GEN-LAST:event_roomAmountTextFieldKeyPressed
-
-    private void adultAmountTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adultAmountTextFieldKeyPressed
-        
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
-            this.childremAmountTextField.requestFocus();
-            
-        }
-  
-    }//GEN-LAST:event_adultAmountTextFieldKeyPressed
-
-    private void childremAmountTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_childremAmountTextFieldKeyPressed
-        
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
-            this.searchButton.requestFocus();
-            
-        }
-  
-    }//GEN-LAST:event_childremAmountTextFieldKeyPressed
-
     private void searchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyPressed
         
         searchHotels();
@@ -722,6 +663,18 @@ public class MainView extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_searchButtonKeyPressed
+
+    private void entryjDateChooserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_entryjDateChooserKeyPressed
+        
+      
+
+    }//GEN-LAST:event_entryjDateChooserKeyPressed
+
+    private void exitjDateChooserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_exitjDateChooserKeyPressed
+        
+        
+  
+    }//GEN-LAST:event_exitjDateChooserKeyPressed
 
     /**
      * @param args the command line arguments
@@ -759,12 +712,10 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField adultAmountTextField;
     private javax.swing.JLabel adultAmountjLabel;
-    private com.toedter.calendar.JDateChooser cal_entrydate;
-    private com.toedter.calendar.JDateChooser cal_exitdate;
-    private javax.swing.JTextField childremAmountTextField;
+    private javax.swing.JSpinner adultAmountjSpinner;
     private javax.swing.JLabel childremAmountjLabel;
+    private javax.swing.JSpinner childremAmountjSpinner;
     private javax.swing.JMenu closeMenu;
     private javax.swing.JMenuItem closeProgramMenuItem;
     private javax.swing.JMenu createAccountMenu;
@@ -773,7 +724,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem createUserAccountMenuItem;
     private javax.swing.JMenuItem editUserMenuItem;
     private javax.swing.JLabel entryDateLabel;
+    private com.toedter.calendar.JDateChooser entryjDateChooser;
     private javax.swing.JLabel exitDateLabel;
+    private com.toedter.calendar.JDateChooser exitjDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuBar jMenuBar1;
@@ -785,7 +738,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem logInMenuItem;
     private javax.swing.JMenu modifyUserMenu;
     private javax.swing.JLabel roomAmountLabel;
-    private javax.swing.JTextField roomAmountTextField;
+    private javax.swing.JSpinner roomAmountjSpinner;
     private javax.swing.JButton searchButton;
     private javax.swing.JMenuItem searchHotelMenuItem;
     private javax.swing.JMenu searchMenu;

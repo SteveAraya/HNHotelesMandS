@@ -195,10 +195,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="searchPanel" min="-2" pref="227" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Component id="searchPanel" min="-2" pref="147" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -226,26 +226,28 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="exitDateLabel" alignment="0" max="32767" attributes="0"/>
                               <Component id="entryDateLabel" max="32767" attributes="0"/>
-                              <Component id="childremAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                              <Component id="searchButton" alignment="1" max="32767" attributes="0"/>
-                              <Component id="roomAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                              <Component id="adultAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                              <Component id="roomAmountLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="roomAmountLabel" alignment="0" pref="219" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="entryjDateChooser" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="exitjDateChooser" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchButton" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Component id="adultAmountjLabel" alignment="0" max="32767" attributes="0"/>
                               <Component id="childremAmountjLabel" alignment="0" pref="219" max="32767" attributes="0"/>
+                              <Component id="adultAmountjSpinner" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="cal_entrydate" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="cal_exitdate" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="roomAmountjSpinner" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                          <Component id="childremAmountjSpinner" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -256,27 +258,27 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="entryDateLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Component id="cal_entrydate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="entryjDateChooser" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="exitDateLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="cal_exitdate" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="roomAmountLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="roomAmountTextField" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Component id="exitjDateChooser" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="roomAmountLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="roomAmountjSpinner" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="adultAmountjLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="adultAmountTextField" min="-2" max="-2" attributes="0"/>
+                      <Component id="adultAmountjSpinner" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="childremAmountjLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="childremAmountTextField" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="childremAmountjSpinner" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="searchButton" min="-2" pref="79" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -323,27 +325,6 @@
                 <Property name="text" type="java.lang.String" value="Children Amount"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="roomAmountTextField">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomAmountTextFieldActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="roomAmountTextFieldKeyTyped"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="roomAmountTextFieldKeyPressed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="adultAmountTextField">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adultAmountTextFieldActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="adultAmountTextFieldKeyTyped"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="adultAmountTextFieldKeyPressed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="childremAmountTextField">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="childremAmountTextFieldActionPerformed"/>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="childremAmountTextFieldKeyTyped"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="childremAmountTextFieldKeyPressed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -362,9 +343,21 @@
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchButtonKeyPressed"/>
               </Events>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="cal_entrydate">
+            <Component class="com.toedter.calendar.JDateChooser" name="entryjDateChooser">
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="entryjDateChooserKeyPressed"/>
+              </Events>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="cal_exitdate">
+            <Component class="com.toedter.calendar.JDateChooser" name="exitjDateChooser">
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="exitjDateChooserKeyPressed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JSpinner" name="roomAmountjSpinner">
+            </Component>
+            <Component class="javax.swing.JSpinner" name="adultAmountjSpinner">
+            </Component>
+            <Component class="javax.swing.JSpinner" name="childremAmountjSpinner">
             </Component>
           </SubComponents>
         </Container>
@@ -380,8 +373,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="469" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="539" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
@@ -401,7 +394,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jScrollPane1" pref="597" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
