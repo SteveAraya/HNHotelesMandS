@@ -5,9 +5,12 @@
  */
 package Views;
 
+import com.sun.glass.events.KeyEvent;
+import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -22,6 +25,9 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView() {
         initComponents();
+        blockItems();
+        showUserType();
+        
     }
 
     public static void showLogIn(){
@@ -60,12 +66,105 @@ public class MainView extends javax.swing.JFrame {
     
     }
     
-
-    
-    
-    
-
+    public void blockItems(){
         
+        roomAmountTextField.setEditable(false);
+        adultAmountTextField.setEditable(false);
+        childremAmountTextField.setEditable(false);
+        searchButton.setEnabled(false);
+        seeHotelButton.setEnabled(false);
+        selectHotelButton.setEnabled(false);
+        
+        userProfileViewMenu.setEnabled(false);
+        modifyUserMenu.setEnabled(false);
+        createHotelMenu.setEnabled(false);
+        
+        entryDateLabel.setText("HN Hotels");
+        exitDateLabel.setText("HN Hotels");
+        roomAmountLabel.setText("HN Hotels");
+        adultAmountjLabel.setText("HN Hotels");
+        childremAmountjLabel.setText("HN Hotels");
+        
+    }
+    
+    public void enableItems(){
+        
+        roomAmountTextField.setEditable(true);
+        adultAmountTextField.setEditable(true);
+        childremAmountTextField.setEditable(true);
+        searchButton.setEnabled(true);
+        seeHotelButton.setEnabled(true);
+        selectHotelButton.setEnabled(true);
+        
+        entryDateLabel.setText("Entry Date");
+        exitDateLabel.setText("Exit Date");
+        roomAmountLabel.setText("Room Amount");
+        adultAmountjLabel.setText("Adult Amount");
+        childremAmountjLabel.setText("Children Amount");
+        
+    }
+    
+    public void cleanTextFields() {
+
+        adultAmountTextField.setText("");
+        childremAmountTextField.setText("");
+        
+    }
+       
+    public void showUserType(){
+        
+        ImageIcon userNormal = new ImageIcon(getClass().getResource("../images/normalUser.png"));
+        Icon iconUserNormal = new ImageIcon(userNormal.getImage().getScaledInstance(userTypeMenu.getWidth(), userTypeMenu.getHeight(), Image.SCALE_DEFAULT));
+        
+        ImageIcon userAdmin = new ImageIcon(getClass().getResource("../images/adminUser.png"));
+        Icon iconUserAdmin = new ImageIcon(userAdmin.getImage().getScaledInstance(userTypeMenu.getWidth(), userTypeMenu.getHeight(), Image.SCALE_DEFAULT));
+        
+        
+        userTypeMenu.setIcon(iconUserNormal);
+        
+//        userTypeMenu.setIcon(iconUserAdmin);
+   
+    }
+    
+    
+    
+    
+    
+    public void searchHotels(){
+        
+        if (roomAmountTextField.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define an amount of rooms to search hotels",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.roomAmountTextField.requestFocus();
+            return;
+            
+        }
+        
+        if (adultAmountTextField.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define an amount of adults to search hotels",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.adultAmountTextField.requestFocus();
+            return;
+            
+        }
+        
+        if (childremAmountTextField.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define an amount of childrem to search hotels",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.childremAmountTextField.requestFocus();
+            return;
+            
+        }
+        
+        
+        
+        
+        
+        
+    }
 
                 
     
@@ -92,15 +191,16 @@ public class MainView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         searchPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        entryDateLabel = new javax.swing.JLabel();
+        exitDateLabel = new javax.swing.JLabel();
+        roomAmountLabel = new javax.swing.JLabel();
+        adultAmountjLabel = new javax.swing.JLabel();
+        childremAmountjLabel = new javax.swing.JLabel();
         roomAmountTextField = new javax.swing.JTextField();
         adultAmountTextField = new javax.swing.JTextField();
         childremAmountTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        searchButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -112,7 +212,6 @@ public class MainView extends javax.swing.JFrame {
         searchHotelMenuItem = new javax.swing.JMenuItem();
         logInMenu = new javax.swing.JMenu();
         logInMenuItem = new javax.swing.JMenuItem();
-        createHotelMenuItem = new javax.swing.JMenuItem();
         createAccountMenu = new javax.swing.JMenu();
         createUserAccountMenuItem = new javax.swing.JMenuItem();
         userProfileViewMenu = new javax.swing.JMenu();
@@ -120,6 +219,7 @@ public class MainView extends javax.swing.JFrame {
         modifyUserMenu = new javax.swing.JMenu();
         editUserMenuItem = new javax.swing.JMenuItem();
         createHotelMenu = new javax.swing.JMenu();
+        createHotelMenuItem = new javax.swing.JMenuItem();
         userTypeMenu = new javax.swing.JMenu();
         userActiveInactiveMenu = new javax.swing.JMenu();
         closeMenu = new javax.swing.JMenu();
@@ -131,24 +231,46 @@ public class MainView extends javax.swing.JFrame {
 
         searchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel2.setText("EntryDate");
+        entryDateLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        entryDateLabel.setText("Entry Date");
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel3.setText("ExitDate");
+        exitDateLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        exitDateLabel.setText("Exit Date");
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel4.setText("RoomAmount");
+        roomAmountLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        roomAmountLabel.setText("Room Amount");
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel5.setText("AdultAmount");
+        adultAmountjLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        adultAmountjLabel.setText("Adult Amount");
 
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel6.setText("ChildrenAmount");
+        childremAmountjLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        childremAmountjLabel.setText("Children Amount");
+
+        roomAmountTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomAmountTextFieldActionPerformed(evt);
+            }
+        });
+        roomAmountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                roomAmountTextFieldKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                roomAmountTextFieldKeyPressed(evt);
+            }
+        });
 
         adultAmountTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adultAmountTextFieldActionPerformed(evt);
+            }
+        });
+        adultAmountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                adultAmountTextFieldKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                adultAmountTextFieldKeyPressed(evt);
             }
         });
 
@@ -157,57 +279,73 @@ public class MainView extends javax.swing.JFrame {
                 childremAmountTextFieldActionPerformed(evt);
             }
         });
+        childremAmountTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                childremAmountTextFieldKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                childremAmountTextFieldKeyPressed(evt);
+            }
+        });
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/searchHotel.png"))); // NOI18N
+
+        searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+        searchButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchButtonKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
+                .addComponent(jLabel7)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(searchPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(roomAmountTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(adultAmountTextField, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(childremAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
-            .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(searchPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel7)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(exitDateLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(entryDateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(childremAmountTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(roomAmountTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(adultAmountTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roomAmountLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adultAmountjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(childremAmountjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchPanelLayout.setVerticalGroup(
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(entryDateLabel)
                 .addGap(46, 46, 46)
-                .addComponent(jLabel3)
+                .addComponent(exitDateLabel)
                 .addGap(47, 47, 47)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(roomAmountLabel)
+                .addGap(18, 18, 18)
                 .addComponent(roomAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adultAmountjLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adultAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(childremAmountjLabel)
+                .addGap(18, 18, 18)
                 .addComponent(childremAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
-            .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
-                    .addContainerGap(406, Short.MAX_VALUE)
-                    .addComponent(jLabel7)
-                    .addGap(10, 10, 10)))
+                .addGap(18, 18, 18)
+                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -247,7 +385,7 @@ public class MainView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
@@ -261,15 +399,16 @@ public class MainView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(seeHotelButton)
                         .addGap(18, 18, 18)
                         .addComponent(selectHotelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+                        .addComponent(jLabel1))))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -278,10 +417,10 @@ public class MainView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,14 +455,6 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         logInMenu.add(logInMenuItem);
-
-        createHotelMenuItem.setText("Create Hotel");
-        createHotelMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createHotelMenuItemActionPerformed(evt);
-            }
-        });
-        logInMenu.add(createHotelMenuItem);
 
         jMenuBar1.add(logInMenu);
 
@@ -364,6 +495,15 @@ public class MainView extends javax.swing.JFrame {
         jMenuBar1.add(modifyUserMenu);
 
         createHotelMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/887169_home_512x512.png"))); // NOI18N
+
+        createHotelMenuItem.setText("Create Hotel");
+        createHotelMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createHotelMenuItemActionPerformed(evt);
+            }
+        });
+        createHotelMenu.add(createHotelMenuItem);
+
         jMenuBar1.add(createHotelMenu);
 
         userTypeMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/normalUser.png"))); // NOI18N
@@ -404,7 +544,7 @@ public class MainView extends javax.swing.JFrame {
     
     private void searchHotelMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHotelMenuItemActionPerformed
         
-        
+        enableItems();
         
     }//GEN-LAST:event_searchHotelMenuItemActionPerformed
 
@@ -455,10 +595,20 @@ public class MainView extends javax.swing.JFrame {
 
     private void adultAmountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adultAmountTextFieldActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        
+        
     }//GEN-LAST:event_adultAmountTextFieldActionPerformed
 
     private void childremAmountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_childremAmountTextFieldActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        
+        
     }//GEN-LAST:event_childremAmountTextFieldActionPerformed
 
     private void seeHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeHotelButtonActionPerformed
@@ -468,6 +618,101 @@ public class MainView extends javax.swing.JFrame {
     private void selectHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectHotelButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_selectHotelButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+
+        searchHotels();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void roomAmountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomAmountTextFieldActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_roomAmountTextFieldActionPerformed
+
+    private void roomAmountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomAmountTextFieldKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+         
+    }//GEN-LAST:event_roomAmountTextFieldKeyTyped
+
+    private void adultAmountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adultAmountTextFieldKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_adultAmountTextFieldKeyTyped
+
+    private void childremAmountTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_childremAmountTextFieldKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_childremAmountTextFieldKeyTyped
+
+    private void roomAmountTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomAmountTextFieldKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            this.adultAmountTextField.requestFocus();
+            
+        }
+        
+    }//GEN-LAST:event_roomAmountTextFieldKeyPressed
+
+    private void adultAmountTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adultAmountTextFieldKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            this.childremAmountTextField.requestFocus();
+            
+        }
+  
+    }//GEN-LAST:event_adultAmountTextFieldKeyPressed
+
+    private void childremAmountTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_childremAmountTextFieldKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            this.searchButton.requestFocus();
+            
+        }
+  
+    }//GEN-LAST:event_childremAmountTextFieldKeyPressed
+
+    private void searchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyPressed
+        
+        searchHotels();
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_searchButtonKeyPressed
 
     /**
      * @param args the command line arguments
@@ -506,7 +751,9 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adultAmountTextField;
+    private javax.swing.JLabel adultAmountjLabel;
     private javax.swing.JTextField childremAmountTextField;
+    private javax.swing.JLabel childremAmountjLabel;
     private javax.swing.JMenu closeMenu;
     private javax.swing.JMenuItem closeProgramMenuItem;
     private javax.swing.JMenu createAccountMenu;
@@ -514,12 +761,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem createHotelMenuItem;
     private javax.swing.JMenuItem createUserAccountMenuItem;
     private javax.swing.JMenuItem editUserMenuItem;
+    private javax.swing.JLabel entryDateLabel;
+    private javax.swing.JLabel exitDateLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -529,7 +773,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu logInMenu;
     private javax.swing.JMenuItem logInMenuItem;
     private javax.swing.JMenu modifyUserMenu;
+    private javax.swing.JLabel roomAmountLabel;
     private javax.swing.JTextField roomAmountTextField;
+    private javax.swing.JButton searchButton;
     private javax.swing.JMenuItem searchHotelMenuItem;
     private javax.swing.JMenu searchMenu;
     private javax.swing.JPanel searchPanel;
