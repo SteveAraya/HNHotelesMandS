@@ -7,8 +7,8 @@ package Classes;
  */
 public class Room {
     
-    private String type;
     private int number;
+    private String type;
     private int floorNumber;
     private int capacity;
     private String roomSize;
@@ -16,9 +16,9 @@ public class Room {
     private String description;
     private String roomAttractive;
 
-    public Room(String type, int number, int floorNumber, int capacity, String roomSize, String bedType, String description, String roomAttractive) {
-        this.type = type;
+    public Room(int number, String type, int floorNumber, int capacity, String roomSize, String bedType, String description, String roomAttractive) {
         this.number = number;
+        this.type = type;
         this.floorNumber = floorNumber;
         this.capacity = capacity;
         this.roomSize = roomSize;
@@ -27,20 +27,20 @@ public class Room {
         this.roomAttractive = roomAttractive;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public int getNumber() {
         return number;
     }
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getFloorNumber() {
@@ -90,17 +90,6 @@ public class Room {
     public void setRoomAttractive(String roomAttractive) {
         this.roomAttractive = roomAttractive;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+   
 }

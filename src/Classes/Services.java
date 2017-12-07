@@ -7,20 +7,20 @@ package Classes;
  */
 public class Services {
     
-    private String code;
+    private String service_code;
     private String name;
 
-    public Services(String code, String name) {
-        this.code = code;
+    public Services(String service_code, String name) {
+        this.service_code = service_code;
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public String getService_code() {
+        return service_code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setService_code(String service_code) {
+        this.service_code = service_code;
     }
 
     public String getName() {
@@ -30,11 +30,6 @@ public class Services {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
-    
-    
-    
-    
+
     
 }

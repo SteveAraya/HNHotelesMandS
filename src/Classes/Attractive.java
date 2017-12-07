@@ -7,20 +7,20 @@ package Classes;
  */
 public class Attractive {
     
-    private String code;
+    private String attractive_code;
     private String name;
 
-    public Attractive(String code, String name) {
-        this.code = code;
+    public Attractive(String attractive_code, String name) {
+        this.attractive_code = attractive_code;
         this.name = name;
     }
 
-    public String getCode() {
-        return code;
+    public String getAttractive_code() {
+        return attractive_code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setAttractive_code(String attractive_code) {
+        this.attractive_code = attractive_code;
     }
 
     public String getName() {
@@ -30,9 +30,6 @@ public class Attractive {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
-    
-    
-    
+
+
 }

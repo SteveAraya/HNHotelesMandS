@@ -230,18 +230,22 @@
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="exitDateLabel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="entryDateLabel" max="32767" attributes="0"/>
-                          <Component id="childremAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="searchButton" alignment="1" max="32767" attributes="0"/>
-                          <Component id="roomAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="adultAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="roomAmountLabel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="adultAmountjLabel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="childremAmountjLabel" alignment="0" pref="219" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="exitDateLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="entryDateLabel" max="32767" attributes="0"/>
+                              <Component id="childremAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                              <Component id="searchButton" alignment="1" max="32767" attributes="0"/>
+                              <Component id="roomAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                              <Component id="adultAmountTextField" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                              <Component id="roomAmountLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="adultAmountjLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="childremAmountjLabel" alignment="0" pref="219" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="cal_entrydate" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cal_exitdate" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -252,9 +256,13 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="entryDateLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Component id="cal_entrydate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="exitDateLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="cal_exitdate" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="roomAmountLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="roomAmountTextField" min="-2" max="-2" attributes="0"/>
@@ -353,6 +361,10 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchButtonActionPerformed"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchButtonKeyPressed"/>
               </Events>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="cal_entrydate">
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="cal_exitdate">
             </Component>
           </SubComponents>
         </Container>
