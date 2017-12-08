@@ -1,4 +1,3 @@
-
 package Classes;
 
 import java.text.SimpleDateFormat;
@@ -10,7 +9,7 @@ import java.util.Date;
  */
 public class Reservation {
 
-    private int Roomnumber;
+    private int reservation_num;
     private String EntryDate;
     private String ExitDate;
     private int NighstNumber;
@@ -21,8 +20,8 @@ public class Reservation {
     private String ChildrenAmount;
     private String AdultAmount;
 
-    public Reservation(int Roomnumber, String EntryDate, String ExitDate, int NighstNumber, String RoomType, String RoomAmount, int roomprice, String UserName, String ChildrenAmount, String AdultAmount) {
-        this.Roomnumber = Roomnumber;
+    public Reservation(int reservation_num, String EntryDate, String ExitDate, int NighstNumber, String RoomType, String RoomAmount, int roomprice, String UserName, String ChildrenAmount, String AdultAmount) {
+        this.reservation_num = reservation_num;
         this.EntryDate = EntryDate;
         this.ExitDate = ExitDate;
         this.NighstNumber = NighstNumber;
@@ -34,12 +33,12 @@ public class Reservation {
         this.AdultAmount = AdultAmount;
     }
 
-    public int getRoomnumber() {
-        return Roomnumber;
+    public int getReservation_num() {
+        return reservation_num;
     }
 
-    public void setRoomnumber(int Roomnumber) {
-        this.Roomnumber = Roomnumber;
+    public void setReservation_num(int reservation_num) {
+        this.reservation_num = reservation_num;
     }
 
     public String getEntryDate() {

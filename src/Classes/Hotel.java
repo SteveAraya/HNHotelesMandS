@@ -17,8 +17,9 @@ public class Hotel {
     private int HotelSize;
     private String checkInTime;
     private String checkOutTime;
+    private String checkinrequeriment;
 
-    public Hotel(int id_hotel, String name, String address, String country, int telephone, int constructionYear, int starsNumber, String lodgingType, int HotelSize, String checkInTime, String checkOutTime) {
+    public Hotel(int id_hotel, String name, String address, String country, int telephone, int constructionYear, int starsNumber, String lodgingType, int HotelSize, String checkInTime, String checkOutTime, String checkinrequeriment) {
         this.id_hotel = id_hotel;
         this.name = name;
         this.address = address;
@@ -30,6 +31,7 @@ public class Hotel {
         this.HotelSize = HotelSize;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
+        this.checkinrequeriment = checkinrequeriment;
     }
 
     public int getId_hotel() {
@@ -120,5 +122,13 @@ public class Hotel {
         this.checkOutTime = checkOutTime;
     }
 
-    
+    public String getCheckinrequeriment() {
+        return checkinrequeriment;
+    }
+
+    public void setCheckinrequeriment(String checkinrequeriment) {
+        this.checkinrequeriment = checkinrequeriment;
+    }
+
+
 }

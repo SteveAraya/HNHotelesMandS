@@ -1,4 +1,3 @@
-
 package Views;
 
 import com.sun.glass.events.KeyEvent;
@@ -21,102 +20,45 @@ public class CreateHotel extends javax.swing.JFrame {
     }
 
     //this method cleans the textFields of the view.
-    public void cleanUserTextFields(){
-       
+    public void cleancreatehotelTextFields() {
+
         txt_hotelName.setText("");
         txt_telephone.setText("");
         txt_checkin.setText("");
         txt_LodgingType.setText("");
-        txt_servicecode.setText("");
-        txt_serviceName.setText("");
         txt_HotelSize.setText("");
         sp_ConstrucctionYear.setValue("");
-        
-    
+        txt_checkout.setText("");
+        txt_checkin.setText("");
+        txt_checkinrequeriment.setText("");
+        sp_starnumbers.setValue("");
+        txt_idhotel.setText("");
+        txt_ubication.setText("");
+
     }
-    
+
+    public void cleanserviceTextFields() {
+        txt_servicecode.setText("");
+        txt_serviceName.setText("");
+    }
+
+    public void cleanattractiveTextFields() {
+        txt_attractivecode.setText("");
+        txt_attractivename.setText("");
+    }
 
     //This method creates a new user account.
-    public void createHotel(){
+    public void createHotel() {
 
-        if (txt_hotelName.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define a Hotel NAME to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_hotelName.requestFocus();
-            return;
-            
-        }
-        
-        if (txt_checkin.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define an ubication to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_checkin.requestFocus();
-            return;
-            
-        }
-        
-        if (txt_HotelSize.getText().equals("Select a Gender")){
-            
-            JOptionPane.showMessageDialog(this, "You must define a Hotel Size to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_HotelSize.requestFocus();
-            return;
-            
-        }
-        
-        if (txt_LodgingType.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define a Lodgin Type to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_LodgingType.requestFocus();
-            return;
-            
-        }
-
-        if (txt_servicecode.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define a Services Offered to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_servicecode.requestFocus();
-            return;
-            
-        }
-        
-        if (txt_serviceName.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define Nearby Attraction to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_serviceName.requestFocus();
-            return;
-            
-        }
-        
-        if (sp_ConstrucctionYear.getValue().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define Construcction Year to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_serviceName.requestFocus();
-            return;
-            
-        }
-        
         String name = txt_hotelName.getText();
         String lastName = txt_checkin.getText();
-        String  hotelsize = txt_HotelSize.getText();
+        String hotelsize = txt_HotelSize.getText();
         String email = txt_LodgingType.getText();
-        
+
         String pass = "";
 
     }
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -142,14 +84,20 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_HotelSize = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        sp_ConstrucctionYear = new javax.swing.JSpinner();
         btn_createAccount = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         txt_country = new javax.swing.JTextField();
-        sp_ConstrucctionYear = new javax.swing.JSpinner();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         txt_ubication = new javax.swing.JTextField();
         txt_checkout = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        txt_checkinrequeriment = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        sp_starnumbers = new javax.swing.JSpinner();
+        jLabel22 = new javax.swing.JLabel();
+        txt_idhotel = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txt_servicecode = new javax.swing.JTextField();
@@ -169,6 +117,7 @@ public class CreateHotel extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         btn_selectimage = new javax.swing.JButton();
         txt_image = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -285,6 +234,15 @@ public class CreateHotel extends javax.swing.JFrame {
             }
         });
 
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel20.setText("Checkin Requeriment");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel21.setText("Star Numbers");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel22.setText("Id Hotel");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -299,74 +257,99 @@ public class CreateHotel extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addGap(78, 78, 78)
+                                    .addComponent(btn_createAccount))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(txt_HotelSize)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6))
+                                .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(txt_hotelName)
-                            .addComponent(txt_telephone)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(78, 78, 78)
-                                .addComponent(btn_createAccount))
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel16)
-                            .addComponent(txt_country)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9)
-                            .addComponent(sp_ConstrucctionYear, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(txt_HotelSize)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18)
                             .addComponent(txt_ubication)
+                            .addComponent(txt_telephone)
+                            .addComponent(txt_country)
                             .addComponent(txt_checkin)
                             .addComponent(txt_checkout)
-                            .addComponent(txt_LodgingType))
-                        .addGap(0, 102, Short.MAX_VALUE))))
+                            .addComponent(txt_checkinrequeriment)
+                            .addComponent(txt_LodgingType)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(sp_ConstrucctionYear, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(sp_starnumbers, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addGap(51, 51, 51)
+                                    .addComponent(jLabel21)))
+                            .addComponent(jLabel22)
+                            .addComponent(txt_idhotel, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                        .addGap(0, 48, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_idhotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_hotelName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(txt_ubication, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_ubication, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_checkin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addGap(8, 8, 8)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_checkout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_checkinrequeriment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_LodgingType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_HotelSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(sp_ConstrucctionYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_HotelSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sp_starnumbers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sp_ConstrucctionYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(btn_createAccount)
-                .addContainerGap())
+                .addGap(7, 7, 7))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 204));
@@ -412,9 +395,9 @@ public class CreateHotel extends javax.swing.JFrame {
                         .addGap(119, 119, 119)
                         .addComponent(jLabel12))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
+                        .addGap(113, 113, 113)
                         .addComponent(btn_insertservice)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,9 +412,9 @@ public class CreateHotel extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_serviceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(btn_insertservice)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -490,9 +473,9 @@ public class CreateHotel extends javax.swing.JFrame {
                             .addComponent(txt_attractivecode, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_attractivename, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
+                        .addGap(114, 114, 114)
                         .addComponent(btn_insertatractive)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,9 +490,9 @@ public class CreateHotel extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_attractivename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(btn_insertatractive)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 255, 204));
@@ -533,7 +516,7 @@ public class CreateHotel extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(110, 110, 110)
                 .addComponent(jLabel19)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txt_image)
@@ -546,33 +529,43 @@ public class CreateHotel extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_selectimage)
                     .addComponent(txt_image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
 
+        jButton1.setText("Admin Hotel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(20, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(199, 199, 199)
+                        .addGap(60, 60, 60)
                         .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(216, 216, 216)
+                        .addComponent(jButton1)
+                        .addGap(36, 36, 36))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -580,17 +573,19 @@ public class CreateHotel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
+                        .addGap(35, 35, 35)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -598,16 +593,16 @@ public class CreateHotel extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(41, 41, 41)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -618,16 +613,122 @@ public class CreateHotel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_createAccountActionPerformed
-        
+
+        if (txt_hotelName.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a Hotel NAME to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_hotelName.requestFocus();
+            return;
+
+        }
+        if (txt_idhotel.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a id Hotel to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_idhotel.requestFocus();
+            return;
+
+        }
+
+        if (txt_checkin.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define  checkin time  to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_checkin.requestFocus();
+            return;
+
+        }
+        if (txt_checkout.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define checkout time to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_checkout.requestFocus();
+            return;
+
+        }
+
+        if (txt_HotelSize.getText().equals("Select a Gender")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a Hotel Size  to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_HotelSize.requestFocus();
+            return;
+
+        }
+
+        if (txt_LodgingType.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a Lodgin Type  to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_LodgingType.requestFocus();
+            return;
+
+        }
+
+        if (sp_ConstrucctionYear.getValue().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define Construcction Year  to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_serviceName.requestFocus();
+            return;
+
+        }
+        if (sp_starnumbers.getValue().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a number of star to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.sp_starnumbers.requestFocus();
+            return;
+
+        }
+
+        if (txt_ubication.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a ubication to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_ubication.requestFocus();
+            return;
+
+        }
+
+        if (txt_checkinrequeriment.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a checkin requeriment to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_checkinrequeriment.requestFocus();
+            return;
+
+        }
+        if (txt_country.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a country to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_country.requestFocus();
+            return;
+
+        }
+
+        if (txt_telephone.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a telephone number to create a hotel",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_telephone.requestFocus();
+            return;
+
+        }
+
         createHotel();
-   
+
     }//GEN-LAST:event_btn_createAccountActionPerformed
 
     private void txt_hotelNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hotelNameActionPerformed
@@ -635,37 +736,36 @@ public class CreateHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_hotelNameActionPerformed
 
     private void txt_hotelNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_hotelNameKeyPressed
-        
-        
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
-            this.txt_checkin.requestFocus();   
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            this.txt_checkin.requestFocus();
         }
- 
+
     }//GEN-LAST:event_txt_hotelNameKeyPressed
 
     private void txt_checkinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_checkinKeyPressed
-        
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
-            this.txt_HotelSize.requestFocus();   
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            this.txt_HotelSize.requestFocus();
         }
-  
+
     }//GEN-LAST:event_txt_checkinKeyPressed
 
     private void txt_LodgingTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_LodgingTypeKeyPressed
-        
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
             this.txt_servicecode.requestFocus();
-               
+
         }
-        
+
     }//GEN-LAST:event_txt_LodgingTypeKeyPressed
 
     private void btn_createAccountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_createAccountKeyPressed
 
-        
+
     }//GEN-LAST:event_btn_createAccountKeyPressed
 
     private void txt_telephoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telephoneKeyPressed
@@ -685,7 +785,23 @@ public class CreateHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_serviceNameActionPerformed
 
     private void btn_insertserviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertserviceActionPerformed
-        // TODO add your handling code here:
+        if (txt_servicecode.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a Services Offered to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_servicecode.requestFocus();
+            return;
+
+        }
+
+        if (txt_serviceName.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define service name to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_serviceName.requestFocus();
+            return;
+
+        }
     }//GEN-LAST:event_btn_insertserviceActionPerformed
 
     private void txt_attractivecodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_attractivecodeActionPerformed
@@ -697,7 +813,23 @@ public class CreateHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_attractivenameActionPerformed
 
     private void btn_insertatractiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertatractiveActionPerformed
-        // TODO add your handling code here:
+        if (txt_servicecode.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define a attraction code to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_attractivecode.requestFocus();
+            return;
+
+        }
+
+        if (txt_serviceName.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "You must define  Attraction Name to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_attractivename.requestFocus();
+            return;
+
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btn_insertatractiveActionPerformed
 
     private void txt_countryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_countryActionPerformed
@@ -714,13 +846,17 @@ public class CreateHotel extends javax.swing.JFrame {
 
     private void btn_selectimageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selectimageActionPerformed
         JFileChooser imagefile = new JFileChooser();
-        int imagewindow= imagefile.showOpenDialog(null);
-        if(imagewindow==JFileChooser.APPROVE_OPTION){
-        File file= imagefile.getSelectedFile();
-        txt_image.setText(String.valueOf(file));
+        int imagewindow = imagefile.showOpenDialog(null);
+        if (imagewindow == JFileChooser.APPROVE_OPTION) {
+            File file = imagefile.getSelectedFile();
+            txt_image.setText(String.valueOf(file));
         }
-        
+
     }//GEN-LAST:event_btn_selectimageActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -811,6 +947,70 @@ public class CreateHotel extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -825,6 +1025,7 @@ public class CreateHotel extends javax.swing.JFrame {
     private javax.swing.JButton btn_insertatractive;
     private javax.swing.JButton btn_insertservice;
     private javax.swing.JButton btn_selectimage;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -837,6 +1038,9 @@ public class CreateHotel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -851,14 +1055,17 @@ public class CreateHotel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSpinner sp_ConstrucctionYear;
+    private javax.swing.JSpinner sp_starnumbers;
     private javax.swing.JTextField txt_HotelSize;
     private javax.swing.JTextField txt_LodgingType;
     private javax.swing.JTextField txt_attractivecode;
     private javax.swing.JTextField txt_attractivename;
     private javax.swing.JTextField txt_checkin;
+    private javax.swing.JTextField txt_checkinrequeriment;
     private javax.swing.JTextField txt_checkout;
     private javax.swing.JTextField txt_country;
     private javax.swing.JTextField txt_hotelName;
+    private javax.swing.JTextField txt_idhotel;
     private javax.swing.JTextField txt_image;
     private javax.swing.JTextField txt_serviceName;
     private javax.swing.JTextField txt_servicecode;
