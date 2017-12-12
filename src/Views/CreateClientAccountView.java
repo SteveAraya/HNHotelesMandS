@@ -53,7 +53,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
 
         if (txt_userName.getText().equals("")){
             
-            JOptionPane.showMessageDialog(this, "You must define a NAME to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter a NAME to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_userName.requestFocus();
             return;
@@ -62,7 +62,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         
         if (txt_lastName.getText().equals("")){
             
-            JOptionPane.showMessageDialog(this, "You must define a Last Name to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter a Last Name to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_lastName.requestFocus();
             return;
@@ -71,7 +71,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         
         if (cbo_Gender.getSelectedItem().toString().equals("Select a Gender")){
             
-            JOptionPane.showMessageDialog(this, "You must define an GENDER to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter an GENDER to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.cbo_Gender.requestFocus();
             return;
@@ -79,7 +79,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         }
         if (cbo_UserType.getSelectedItem().toString().equals("Select a User Type")){
             
-            JOptionPane.showMessageDialog(this, "You must define an GENDER to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter an GENDER to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.cbo_UserType.requestFocus();
             return;
@@ -88,7 +88,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         
         if (txt_email.getText().equals("")){
             
-            JOptionPane.showMessageDialog(this, "You must define an Email to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter an Email to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_email.requestFocus();
             return;
@@ -97,7 +97,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
 
         if (psw_password.getText().equals("")){
             
-            JOptionPane.showMessageDialog(this, "You must define a PASSWORD to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter a PASSWORD to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.psw_password.requestFocus();
             return;

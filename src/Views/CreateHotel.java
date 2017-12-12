@@ -41,21 +41,39 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_servicecode.setText("");
         txt_serviceName.setText("");
     }
+    
+    public void insertservice() {
+        String servicecode=txt_servicecode.getText();
+        String service= txt_serviceName.getText();
+    }
 
     public void cleanattractiveTextFields() {
         txt_attractivecode.setText("");
         txt_attractivename.setText("");
     }
+    
+     public void insertattractive() {
+        String attrarctivecode=txt_attractivecode.getText();
+        String attractivename=txt_attractivename.getText();
+    }
 
-    //This method creates a new user account.
+    //This method creates a new hotel.
     public void createHotel() {
-
-        String name = txt_hotelName.getText();
-        String lastName = txt_checkin.getText();
-        String hotelsize = txt_HotelSize.getText();
-        String email = txt_LodgingType.getText();
-
-        String pass = "";
+        txt_hotelName.setText("");
+        int telphone = Integer.parseInt(txt_telephone.getText());
+        String checkin = txt_checkin.getText();
+        String lodgintype = txt_LodgingType.getText();
+        int hotelsize = Integer.parseInt(txt_HotelSize.getText());
+        String construcctionyear = sp_ConstrucctionYear.getValue().toString();
+        String chekout = txt_checkout.getText();
+        String checking = txt_checkin.getText();
+        String checkinrequeriment = txt_checkinrequeriment.getText();
+        String starnumber = sp_starnumbers.getValue().toString();
+        int id_hotel = Integer.parseInt(txt_idhotel.getText());
+        String ubication = (txt_ubication.getText());
+        
+        
+        
 
     }
 
@@ -802,6 +820,9 @@ public class CreateHotel extends javax.swing.JFrame {
             return;
 
         }
+        insertservice();
+        cleanserviceTextFields();
+        
     }//GEN-LAST:event_btn_insertserviceActionPerformed
 
     private void txt_attractivecodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_attractivecodeActionPerformed
@@ -830,6 +851,8 @@ public class CreateHotel extends javax.swing.JFrame {
             return;
 
         }        // TODO add your handling code here:
+        insertattractive();
+        cleanattractiveTextFields();
     }//GEN-LAST:event_btn_insertatractiveActionPerformed
 
     private void txt_countryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_countryActionPerformed
