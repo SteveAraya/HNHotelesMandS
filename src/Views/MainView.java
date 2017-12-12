@@ -8,6 +8,9 @@ package Views;
 import Conectmysql.ConexionDB;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Image;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -30,160 +33,146 @@ public class MainView extends javax.swing.JFrame {
         blockItems();
         showUserType();
         showUserActiveInactive();
-        
-        
+
     }
 
-    public static void showLogIn(){
-        
+    public static void showLogIn() {
+
         LogInView oLogInView = new LogInView();
         oLogInView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         oLogInView.setLocationRelativeTo(null);
         oLogInView.setVisible(true);
-    
+
     }
-    
-    public static void showCreateAccount(){
-        
+
+    public static void showCreateAccount() {
+
         CreateClientAccountView oCreateAccount = new CreateClientAccountView();
         oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         oCreateAccount.setLocationRelativeTo(null);
         oCreateAccount.setVisible(true);
-    
+
     }
-    
-    public static void showUserView(){
-        
+
+    public static void showUserView() {
+
         UserView oUserView = new UserView();
         oUserView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         oUserView.setLocationRelativeTo(null);
         oUserView.setVisible(true);
-    
+
     }
-    
-    public static void showCreateHotel(){
-        
+
+    public static void showCreateHotel() throws SQLException {
+
         CreateHotel oCreateHotel = new CreateHotel();
         oCreateHotel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         oCreateHotel.setLocationRelativeTo(null);
         oCreateHotel.setVisible(true);
-    
+
     }
-    
-    public static void showHotel(){
-        
+
+    public static void showHotel() {
+
         HotelView oHotelView = new HotelView();
         oHotelView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         oHotelView.setLocationRelativeTo(null);
         oHotelView.setVisible(true);
-    
+
     }
-    
-    public void blockItems(){
-        
+
+    public void blockItems() {
+
         entryjDateChooser.setEnabled(false);
         exitjDateChooser.setEnabled(false);
-        
+
         ((DefaultEditor) roomAmountjSpinner.getEditor()).getTextField().setEditable(false);
         roomAmountjSpinner.setEnabled(false);
-        
+
         ((DefaultEditor) adultAmountjSpinner.getEditor()).getTextField().setEditable(false);
         adultAmountjSpinner.setEnabled(false);
-        
+
         ((DefaultEditor) childremAmountjSpinner.getEditor()).getTextField().setEditable(false);
         childremAmountjSpinner.setEnabled(false);
 
         searchButton.setEnabled(false);
         seeHotelButton.setEnabled(false);
         selectHotelButton.setEnabled(false);
-        
+
         userProfileViewMenu.setEnabled(false);
         modifyUserMenu.setEnabled(false);
         createHotelMenu.setEnabled(false);
-        
+
         entryDateLabel.setText("HN Hotels");
         exitDateLabel.setText("HN Hotels");
         roomAmountLabel.setText("HN Hotels");
         adultAmountjLabel.setText("HN Hotels");
         childremAmountjLabel.setText("HN Hotels");
-        
+
     }
-    
-    public void enableItems(){
-        
+
+    public void enableItems() {
+
         entryjDateChooser.setEnabled(true);
         exitjDateChooser.setEnabled(true);
 
         ((DefaultEditor) roomAmountjSpinner.getEditor()).getTextField().setEditable(true);
         roomAmountjSpinner.setEnabled(true);
-        
+
         ((DefaultEditor) adultAmountjSpinner.getEditor()).getTextField().setEditable(true);
         adultAmountjSpinner.setEnabled(true);
-        
+
         ((DefaultEditor) childremAmountjSpinner.getEditor()).getTextField().setEditable(true);
         childremAmountjSpinner.setEnabled(true);
-        
+
         searchButton.setEnabled(true);
         seeHotelButton.setEnabled(true);
         selectHotelButton.setEnabled(true);
-        
+
         entryDateLabel.setText("Entry Date");
         exitDateLabel.setText("Exit Date");
         roomAmountLabel.setText("Room Amount");
         adultAmountjLabel.setText("Adult Amount");
         childremAmountjLabel.setText("Children Amount");
-        
+
     }
-    
+
     public void cleanjSpinner() {
 //        roomAmountjSpinner.
 //        adultAmountjSpinner.
 //        childremAmountjSpinner.
-        
+
     }
-       
-    public void showUserType(){
-        
+
+    public void showUserType() {
+
         ImageIcon userNormal = new ImageIcon(getClass().getResource("../images/normalUser.png"));
         Icon iconUserNormal = new ImageIcon(userNormal.getImage());
-        
+
         ImageIcon userAdmin = new ImageIcon(getClass().getResource("../images/adminUser.png"));
         Icon iconUserAdmin = new ImageIcon(userAdmin.getImage());
-        
-        
+
 //        userTypeMenu.setIcon(iconUserNormal);
-        
         userTypeMenu.setIcon(iconUserAdmin);
-   
+
     }
-    
-    public void showUserActiveInactive(){
-        
+
+    public void showUserActiveInactive() {
+
         ImageIcon userActive = new ImageIcon(getClass().getResource("../images/userActive.png"));
         Icon iconUserActive = new ImageIcon(userActive.getImage());
-        
+
         ImageIcon useInactive = new ImageIcon(getClass().getResource("../images/inactiveUser.png"));
         Icon iconUseInactive = new ImageIcon(useInactive.getImage());
-        
-        
+
 //        userActiveInactiveMenu.setIcon(iconUserActive);
-        
         userActiveInactiveMenu.setIcon(iconUseInactive);
-   
+
     }
-    
-    
-    
-    public void searchHotels(){
-        
-        
-        
-        
-        
-        
+
+    public void searchHotels() {
+
         //ver que putas recibe un spiner
-        
-        
 //        if (roomAmountjSpinner.getText().equals("")){
 //            
 //            JOptionPane.showMessageDialog(this, "You must define an amount of rooms to search hotels",
@@ -192,7 +181,6 @@ public class MainView extends javax.swing.JFrame {
 //            return;
 //            
 //        }
-        
 //        if (adultAmountjSpinner.getText().equals("")){
 //            
 //            JOptionPane.showMessageDialog(this, "You must define an amount of adults to search hotels",
@@ -201,7 +189,6 @@ public class MainView extends javax.swing.JFrame {
 //            return;
 //            
 //        }
-        
 //        if (childremAmountjSpinner.getText().equals("")){
 //            
 //            JOptionPane.showMessageDialog(this, "You must define an amount of childrem to search hotels",
@@ -210,27 +197,8 @@ public class MainView extends javax.swing.JFrame {
 //            return;
 //            
 //        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
 
-                
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -560,68 +528,59 @@ public class MainView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void searchHotelMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHotelMenuItemActionPerformed
-        
+
         enableItems();
         this.entryjDateChooser.requestFocus();
-        
+
     }//GEN-LAST:event_searchHotelMenuItemActionPerformed
 
     private void logInMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInMenuItemActionPerformed
-        
+
         showLogIn();
-        
+
     }//GEN-LAST:event_logInMenuItemActionPerformed
 
     private void editUserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserMenuItemActionPerformed
-        
-        
-        
+
+
     }//GEN-LAST:event_editUserMenuItemActionPerformed
 
     private void userProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userProfileMenuItemActionPerformed
-        
+
         showUserView();
-        
+
     }//GEN-LAST:event_userProfileMenuItemActionPerformed
 
     private void closeProgramMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeProgramMenuItemActionPerformed
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_closeProgramMenuItemActionPerformed
 
     private void createUserAccountMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserAccountMenuItemActionPerformed
-        
+
         showCreateAccount();
-        
+
     }//GEN-LAST:event_createUserAccountMenuItemActionPerformed
 
     private void createHotelMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createHotelMenuItemActionPerformed
-        
-//        if (){
-//            
-//            
-//            
-//        }
-        
-        
-        showCreateHotel();
-        
-        
+
+        try {
+
+            showCreateHotel();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_createHotelMenuItemActionPerformed
 
     private void seeHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeHotelButtonActionPerformed
-        
+
         showHotel();
-        
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_seeHotelButtonActionPerformed
 
     private void selectHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectHotelButtonActionPerformed
@@ -631,39 +590,25 @@ public class MainView extends javax.swing.JFrame {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
 
         searchHotels();
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyPressed
-        
+
         searchHotels();
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_searchButtonKeyPressed
 
     private void entryjDateChooserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_entryjDateChooserKeyPressed
-        
-      
+
 
     }//GEN-LAST:event_entryjDateChooserKeyPressed
 
     private void exitjDateChooserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_exitjDateChooserKeyPressed
-        
-        
-  
+
+
     }//GEN-LAST:event_exitjDateChooserKeyPressed
 
     /**
