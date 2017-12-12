@@ -21,20 +21,7 @@ public class HNHoteles {
         mainView.setLocationRelativeTo(mainView);
         mainView.setVisible(true);
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+     
         
         
     }

@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Conectmysql.ConexionDB;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Image;
 import javax.swing.Icon;
@@ -29,6 +30,7 @@ public class MainView extends javax.swing.JFrame {
         blockItems();
         showUserType();
         showUserActiveInactive();
+        
         
     }
 
