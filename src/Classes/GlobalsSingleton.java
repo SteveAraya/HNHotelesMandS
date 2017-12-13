@@ -16,7 +16,7 @@ public class GlobalsSingleton {
     String userCondition = "Inactive";
     String idHotel = "1";
 
-    int userID;
+    int userID=1;
     String userName;
     String userLastName;
     String userGender;

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,6 +24,8 @@ import javax.swing.JOptionPane;
 public class CreateHotel extends javax.swing.JFrame {
 
     Connection conect = ConexionDB.Connectdatabase();
+    DefaultTableModel dftables = new DefaultTableModel();
+    DefaultTableModel dftablea = new DefaultTableModel();
 
     /**
      * Creates new form LogInView
@@ -31,10 +34,13 @@ public class CreateHotel extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         verifyhotel();
+        verifyservice();
+        verifyattractive();
 
     }
 
     //this method cleans the textFields of the view.
+    
     public void createhotelstatusfalse() {
 
         txt_hotelName.setEditable(false);
@@ -50,6 +56,7 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_idhotel.setEditable(false);
         txt_ubication.setEditable(false);
         txt_country.setEditable(false);
+        btn_createAccount.setEnabled(false);
 
     }
 
@@ -57,6 +64,8 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_servicecode.setText("");
         txt_serviceName.setText("");
     }
+    
+    //This method is for  create service
 
     public void insertservice() {
         String servicecode = txt_servicecode.getText();
@@ -67,7 +76,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     + "Values(?,?,?)");
             insertser.setString(1, servicecode);
             insertser.setString(2, service);
-            insertser.setString(3,GlobalsSingleton.getInstance().getIdHotel());
+            insertser.setString(3, GlobalsSingleton.getInstance().getIdHotel());
 
             int servicei = insertser.executeUpdate();
 
@@ -82,6 +91,32 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_attractivename.setText("");
     }
 
+//This method is for  veri if the hotel have a  service
+    public void verifyservice() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM service";
+        String serviceverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_services.setModel(dftables);
+        dftables.setColumnIdentifiers(new Object[]{"Code", "Service"});
+
+        try {
+            while (resultservice.next()) {
+                serviceverification = resultservice.getString("id_hotel");
+
+                if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
+                    dftables.addRow(new Object[]{resultservice.getString("service_code"), resultservice.getString("service_name")});
+                    return;
+                }
+            }
+        } catch (SQLException e) {
+
+        }
+    }
+
+    //This method is for  create attractive
     public void insertattractive() throws SQLException {
         String attrarctivecode = txt_attractivecode.getText();
         String attractivename = txt_attractivename.getText();
@@ -101,45 +136,31 @@ public class CreateHotel extends javax.swing.JFrame {
         }        // TODO 
 
     }
-    
- public void verifyhotel() throws SQLException {
+//This method is for  veri if the hotel have an attractive
 
-        String urlhotelverify = "SELECT * FROM hotel";
-        int useridverification;
+    public void verifyattractive() throws SQLException {
 
-        java.sql.Statement selectconect = conect.createStatement();
-        ResultSet result = selectconect.executeQuery(urlhotelverify);
-
-        while (result.next()) {
-            useridverification = result.getInt("id_user");
-            if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
-                JOptionPane.showMessageDialog(rootPane, "Welcome ");
-                createhotelstatusfalse();
-                return;
-            } else {
-
-                JOptionPane.showMessageDialog(rootPane, "Welcome can you create your hotel ");
-                return;
-            }
-        }
-    }
-    public void verifyservice() throws SQLException {
-
-        String urlhotelverify = "SELECT * FROM service";
+        String urlhotelverify = "SELECT * FROM attractive";
         String serviceverification;
 
         java.sql.Statement selectconect = conect.createStatement();
-        ResultSet result = selectconect.executeQuery(urlhotelverify);
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_attractive.setModel(dftablea);
+        dftablea.setColumnIdentifiers(new Object[]{"Code", "Attractive"});
 
-        while (result.next()) {
-            serviceverification = result.getString("id_hotel");
-            if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
-                
-                return;
-            } 
+        try {
+            while (resultservice.next()) {
+                serviceverification = resultservice.getString("id_hotel");
+
+                if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
+                    dftablea.addRow(new Object[]{resultservice.getString("attractive_code"), resultservice.getString("attractive_name")});
+                    return;
+                }
+            }
+        } catch (SQLException e) {
+
         }
     }
-    
 
     //This method creates a new hotel.
     public void createHotel() throws SQLException {
@@ -156,7 +177,6 @@ public class CreateHotel extends javax.swing.JFrame {
         int id_hotel = Integer.parseInt(txt_idhotel.getText());
         String ubication = (txt_ubication.getText());
         String country = txt_country.getText();
-
 
         try {
             PreparedStatement inserthotel = conect.prepareStatement("Insert Into hotel(id_hotel,hotel_name,country,telephone,address,construcctionyears,starnumbers,lodgingtype,"
@@ -181,8 +201,30 @@ public class CreateHotel extends javax.swing.JFrame {
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(rootPane, "Error");
-        }        // TODO 
+        }
 
+    }        // TODO 
+
+    public void verifyhotel() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM hotel";
+        int useridverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet result = selectconect.executeQuery(urlhotelverify);
+
+        while (result.next()) {
+            useridverification = result.getInt("id_user");
+            if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
+                JOptionPane.showMessageDialog(rootPane, "Welcome ");
+                createhotelstatusfalse();
+                return;
+            } else {
+
+                JOptionPane.showMessageDialog(rootPane, "Welcome can you create your hotel ");
+                return;
+            }
+        }
     }
 
     /**
@@ -1005,8 +1047,10 @@ public class CreateHotel extends javax.swing.JFrame {
             createHotel();
             JOptionPane.showMessageDialog(rootPane, "Succesfull");
             createhotelstatusfalse();
+
         } catch (SQLException ex) {
-            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateHotel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btn_createAccountActionPerformed
@@ -1096,7 +1140,7 @@ public class CreateHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_attractivenameActionPerformed
 
     private void btn_insertatractiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertatractiveActionPerformed
-        
+
         if (txt_attractivecode.getText().equals("")) {
 
             JOptionPane.showMessageDialog(this, "You must define a attraction code to create an account",
@@ -1116,8 +1160,10 @@ public class CreateHotel extends javax.swing.JFrame {
         }        // TODO add your handling code here:
         try {
             insertattractive();
+
         } catch (SQLException ex) {
-            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateHotel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         cleanattractiveTextFields();
     }//GEN-LAST:event_btn_insertatractiveActionPerformed
@@ -1148,8 +1194,10 @@ public class CreateHotel extends javax.swing.JFrame {
 
         try {
             ConexionDB.Connectdatabase();
+
         } catch (SQLException ex) {
-            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateHotel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1216,16 +1264,24 @@ public class CreateHotel extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateHotel.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateHotel.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateHotel.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateHotel.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1489,8 +1545,10 @@ public class CreateHotel extends javax.swing.JFrame {
             public void run() {
                 try {
                     new CreateHotel().setVisible(true);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CreateHotel.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
