@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Classes.GlobalsSingleton;
 import Conectmysql.ConexionDB;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Image;
@@ -25,6 +26,8 @@ import javax.swing.border.LineBorder;
  */
 public class MainView extends javax.swing.JFrame {
 
+    
+    
     /**
      * Creates new form MainView
      */
@@ -152,8 +155,19 @@ public class MainView extends javax.swing.JFrame {
         ImageIcon userAdmin = new ImageIcon(getClass().getResource("../images/adminUser.png"));
         Icon iconUserAdmin = new ImageIcon(userAdmin.getImage());
 
-//        userTypeMenu.setIcon(iconUserNormal);
-        userTypeMenu.setIcon(iconUserAdmin);
+        GlobalsSingleton global = GlobalsSingleton.getInstance();
+        
+        if (global.getUserType().equals("Client")){
+            
+            userTypeMenu.setIcon(iconUserNormal);
+  
+        }
+        
+        else{
+
+            userTypeMenu.setIcon(iconUserAdmin);
+            
+        }
 
     }
 
@@ -165,8 +179,28 @@ public class MainView extends javax.swing.JFrame {
         ImageIcon useInactive = new ImageIcon(getClass().getResource("../images/inactiveUser.png"));
         Icon iconUseInactive = new ImageIcon(useInactive.getImage());
 
-//        userActiveInactiveMenu.setIcon(iconUserActive);
-        userActiveInactiveMenu.setIcon(iconUseInactive);
+//        if (global.getUserCondition().equals("Inactive")){
+//            
+//            userActiveInactiveMenu.setIcon(iconUseInactive);
+//  
+//        }
+
+        GlobalsSingleton global = GlobalsSingleton.getInstance();
+
+        
+        if(global.getUserCondition().equals("Active")){
+
+            userActiveInactiveMenu.setIcon(iconUserActive);
+            userProfileViewMenu.setEnabled(true);
+            modifyUserMenu.setEnabled(true);
+   
+        } 
+        
+        else{
+            
+            userActiveInactiveMenu.setIcon(iconUseInactive);
+   
+        }
 
     }
 

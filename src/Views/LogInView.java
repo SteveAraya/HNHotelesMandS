@@ -1,7 +1,15 @@
 
 package Views;
 
+import Classes.GlobalsSingleton;
+import Conectmysql.ConexionDB;
 import com.sun.glass.events.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -11,11 +19,19 @@ import javax.swing.JOptionPane;
  */
 public class LogInView extends javax.swing.JFrame {
 
+    GlobalsSingleton global = GlobalsSingleton.getInstance();
+    
+    MainView mainView = new MainView();
+    
     /**
      * Creates new form CreateClientAccountView
      */
     public LogInView() {
         initComponents();
+        
+        
+        
+        
     }
 
     //this method shows the CreateClientAccountView view.
@@ -25,7 +41,6 @@ public class LogInView extends javax.swing.JFrame {
     oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     oCreateAccount.setLocationRelativeTo(null);
     oCreateAccount.setVisible(true);
-    
     
     }
     
@@ -48,7 +63,7 @@ public class LogInView extends javax.swing.JFrame {
     }
     
     //this method opens the view called UserView.
-    public void openUserView(){
+    public void activeUser() throws SQLException{
 
         String pass = "";
         
@@ -77,51 +92,63 @@ public class LogInView extends javax.swing.JFrame {
             
         }
         
-        int userID = Integer.parseInt(txt_email.getText());
+        String userEmail = txt_email.getText();
+
+        Connection conect = ConexionDB.Connectdatabase();
+        
+        String urlUser = "SELECT * FROM newuser ";
+        
+        String userEmailDB;
+        String userPasswordDB;
+        String userTypeDB;
+        String userIDDB;
+        
+        
+        java.sql.Statement selectconect = conect.createStatement();
+        
+        ResultSet result = selectconect.executeQuery(urlUser);
+
+        while (result.next()) {
+           
+            userEmailDB = result.getString("email");
+            userPasswordDB = result.getString("user_password");
+            userTypeDB = result.getString("usertype");
+            userIDDB = result.getString("id_user");
+            
+            if(userEmailDB.equals(userEmail) && userPasswordDB.equals(pass)){
+                
+                    global.setIdUser(userIDDB);
+                
+                    global.setUserType(userTypeDB);
+
+                    global.setUserCondition("Active");
+                    
+                    this.dispose();
+                    
+                    return;
+
+            }
+                
+            else{
+                
+                JOptionPane.showMessageDialog(this, "The Email is incorrect, "
+                        + "enter the correct Email", "Error", JOptionPane.ERROR_MESSAGE);
+
+                txt_email.setText("");
+                    
+                psw_password.setText("");
+
+                this.txt_email.requestFocus();
+
+                return;
+   
+            }
+           
+        }
 
         
-        
-        
-        //En este if va  todo el metodo para chequear el usuario y entrar al programa
-        
-        
-//        if(){
-//            
-//            
-//   
-//        }
-        
-
-
-
-//Este else esta bueno, solo hay que hacer el if.
-//        else{
-//            
-//            JOptionPane.showMessageDialog(this, "The userID or the Password is not correct",
-//                    "Sign In Problem", JOptionPane.ERROR_MESSAGE);
-//            this.emailTextField.requestFocus();
-//            return;
-//            
-//        }
-
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -206,9 +233,9 @@ public class LogInView extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(psw_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(18, 27, Short.MAX_VALUE)
                 .addComponent(logInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -219,14 +246,13 @@ public class LogInView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jLabel5)))
+                .addGap(70, 70, 70)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(70, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(177, 177, 177))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +285,16 @@ public class LogInView extends javax.swing.JFrame {
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
 
-        openUserView();
+        try {
+            activeUser();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LogInView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        mainView.showUserType();     
+        mainView.showUserActiveInactive();
    
     }//GEN-LAST:event_logInButtonActionPerformed
 

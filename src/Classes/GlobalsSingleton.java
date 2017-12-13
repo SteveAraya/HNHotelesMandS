@@ -12,6 +12,8 @@ public class GlobalsSingleton {
     //Aqui van todas las globales que tengamos que usar
     
     String idUser;
+    String userType = "Client";
+    String userCondition = "Inactive";
     String idHotel;
     
     
@@ -53,6 +55,22 @@ public class GlobalsSingleton {
 
     public void setIdHotel(String idHotel) {
         instance.idHotel = idHotel;
+    }
+
+    public String getUserType() {
+        return instance.userType;
+    }
+
+    public void setUserType(String userType) {
+        instance.userType = userType;
+    }
+
+    public String getUserCondition() {
+        return instance.userCondition;
+    }
+
+    public void setUserCondition(String userCondition) {
+        instance.userCondition = userCondition;
     }
 
 
