@@ -5,13 +5,13 @@
  */
 package Conectmysql;
 
-import com.mysql.jdbc.Statement;
 import com.sun.rowset.CachedRowSetImpl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javafx.scene.control.Alert;
 
 /**
@@ -58,12 +58,14 @@ public class ConexionDB {
         Statement statement = null;
         ResultSet resultSet = null;
         CachedRowSetImpl cachedRowSet = null;
+        
         try {
             Connectdatabase();
             statement = (Statement) conexiondb.createStatement();
             resultSet = statement.executeQuery(query);
             cachedRowSet = new CachedRowSetImpl();
             cachedRowSet.populate(resultSet);
+            
         } catch (SQLException e) {
 
             System.out.println("Warning");
@@ -80,26 +82,6 @@ public class ConexionDB {
             Dissconectdatabase();
         }
         return cachedRowSet;
-    }
-
-    public static void dbUpdate(String updateQuery) throws SQLException {
-        Statement statement = null;
-        try {
-            Connectdatabase();
-            statement = (Statement) conexiondb.createStatement();
-            statement.execute(updateQuery);
-        } catch (SQLException e) {
-
-            System.out.println("Warning");
-            System.out.println("Ocurred an error executing the query");
-            System.out.println("Error: " + e.getMessage() + "\n" + "Error code: " + e.getErrorCode());
-
-        } finally {
-            if (statement != null) {
-                statement.close();
-            }
-            Dissconectdatabase();
-        }
     }
 
     public static PreparedStatement Connectdatabase(String string) {
