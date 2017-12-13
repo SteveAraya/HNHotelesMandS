@@ -67,7 +67,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     + "Values(?,?,?)");
             insertatracctive.setString(1, servicecode);
             insertatracctive.setString(2, service);
-            insertatracctive.setInt(3, Integer.parseInt(txt_idhotel.getText()));;
+            insertatracctive.setInt(3,GlobalsSingleton.getInstance().getIdHotel());;
 
             int a = insertatracctive.executeUpdate();
 
@@ -91,7 +91,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     + "Values(?,?,?)");
             insertatracctive.setString(1, attrarctivecode);
             insertatracctive.setString(2, attractivename);
-            insertatracctive.setInt(3, Integer.parseInt(txt_idhotel.getText()));
+            insertatracctive.setInt(3, GlobalsSingleton.getInstance().getIdHotel());
 
             int a = insertatracctive.executeUpdate();
 
@@ -134,14 +134,9 @@ public class CreateHotel extends javax.swing.JFrame {
         while (result.next()) {
             serviceverification = result.getInt("id_hotel");
             if (serviceverification == GlobalsSingleton.getInstance().getIdHotel()) {
-                JOptionPane.showMessageDialog(rootPane, "Welcome ");
-                createhotelstatusfalse();
+                
                 return;
-            } else {
-
-                JOptionPane.showMessageDialog(rootPane, "Welcome can you create your hotel ");
-                return;
-            }
+            } 
         }
     }
     
