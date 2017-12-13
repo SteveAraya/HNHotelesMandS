@@ -101,8 +101,8 @@ public class CreateHotel extends javax.swing.JFrame {
         }        // TODO 
 
     }
-
-    public void verifyhotel() throws SQLException {
+    
+ public void verifyhotel() throws SQLException {
 
         String urlhotelverify = "SELECT * FROM hotel";
         int useridverification;
@@ -123,6 +123,28 @@ public class CreateHotel extends javax.swing.JFrame {
             }
         }
     }
+    public void verifyservice() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM hotel";
+        int useridverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet result = selectconect.executeQuery(urlhotelverify);
+
+        while (result.next()) {
+            useridverification = result.getInt("id_user");
+            if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
+                JOptionPane.showMessageDialog(rootPane, "Welcome ");
+                createhotelstatusfalse();
+                return;
+            } else {
+
+                JOptionPane.showMessageDialog(rootPane, "Welcome can you create your hotel ");
+                return;
+            }
+        }
+    }
+    
 
     //This method creates a new hotel.
     public void createHotel() throws SQLException {
@@ -143,8 +165,8 @@ public class CreateHotel extends javax.swing.JFrame {
 
         try {
             PreparedStatement inserthotel = conect.prepareStatement("Insert Into hotel(id_hotel,hotel_name,country,telephone,address,construcctionyears,starnumbers,lodgingtype,"
-                    + "hotelsize,checkingtime,chekouttime,requirementCheckin)"
-                    + "Values(?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + "hotelsize,checkingtime,chekouttime,requirementCheckin,id_user)"
+                    + "Values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             inserthotel.setInt(1, id_hotel);
             inserthotel.setString(2, hotelname);
             inserthotel.setString(3, country);
@@ -157,7 +179,7 @@ public class CreateHotel extends javax.swing.JFrame {
             inserthotel.setString(10, checkin);
             inserthotel.setString(11, chekout);
             inserthotel.setString(12, checkinrequeriment);
-            inserthotel.setInt(PROPERTIES, WIDTH);
+            inserthotel.setInt(13, GlobalsSingleton.getInstance().getUserID());
 
             int a = inserthotel.executeUpdate();
 
