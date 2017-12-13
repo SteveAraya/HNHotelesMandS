@@ -3,6 +3,7 @@ package Views;
 
 import Classes.GlobalsSingleton;
 import Conectmysql.ConexionDB;
+import static Views.MainView.userTypeMenu;
 import com.sun.glass.events.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Marcos and Steve
+ * @author Steve and Marcos
  */
 public class LogInView extends javax.swing.JFrame {
 
@@ -40,17 +41,7 @@ public class LogInView extends javax.swing.JFrame {
         oCreateAccount.setVisible(true);
     
     }
-    
-    public static void showCreateAdminAccount(){
-        
-        CreateClientAccountView oCreateAccount = new CreateClientAccountView();
-        oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        oCreateAccount.setLocationRelativeTo(null);
-        oCreateAccount.setVisible(true);
-    
-    }
-    
-    
+
     //this method cleans the textFields of the view.
     public void cleanUserTextFields(){
        
@@ -59,6 +50,7 @@ public class LogInView extends javax.swing.JFrame {
     
     }
     
+    //This method show the user type in to the view.
     public void showUserType() {
 
         ImageIcon userNormal = new ImageIcon(getClass().getResource("../images/normalUser.png"));
@@ -82,9 +74,12 @@ public class LogInView extends javax.swing.JFrame {
             MainView.createHotelMenu.setEnabled(false);
             
         }
+        
+        userTypeMenu.setEnabled(true);
 
     }
 
+    //This method show if there is a active user or not.
     public void showUserActiveInactive() {
 
         ImageIcon userActive = new ImageIcon(getClass().getResource("../images/userActive.png"));
@@ -112,8 +107,7 @@ public class LogInView extends javax.swing.JFrame {
 
     }
 
-    
-    //this method opens the view called UserView.
+    //This method activates the user
     public void activeUser() throws SQLException{
 
         String pass = "";
@@ -152,8 +146,12 @@ public class LogInView extends javax.swing.JFrame {
         String userEmailDB;
         String userPasswordDB;
         String userTypeDB;
-        String userIDDB;
         
+        String userIDDB;
+        String userNameDB;
+        String userLastNameDB;
+        String userGenderDB;
+        int userTelephoneDB;
         
         java.sql.Statement selectconect = conect.createStatement();
         
@@ -164,18 +162,33 @@ public class LogInView extends javax.swing.JFrame {
             userEmailDB = result.getString("email");
             userPasswordDB = result.getString("user_password");
             userTypeDB = result.getString("usertype");
-            userIDDB = result.getString("id_user");
             
+            userIDDB = result.getString("id_user");
+            userNameDB = result.getString("username");
+            userLastNameDB = result.getString("last_name");
+            userGenderDB = result.getString("gender");
+            userTelephoneDB = result.getInt("cellphone");
+
             if(userEmailDB.equals(userEmail)){
                 
                 if(userPasswordDB.equals(pass)){    
 
-                    global.setIdUser(userIDDB);
+                    global.setUserEmail(userEmailDB);
                 
                     global.setUserType(userTypeDB);
 
                     global.setUserCondition("Active");
                     
+                    global.setUserID(userIDDB);
+                    
+                    global.setUserName(userNameDB);
+                            
+                    global.setUserLastName(userLastNameDB);
+                    
+                    global.setUserGender(userGenderDB);
+                    
+                    global.setUserTelephone(userTelephoneDB);
+
                     this.dispose();
                     
                     return;

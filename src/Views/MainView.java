@@ -22,23 +22,20 @@ import javax.swing.border.LineBorder;
 
 /**
  *
- * @author Steve
+ * @author Steve and Marcos
  */
 public class MainView extends javax.swing.JFrame {
 
-    
-    
     /**
      * Creates new form MainView
      */
     public MainView() {
         initComponents();
         blockItems();
-        showUserType();
-        showUserActiveInactive();
 
     }
 
+    //This method show the Log In view.
     public static void showLogIn() {
 
         LogInView oLogInView = new LogInView();
@@ -48,6 +45,7 @@ public class MainView extends javax.swing.JFrame {
 
     }
 
+    //This method show the Create Account view.
     public static void showCreateAccount() {
 
         CreateClientAccountView oCreateAccount = new CreateClientAccountView();
@@ -57,6 +55,7 @@ public class MainView extends javax.swing.JFrame {
 
     }
 
+    //This method show the User view.
     public static void showUserView() {
 
         UserView oUserView = new UserView();
@@ -66,6 +65,7 @@ public class MainView extends javax.swing.JFrame {
 
     }
 
+    //This method show the Create Hotel view.
     public static void showCreateHotel() throws SQLException {
 
         CreateHotel oCreateHotel = new CreateHotel();
@@ -75,6 +75,7 @@ public class MainView extends javax.swing.JFrame {
 
     }
 
+    //This method show the Hotel view.
     public static void showHotel() {
 
         HotelView oHotelView = new HotelView();
@@ -83,19 +84,8 @@ public class MainView extends javax.swing.JFrame {
         oHotelView.setVisible(true);
 
     }
-    
-    public static void loadView(){
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
 
+    //This method block the Items of the main view.
     public void blockItems() {
 
         entryjDateChooser.setEnabled(false);
@@ -117,6 +107,7 @@ public class MainView extends javax.swing.JFrame {
         userProfileViewMenu.setEnabled(false);
         modifyUserMenu.setEnabled(false);
         createHotelMenu.setEnabled(false);
+        userTypeMenu.setEnabled(false);
 
         entryDateLabel.setText("HN Hotels");
         exitDateLabel.setText("HN Hotels");
@@ -126,6 +117,7 @@ public class MainView extends javax.swing.JFrame {
 
     }
 
+    //This method enable the Items of the main view.
     public void enableItems() {
 
         entryjDateChooser.setEnabled(true);
@@ -159,57 +151,25 @@ public class MainView extends javax.swing.JFrame {
 
     }
 
-    public void showUserType() {
 
-        ImageIcon userNormal = new ImageIcon(getClass().getResource("../images/normalUser.png"));
-        Icon iconUserNormal = new ImageIcon(userNormal.getImage());
 
-        ImageIcon userAdmin = new ImageIcon(getClass().getResource("../images/adminUser.png"));
-        Icon iconUserAdmin = new ImageIcon(userAdmin.getImage());
+    //This method obtains the position of the tree.
+    //Tengo que hacerlo para que la base de datos
+//    public int getNumberOfRow(){
+//        
+//            int numRow = 0;
+//            
+//            while(tempTree.getTreeNext() != firstTree){
+//                numRow += 1;
+//                tempTree = tempTree.getTreeNext();
+//            }
+//            
+//            return 1 + numRow;
+//            
+//        }
+//    
+//    }
 
-        GlobalsSingleton global = GlobalsSingleton.getInstance();
-        
-        if (global.getUserType().equals("Administrator")){
-            
-            userTypeMenu.setIcon(iconUserAdmin);
-            createHotelMenu.setEnabled(true);
-
-        }
-        
-        else{
-
-            userTypeMenu.setIcon(iconUserNormal);
-            
-        }
-
-    }
-
-    public void showUserActiveInactive() {
-
-        ImageIcon userActive = new ImageIcon(getClass().getResource("../images/userActive.png"));
-        Icon iconUserActive = new ImageIcon(userActive.getImage());
-
-        ImageIcon useInactive = new ImageIcon(getClass().getResource("../images/inactiveUser.png"));
-        Icon iconUseInactive = new ImageIcon(useInactive.getImage());
-
-        GlobalsSingleton global = GlobalsSingleton.getInstance();
-
-        
-        if(global.getUserCondition().equals("Active")){
-
-            userActiveInactiveMenu.setIcon(iconUserActive);
-            userProfileViewMenu.setEnabled(true);
-            modifyUserMenu.setEnabled(true);
-   
-        } 
-        
-        else{
-            
-            userActiveInactiveMenu.setIcon(iconUseInactive);
-   
-        }
-
-    }
 
     public void searchHotels() {
 
@@ -238,6 +198,41 @@ public class MainView extends javax.swing.JFrame {
 //            return;
 //            
 //        }
+
+//        String Table[][] = new String[getNumberOfRow()][2]; 
+//            
+//            int fila = 0;
+//            
+//            while(tempTree.getTreeNext() != firstTree){
+//                
+//                Table[fila][0] = String.valueOf(tempTree.getTreeID());
+//                Table[fila][1] = tempTree.getTopicDescription();
+//                fila+=1;
+//                tempTree = tempTree.getTreeNext();
+//  
+//            }
+//            
+//            Table[fila][0] = String.valueOf(tempTree.getTreeID());
+//            Table[fila][1] = tempTree.getTopicDescription();
+//            
+//            
+//               treeTable.setModel(new javax.swing.table.DefaultTableModel(
+//                Table,
+//                new String[]{
+//                    "Numerical identifier", "Description of the topic"
+//                        
+//                }
+
+
+
+
+
+
+
+
+
+
+
     }
 
     /**

@@ -117,15 +117,17 @@ public class CreateHotel extends javax.swing.JFrame {
         String ubication = (txt_ubication.getText());
         String country = txt_country.getText();
 
-
-        String urlhotel = "SELECT * FROM hotel WHERE id_newuser = '" + GlobalsSingleton.getInstance().getIdUser();
+        
+        //mae tuve que cambiar donde dicia id_user por useremail por k me daba error.
+        
+        String urlhotel = "SELECT * FROM hotel WHERE  = '" + GlobalsSingleton.getInstance().getUserEmail();
         String useridverification;
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet result = selectconect.executeQuery(urlhotel);
 
         while (result.next()) {
             useridverification = result.getString("id_user");
-            if (useridverification.equals(GlobalsSingleton.getInstance().getIdUser())) {
+            if (useridverification.equals(GlobalsSingleton.getInstance().getUserEmail())) {
                 createhotelstatusfalse();
             } else {
                 try {

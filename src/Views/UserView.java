@@ -1,19 +1,93 @@
 
 package Views;
 
+import Classes.GlobalsSingleton;
+import static Views.MainView.userTypeMenu;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+
 /**
  *
- * @author Marcos and Steve
+ * @author Steve and Marcos
  */
 public class UserView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form UserView
-     */
+    GlobalsSingleton global = GlobalsSingleton.getInstance();
+    
     public UserView() {
         initComponents();
+        
+        showUserType();
+        showUserInfo();
+        
+        
+        
+        
+        
     }
 
+    
+    public void showUserType() {
+
+        ImageIcon userNormal = new ImageIcon(getClass().getResource("../images/normalUser.png"));
+        Icon iconUserNormal = new ImageIcon(userNormal.getImage());
+
+        ImageIcon userAdmin = new ImageIcon(getClass().getResource("../images/adminUser.png"));
+        Icon iconUserAdmin = new ImageIcon(userAdmin.getImage());
+
+        GlobalsSingleton global = GlobalsSingleton.getInstance();
+        
+        if (global.getUserType().equals("Administrator")){
+            
+            lbl_imageType.setIcon(iconUserAdmin);
+
+        }
+        
+        else{
+
+            lbl_imageType.setIcon(iconUserNormal);
+            
+        }
+
+    }
+    
+    public void showUserInfo(){
+        
+        txt_name.setText(global.getUserName());
+        txt_lastName.setText(global.getUserLastName());
+        txt_gender.setText(global.getUserGender());
+        txt_email.setText(global.getUserEmail());
+        txt_telephone.setText(String.valueOf(global.getUserTelephone()));
+        txt_type.setText(global.getUserType());
+        
+        txt_name.setEditable(false);
+        txt_lastName.setEditable(false);
+        txt_gender.setEditable(false);
+        txt_email.setEditable(false);
+        txt_telephone.setEditable(false);
+        
+        txt_type.setEditable(false);
+        txt_type.setHorizontalAlignment(JTextField.CENTER);
+   
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -23,56 +97,189 @@ public class UserView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_name = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txt_lastName = new javax.swing.JTextField();
+        lbl_imageType = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txt_gender = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txt_email = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txt_telephone = new javax.swing.JTextField();
+        txt_type = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel1.setText("User Name");
 
-        jTextField1.setText("jTextField1");
+        txt_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_nameActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel2.setText("User Last Name");
+
+        txt_lastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_lastNameActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel4.setText("User Gender");
+
+        txt_gender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_genderActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel5.setText("User Email");
+
+        txt_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_emailActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel6.setText("User Telephone");
+
+        txt_telephone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_telephoneActionPerformed(evt);
+            }
+        });
+
+        txt_type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_typeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(682, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_imageType, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
+                        .addComponent(txt_type, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txt_telephone, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txt_email, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_gender, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_lastName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_name, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_imageType, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(425, Short.MAX_VALUE))
+                .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_nameActionPerformed
+
+    private void txt_lastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_lastNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_lastNameActionPerformed
+
+    private void txt_genderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_genderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_genderActionPerformed
+
+    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_emailActionPerformed
+
+    private void txt_telephoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telephoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telephoneActionPerformed
+
+    private void txt_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_typeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_typeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,7 +318,18 @@ public class UserView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbl_imageType;
+    private javax.swing.JTextField txt_email;
+    private javax.swing.JTextField txt_gender;
+    private javax.swing.JTextField txt_lastName;
+    private javax.swing.JTextField txt_name;
+    private javax.swing.JTextField txt_telephone;
+    private javax.swing.JTextField txt_type;
     // End of variables declaration//GEN-END:variables
 }

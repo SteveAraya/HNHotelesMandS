@@ -15,7 +15,7 @@ import static jdk.nashorn.internal.runtime.JSType.isNumber;
 
 /**
  *
- * @author Marcos and Steve
+ * @author Steve and Marcos
  */
 public class CreateClientAccountView extends javax.swing.JFrame {
 
@@ -41,7 +41,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
     
     }
     
-    
+    //this method check the password whith the confirpassword.
     public void checkPassword(String pass, String confirmPass){
         
         if(!pass.equals(confirmPass)){
@@ -59,6 +59,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
    
     }
     
+    //This method say if a character is numeric or not.
     private static boolean isNumeric(char caracter){
         try {
             
@@ -72,6 +73,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         }
     }
     
+    //this method confirms the requirements of the key.
     public boolean checkPasswordRequirements(String passwordCheck){
         
         boolean isBad = true;
@@ -112,12 +114,6 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         return isBad;
 
     }
-    
-    
-    
-    
-    
-    
 
     //This method creates a new user account.
     public void createAccount() throws SQLException{
@@ -162,6 +158,15 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "You must enter an Email to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_email.requestFocus();
+            return;
+            
+        }
+        
+        if (txt_telephone.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define a Telephone Number to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_telephone.requestFocus();
             return;
             
         }
@@ -379,6 +384,9 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_telephoneKeyTyped(evt);
             }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_telephoneKeyPressed(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -526,7 +534,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
       
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.txt_email.requestFocus();
+            this.cbo_UserType.requestFocus();
                
         }
    
@@ -536,7 +544,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.psw_password.requestFocus();
+            this.txt_telephone.requestFocus();
                
         }
         
@@ -563,11 +571,22 @@ public class CreateClientAccountView extends javax.swing.JFrame {
     }//GEN-LAST:event_psw_confirmPasswordKeyPressed
 
     private void btn_createAccountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_createAccountKeyPressed
-   
+
+        try {
+            createAccount();
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateClientAccountView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  
     }//GEN-LAST:event_btn_createAccountKeyPressed
 
     private void cbo_UserTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbo_UserTypeKeyPressed
-        // TODO add your handling code here:
+   
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            this.txt_email.requestFocus();   
+        } 
+        
     }//GEN-LAST:event_cbo_UserTypeKeyPressed
 
     private void txt_telephoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telephoneKeyTyped
@@ -579,6 +598,16 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_txt_telephoneKeyTyped
+
+    private void txt_telephoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telephoneKeyPressed
+       
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            this.psw_password.requestFocus();
+               
+        }
+        
+    }//GEN-LAST:event_txt_telephoneKeyPressed
 
     /**
      * @param args the command line arguments
