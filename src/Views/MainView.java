@@ -83,6 +83,18 @@ public class MainView extends javax.swing.JFrame {
         oHotelView.setVisible(true);
 
     }
+    
+    public static void loadView(){
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
 
     public void blockItems() {
 
@@ -157,15 +169,16 @@ public class MainView extends javax.swing.JFrame {
 
         GlobalsSingleton global = GlobalsSingleton.getInstance();
         
-        if (global.getUserType().equals("Client")){
+        if (global.getUserType().equals("Administrator")){
             
-            userTypeMenu.setIcon(iconUserNormal);
-  
+            userTypeMenu.setIcon(iconUserAdmin);
+            createHotelMenu.setEnabled(true);
+
         }
         
         else{
 
-            userTypeMenu.setIcon(iconUserAdmin);
+            userTypeMenu.setIcon(iconUserNormal);
             
         }
 
@@ -178,12 +191,6 @@ public class MainView extends javax.swing.JFrame {
 
         ImageIcon useInactive = new ImageIcon(getClass().getResource("../images/inactiveUser.png"));
         Icon iconUseInactive = new ImageIcon(useInactive.getImage());
-
-//        if (global.getUserCondition().equals("Inactive")){
-//            
-//            userActiveInactiveMenu.setIcon(iconUseInactive);
-//  
-//        }
 
         GlobalsSingleton global = GlobalsSingleton.getInstance();
 
@@ -619,6 +626,12 @@ public class MainView extends javax.swing.JFrame {
 
     private void selectHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectHotelButtonActionPerformed
         // TODO add your handling code here:
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_selectHotelButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -688,7 +701,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu closeMenu;
     private javax.swing.JMenuItem closeProgramMenuItem;
     private javax.swing.JMenu createAccountMenu;
-    private javax.swing.JMenu createHotelMenu;
+    public static javax.swing.JMenu createHotelMenu;
     private javax.swing.JMenuItem createHotelMenuItem;
     private javax.swing.JMenuItem createUserAccountMenuItem;
     private javax.swing.JMenuItem editUserMenuItem;
@@ -705,7 +718,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JMenu logInMenu;
     private javax.swing.JMenuItem logInMenuItem;
-    private javax.swing.JMenu modifyUserMenu;
+    public static javax.swing.JMenu modifyUserMenu;
     private javax.swing.JLabel roomAmountLabel;
     private javax.swing.JSpinner roomAmountjSpinner;
     private javax.swing.JButton searchButton;
@@ -714,9 +727,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel searchPanel;
     private javax.swing.JButton seeHotelButton;
     private javax.swing.JButton selectHotelButton;
-    private javax.swing.JMenu userActiveInactiveMenu;
-    private javax.swing.JMenuItem userProfileMenuItem;
-    private javax.swing.JMenu userProfileViewMenu;
-    private javax.swing.JMenu userTypeMenu;
+    public static javax.swing.JMenu userActiveInactiveMenu;
+    public static javax.swing.JMenuItem userProfileMenuItem;
+    public static javax.swing.JMenu userProfileViewMenu;
+    public static javax.swing.JMenu userTypeMenu;
     // End of variables declaration//GEN-END:variables
 }

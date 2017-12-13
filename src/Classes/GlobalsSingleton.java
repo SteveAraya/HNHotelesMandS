@@ -1,6 +1,8 @@
 
 package Classes;
 
+import Views.MainView;
+
 /**
  *
  * @author Marco and Steve
@@ -16,15 +18,9 @@ public class GlobalsSingleton {
     String userCondition = "Inactive";
     String idHotel;
     
-    
-    
-    
-    
-    
-    
-    
-    
 
+    
+    
     private GlobalsSingleton() {
         
     }
@@ -74,8 +70,7 @@ public class GlobalsSingleton {
     }
 
 
-    
-    
+
    
     
     

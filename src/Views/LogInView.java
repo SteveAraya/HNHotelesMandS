@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,36 +22,31 @@ import javax.swing.JOptionPane;
 public class LogInView extends javax.swing.JFrame {
 
     GlobalsSingleton global = GlobalsSingleton.getInstance();
-    
-    MainView mainView = new MainView();
-    
+
     /**
      * Creates new form CreateClientAccountView
      */
     public LogInView() {
         initComponents();
         
-        
-        
-        
     }
 
     //this method shows the CreateClientAccountView view.
     public static void showCreateAccount(){
         
-    CreateClientAccountView oCreateAccount = new CreateClientAccountView();
-    oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    oCreateAccount.setLocationRelativeTo(null);
-    oCreateAccount.setVisible(true);
+        CreateClientAccountView oCreateAccount = new CreateClientAccountView();
+        oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        oCreateAccount.setLocationRelativeTo(null);
+        oCreateAccount.setVisible(true);
     
     }
     
     public static void showCreateAdminAccount(){
         
-    CreateClientAccountView oCreateAccount = new CreateClientAccountView();
-    oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    oCreateAccount.setLocationRelativeTo(null);
-    oCreateAccount.setVisible(true);
+        CreateClientAccountView oCreateAccount = new CreateClientAccountView();
+        oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        oCreateAccount.setLocationRelativeTo(null);
+        oCreateAccount.setVisible(true);
     
     }
     
@@ -61,6 +58,60 @@ public class LogInView extends javax.swing.JFrame {
         psw_password.setText("");
     
     }
+    
+    public void showUserType() {
+
+        ImageIcon userNormal = new ImageIcon(getClass().getResource("../images/normalUser.png"));
+        Icon iconUserNormal = new ImageIcon(userNormal.getImage());
+
+        ImageIcon userAdmin = new ImageIcon(getClass().getResource("../images/adminUser.png"));
+        Icon iconUserAdmin = new ImageIcon(userAdmin.getImage());
+
+        GlobalsSingleton global = GlobalsSingleton.getInstance();
+        
+        if (global.getUserType().equals("Administrator")){
+            
+            MainView.userTypeMenu.setIcon(iconUserAdmin);
+            MainView.createHotelMenu.setEnabled(true);
+
+        }
+        
+        else{
+
+            MainView.userTypeMenu.setIcon(iconUserNormal);
+            MainView.createHotelMenu.setEnabled(false);
+            
+        }
+
+    }
+
+    public void showUserActiveInactive() {
+
+        ImageIcon userActive = new ImageIcon(getClass().getResource("../images/userActive.png"));
+        Icon iconUserActive = new ImageIcon(userActive.getImage());
+
+        ImageIcon useInactive = new ImageIcon(getClass().getResource("../images/inactiveUser.png"));
+        Icon iconUseInactive = new ImageIcon(useInactive.getImage());
+
+        GlobalsSingleton global = GlobalsSingleton.getInstance();
+
+        
+        if(global.getUserCondition().equals("Active")){
+
+            MainView.userActiveInactiveMenu.setIcon(iconUserActive);
+            MainView.userProfileViewMenu.setEnabled(true);
+            MainView.modifyUserMenu.setEnabled(true);
+   
+        } 
+        
+        else{
+            
+            MainView.userActiveInactiveMenu.setIcon(iconUseInactive);
+   
+        }
+
+    }
+
     
     //this method opens the view called UserView.
     public void activeUser() throws SQLException{
@@ -115,8 +166,10 @@ public class LogInView extends javax.swing.JFrame {
             userTypeDB = result.getString("usertype");
             userIDDB = result.getString("id_user");
             
-            if(userEmailDB.equals(userEmail) && userPasswordDB.equals(pass)){
+            if(userEmailDB.equals(userEmail)){
                 
+                if(userPasswordDB.equals(pass)){    
+
                     global.setIdUser(userIDDB);
                 
                     global.setUserType(userTypeDB);
@@ -126,27 +179,37 @@ public class LogInView extends javax.swing.JFrame {
                     this.dispose();
                     
                     return;
-
-            }
-                
-            else{
-                
-                JOptionPane.showMessageDialog(this, "The Email is incorrect, "
-                        + "enter the correct Email", "Error", JOptionPane.ERROR_MESSAGE);
-
-                txt_email.setText("");
                     
-                psw_password.setText("");
+                }   
+                    
+                else{
+                
+                    JOptionPane.showMessageDialog(this, "The Passsword is incorrect, "
+                                + "enter the correct Password", "Error", JOptionPane.ERROR_MESSAGE);
 
-                this.txt_email.requestFocus();
+                    psw_password.setText("");
 
-                return;
-   
+                    this.txt_email.requestFocus();
+
+                    return;
+
+                }
+
             }
-           
+  
         }
-
         
+        JOptionPane.showMessageDialog(this, "The Email is incorrect, "
+                                + "enter the correct Email", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    txt_email.setText("");
+
+                    psw_password.setText("");
+
+                    this.txt_email.requestFocus();
+
+                    return;
+   
     }
 
     /**
@@ -287,15 +350,14 @@ public class LogInView extends javax.swing.JFrame {
 
         try {
             activeUser();
+            showUserType();
+            showUserActiveInactive();
             
             
         } catch (SQLException ex) {
             Logger.getLogger(LogInView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        mainView.showUserType();     
-        mainView.showUserActiveInactive();
-   
     }//GEN-LAST:event_logInButtonActionPerformed
 
     private void txt_emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emailKeyPressed
