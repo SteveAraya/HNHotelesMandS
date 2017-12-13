@@ -125,15 +125,15 @@ public class CreateHotel extends javax.swing.JFrame {
     }
     public void verifyservice() throws SQLException {
 
-        String urlhotelverify = "SELECT * FROM hotel";
-        int useridverification;
+        String urlhotelverify = "SELECT * FROM service";
+        int serviceverification;
 
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet result = selectconect.executeQuery(urlhotelverify);
 
         while (result.next()) {
-            useridverification = result.getInt("id_user");
-            if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
+            serviceverification = result.getInt("id_hotel");
+            if (serviceverification == GlobalsSingleton.getInstance().getIdHotel()) {
                 JOptionPane.showMessageDialog(rootPane, "Welcome ");
                 createhotelstatusfalse();
                 return;
