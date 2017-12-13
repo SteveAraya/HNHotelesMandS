@@ -6,9 +6,12 @@ import com.sun.glass.events.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import jdk.nashorn.internal.runtime.JSType;
+import static jdk.nashorn.internal.runtime.JSType.isNumber;
 
 /**
  *
@@ -29,10 +32,12 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         txt_userName.setText("");
         txt_lastName.setText("");
         cbo_Gender.setSelectedIndex(0);
+        cbo_UserType.setSelectedIndex(0);
         txt_email.setText("");
+        txt_telephone.setText("");
         psw_password.setText("");
         psw_confirmPassword.setText("");
-        cbo_UserType.setSelectedIndex(0);
+        
     
     }
     
@@ -53,6 +58,66 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         }
    
     }
+    
+    private static boolean isNumeric(char caracter){
+        try {
+            
+        Integer.parseInt(String.valueOf(caracter));
+        return true;
+        
+        } catch (NumberFormatException ex){
+            
+        return false;
+        
+        }
+    }
+    
+    public boolean checkPasswordRequirements(String passwordCheck){
+        
+        boolean isBad = true;
+        
+        String chain = "";
+        
+        char [] ArrayChain;
+        
+        int accountant = 0;
+        
+        int longPassword = 0;
+        
+        chain = passwordCheck;
+        
+        ArrayChain = chain.toCharArray();
+
+        for( int i = 0; i < ArrayChain.length; i++){
+            
+            if (isNumeric(ArrayChain[i])){
+                
+                accountant++;
+                
+            }
+            
+            longPassword++;
+
+        }
+
+        if (accountant > 0 && (longPassword >= 6 && longPassword <= 20)){
+            
+            isBad = false;
+    
+        }
+        
+        System.out.println("accountant  " + accountant);
+        System.out.println("longPassword  " + longPassword);
+        
+        return isBad;
+
+    }
+    
+    
+    
+    
+    
+    
 
     //This method creates a new user account.
     public void createAccount() throws SQLException{
@@ -131,7 +196,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         char [] password = psw_password.getPassword();
         for( int x = 0; x < password.length; x++){
             
-            pass+=password[x];
+            pass += password[x];
             
         }
         
@@ -140,75 +205,59 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         char [] confirmPassword = psw_confirmPassword.getPassword();
         for( int x = 0; x < confirmPassword.length; x++){
             
-            confirmPass+=confirmPassword[x];
+            confirmPass += confirmPassword[x];
             
         }
         
-        
         checkPassword(pass, confirmPass);
-
-        Connection conect = ConexionDB.Connectdatabase();
         
-        try {
-            PreparedStatement insert = conect.prepareStatement("Insert Into newuser(usertype, username, last_name, gender, email, user_password, cellphone)"
-                    + "Values(?,?,?,?,?,?,?)");
-            insert.setString(1, userType);
-            insert.setString(2, name);
-            insert.setString(3, lastName);
-            insert.setString(4, gender);
-            insert.setString(5, email);
-            insert.setString(6, pass);
-            insert.setInt(7, telephone);
+        if(checkPasswordRequirements(pass)){
             
-
-            int a = insert.executeUpdate();
+            JOptionPane.showMessageDialog(this, "the key does not meet the "
+                    + "standards, remember that it must contain a number and "
+                    + "must be between 6 and 20 in length",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             
-           
-        } catch (Exception e) {
+            psw_password.setText("");
+            psw_confirmPassword.setText("");
             
-            JOptionPane.showMessageDialog(rootPane,"Error");
-        }        // TODO 
-        
-        
-        
-        
-        
-        
-        
+            this.psw_password.requestFocus();
+            
+                return;
 
-//Este if verifica el email, si el email esta ya registrado en la base de datos, entonces se prodece a informar al 
-//usuario que ese email ya esta en uso.
-//        if(){
-//            
-//            JOptionPane.showMessageDialog(this, "The Email " + emailTextField.getText() + 
-//                        " is already used in another account",
-//                        "Error", JOptionPane.ERROR_MESSAGE);
-//            
-//            emailTextField.setText("");
-//            this.emailTextField.requestFocus();
-//            
-//                return;
-// 
-//        }
+        }
         
+        else{
+            
+            Connection conect = ConexionDB.Connectdatabase();
 
-//Este else es para cuando no existe el email, entonces se procede a crear la nueva cuenta de usuario
-//        else{
-//   
-//
-//  
-//        }
+            try {
+                PreparedStatement insert = conect.prepareStatement("Insert Into newuser(usertype, username, last_name, gender, email, user_password, cellphone)"
+                        + "Values(?,?,?,?,?,?,?)");
+                
+                insert.setString(1, userType);
+                insert.setString(2, name);
+                insert.setString(3, lastName);
+                insert.setString(4, gender);
+                insert.setString(5, email);
+                insert.setString(6, pass);
+                insert.setInt(7, telephone);
+
+
+                int a = insert.executeUpdate();
+
+
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(rootPane,"Error");
+            }        // TODO 
+
+        }
         
-//        this.dispose();
+        this.dispose();
    
     }
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -326,38 +375,39 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel4.setText("User Telephone");
 
+        txt_telephone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_telephoneKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(psw_password)
-            .addComponent(psw_confirmPassword)
-            .addComponent(btn_createAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_createAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                    .addComponent(psw_confirmPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(psw_password, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_lastName)
+                    .addComponent(txt_userName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txt_email)
+                    .addComponent(txt_telephone)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_lastName)
-                            .addComponent(txt_userName, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txt_email)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel1)
-                                        .addComponent(cbo_UserType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cbo_Gender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jLabel4))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(txt_telephone))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel1)
+                                .addComponent(cbo_UserType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbo_Gender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -385,9 +435,9 @@ public class CreateClientAccountView extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(psw_password, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
@@ -513,20 +563,22 @@ public class CreateClientAccountView extends javax.swing.JFrame {
     }//GEN-LAST:event_psw_confirmPasswordKeyPressed
 
     private void btn_createAccountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_createAccountKeyPressed
-        
-        
-        
-        
-        
-        
-        
-        
-        
+   
     }//GEN-LAST:event_btn_createAccountKeyPressed
 
     private void cbo_UserTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbo_UserTypeKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbo_UserTypeKeyPressed
+
+    private void txt_telephoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telephoneKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txt_telephoneKeyTyped
 
     /**
      * @param args the command line arguments
