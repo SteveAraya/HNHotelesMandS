@@ -1,4 +1,3 @@
-
 package Views;
 
 import Classes.GlobalsSingleton;
@@ -29,27 +28,27 @@ public class LogInView extends javax.swing.JFrame {
      */
     public LogInView() {
         initComponents();
-        
+
     }
 
     //this method shows the CreateClientAccountView view.
-    public static void showCreateAccount(){
-        
+    public static void showCreateAccount() {
+
         CreateClientAccountView oCreateAccount = new CreateClientAccountView();
         oCreateAccount.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         oCreateAccount.setLocationRelativeTo(null);
         oCreateAccount.setVisible(true);
-    
+
     }
 
     //this method cleans the textFields of the view.
-    public void cleanUserTextFields(){
-       
+    public void cleanUserTextFields() {
+
         txt_email.setText("");
         psw_password.setText("");
-    
+
     }
-    
+
     //This method show the user type in to the view.
     public void showUserType() {
 
@@ -60,21 +59,19 @@ public class LogInView extends javax.swing.JFrame {
         Icon iconUserAdmin = new ImageIcon(userAdmin.getImage());
 
         GlobalsSingleton global = GlobalsSingleton.getInstance();
-        
-        if (global.getUserType().equals("Administrator")){
-            
+
+        if (global.getUserType().equals("Administrator")) {
+
             MainView.userTypeMenu.setIcon(iconUserAdmin);
             MainView.createHotelMenu.setEnabled(true);
 
-        }
-        
-        else{
+        } else {
 
             MainView.userTypeMenu.setIcon(iconUserNormal);
             MainView.createHotelMenu.setEnabled(false);
-            
+
         }
-        
+
         userTypeMenu.setEnabled(true);
 
     }
@@ -90,115 +87,109 @@ public class LogInView extends javax.swing.JFrame {
 
         GlobalsSingleton global = GlobalsSingleton.getInstance();
 
-        
-        if(global.getUserCondition().equals("Active")){
+        if (global.getUserCondition().equals("Active")) {
 
             MainView.userActiveInactiveMenu.setIcon(iconUserActive);
             MainView.userProfileViewMenu.setEnabled(true);
             MainView.modifyUserMenu.setEnabled(true);
-   
-        } 
-        
-        else{
-            
+
+        } else {
+
             MainView.userActiveInactiveMenu.setIcon(iconUseInactive);
-   
+
         }
 
     }
 
     //This method activates the user
-    public void activeUser() throws SQLException{
+    public void activeUser() throws SQLException {
 
         String pass = "";
-        
-        char [] password = psw_password.getPassword();
-        for( int x = 0; x < password.length; x++){
-            
-            pass+=password[x];
-            
+
+        char[] password = psw_password.getPassword();
+        for (int x = 0; x < password.length; x++) {
+
+            pass += password[x];
+
         }
 
-        if (txt_email.getText().equals("")){
-            
+        if (txt_email.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must define an Email Address to enter",
                     "Sign In Problem", JOptionPane.ERROR_MESSAGE);
             this.txt_email.requestFocus();
             return;
-            
+
         }
-        
-        if (pass.equals("")){
-            
+
+        if (pass.equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must define a Password to enter",
                     "Sign In Problem", JOptionPane.ERROR_MESSAGE);
             this.psw_password.requestFocus();
             return;
-            
+
         }
-        
+
         String userEmail = txt_email.getText();
 
         Connection conect = ConexionDB.Connectdatabase();
-        
+
         String urlUser = "SELECT * FROM newuser ";
-        
+
         String userEmailDB;
         String userPasswordDB;
         String userTypeDB;
-        
-        String userIDDB;
+        int userIDDB;
         String userNameDB;
         String userLastNameDB;
         String userGenderDB;
         int userTelephoneDB;
-        
+
         java.sql.Statement selectconect = conect.createStatement();
-        
+
         ResultSet result = selectconect.executeQuery(urlUser);
 
         while (result.next()) {
-           
+
             userEmailDB = result.getString("email");
             userPasswordDB = result.getString("user_password");
             userTypeDB = result.getString("usertype");
-            
-            userIDDB = result.getString("id_user");
+
+            userIDDB = result.getInt("id_user");
             userNameDB = result.getString("username");
             userLastNameDB = result.getString("last_name");
             userGenderDB = result.getString("gender");
             userTelephoneDB = result.getInt("cellphone");
 
-            if(userEmailDB.equals(userEmail)){
-                
-                if(userPasswordDB.equals(pass)){    
+            if (userEmailDB.equals(userEmail)) {
+
+                if (userPasswordDB.equals(pass)) {
 
                     global.setUserEmail(userEmailDB);
-                
+
                     global.setUserType(userTypeDB);
 
                     global.setUserCondition("Active");
-                    
+
                     global.setUserID(userIDDB);
-                    
+
                     global.setUserName(userNameDB);
-                            
+
                     global.setUserLastName(userLastNameDB);
-                    
+
                     global.setUserGender(userGenderDB);
-                    
+
                     global.setUserTelephone(userTelephoneDB);
 
                     this.dispose();
-                    
+
                     return;
-                    
-                }   
-                    
-                else{
-                
+
+                } else {
+
                     JOptionPane.showMessageDialog(this, "The Passsword is incorrect, "
-                                + "enter the correct Password", "Error", JOptionPane.ERROR_MESSAGE);
+                            + "enter the correct Password", "Error", JOptionPane.ERROR_MESSAGE);
 
                     psw_password.setText("");
 
@@ -209,20 +200,20 @@ public class LogInView extends javax.swing.JFrame {
                 }
 
             }
-  
+
         }
-        
+
         JOptionPane.showMessageDialog(this, "The Email is incorrect, "
-                                + "enter the correct Email", "Error", JOptionPane.ERROR_MESSAGE);
+                + "enter the correct Email", "Error", JOptionPane.ERROR_MESSAGE);
 
-                    txt_email.setText("");
+        txt_email.setText("");
 
-                    psw_password.setText("");
+        psw_password.setText("");
 
-                    this.txt_email.requestFocus();
+        this.txt_email.requestFocus();
 
-                    return;
-   
+        return;
+
     }
 
     /**
@@ -365,32 +356,31 @@ public class LogInView extends javax.swing.JFrame {
             activeUser();
             showUserType();
             showUserActiveInactive();
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(LogInView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_logInButtonActionPerformed
 
     private void txt_emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_emailKeyPressed
         // TODO add your handling code here:
-        
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
-            this.psw_password.requestFocus();   
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            this.psw_password.requestFocus();
         }
-  
+
     }//GEN-LAST:event_txt_emailKeyPressed
 
     private void psw_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psw_passwordKeyPressed
         // TODO add your handling code here:
-        
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            
-            this.logInButton.requestFocus();   
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            this.logInButton.requestFocus();
         }
-  
+
     }//GEN-LAST:event_psw_passwordKeyPressed
 
     /**

@@ -1,4 +1,3 @@
-
 package Classes;
 
 import Views.MainView;
@@ -8,124 +7,107 @@ import Views.MainView;
  * @author Marco and Steve
  */
 public class GlobalsSingleton {
-    
+
     static GlobalsSingleton instance;
-    
+
     //Aqui van todas las globales que tengamos que usar
-    
     String userEmail;
     String userType;
     String userCondition = "Inactive";
     String idHotel;
-    
-    String userID;
+
+    int userID;
     String userName;
     String userLastName;
     String userGender;
     int userTelephone;
-    
 
-    
-    
     private GlobalsSingleton() {
-        
+
     }
-    
-    public static GlobalsSingleton getInstance(){
-        
-        if (instance == null){
-            
+
+    public static GlobalsSingleton getInstance() {
+
+        if (instance == null) {
+
             instance = new GlobalsSingleton();
-            
+
         }
-    
+
         return instance;
 
     }
 
     public String getUserEmail() {
-        return instance.userEmail;
+        return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
-        instance.userEmail = userEmail;
-    }
-
-    public String getIdHotel() {
-        return instance.idHotel;
-    }
-
-    public void setIdHotel(String idHotel) {
-        instance.idHotel = idHotel;
+        this.userEmail = userEmail;
     }
 
     public String getUserType() {
-        return instance.userType;
+        return userType;
     }
 
     public void setUserType(String userType) {
-        instance.userType = userType;
+        this.userType = userType;
     }
 
     public String getUserCondition() {
-        return instance.userCondition;
+        return userCondition;
     }
 
     public void setUserCondition(String userCondition) {
-        instance.userCondition = userCondition;
+        this.userCondition = userCondition;
     }
 
-    public String getUserID() {
-        return instance.userID;
+    public String getIdHotel() {
+        return idHotel;
     }
 
-    public void setUserID(String userID) {
-        instance.userID = userID;
+    public void setIdHotel(String idHotel) {
+        this.idHotel = idHotel;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getUserName() {
-        return instance.userName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        instance.userName = userName;
+        this.userName = userName;
     }
 
     public String getUserLastName() {
-        return instance.userLastName;
+        return userLastName;
     }
 
     public void setUserLastName(String userLastName) {
-        instance.userLastName = userLastName;
+        this.userLastName = userLastName;
     }
 
     public String getUserGender() {
-        return instance.userGender;
+        return userGender;
     }
 
     public void setUserGender(String userGender) {
-        instance.userGender = userGender;
+        this.userGender = userGender;
     }
 
     public int getUserTelephone() {
-        return instance.userTelephone;
+        return userTelephone;
     }
 
     public void setUserTelephone(int userTelephone) {
-        instance.userTelephone = userTelephone;
+        this.userTelephone = userTelephone;
     }
 
-    
-    
-    
-    
-
-
-   
-    
-    
-    
-    
-     
-    
 }

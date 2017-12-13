@@ -30,6 +30,7 @@ public class CreateHotel extends javax.swing.JFrame {
     public CreateHotel() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
+        verifyhotel();
 
     }
 
@@ -101,6 +102,28 @@ public class CreateHotel extends javax.swing.JFrame {
 
     }
 
+    public void verifyhotel() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM hotel";
+        int useridverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet result = selectconect.executeQuery(urlhotelverify);
+
+        while (result.next()) {
+            useridverification = result.getInt("id_user");
+            if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
+                JOptionPane.showMessageDialog(rootPane, "Welcome ");
+                createhotelstatusfalse();
+                return;
+            } else {
+
+                JOptionPane.showMessageDialog(rootPane, "Welcome can you create your hotel ");
+                return;
+            }
+        }
+    }
+
     //This method creates a new hotel.
     public void createHotel() throws SQLException {
 
@@ -117,44 +140,31 @@ public class CreateHotel extends javax.swing.JFrame {
         String ubication = (txt_ubication.getText());
         String country = txt_country.getText();
 
-        
-        //mae tuve que cambiar donde dicia id_user por useremail por k me daba error.
-        
-        String urlhotel = "SELECT * FROM hotel WHERE  = '" + GlobalsSingleton.getInstance().getUserEmail();
-        String useridverification;
-        java.sql.Statement selectconect = conect.createStatement();
-        ResultSet result = selectconect.executeQuery(urlhotel);
 
-        while (result.next()) {
-            useridverification = result.getString("id_user");
-            if (useridverification.equals(GlobalsSingleton.getInstance().getUserEmail())) {
-                createhotelstatusfalse();
-            } else {
-                try {
-                    PreparedStatement inserthotel = conect.prepareStatement("Insert Into hotel(id_hotel,hotel_name,country,telephone,address,construcctionyears,starnumbers,lodgingtype,"
-                            + "hotelsize,checkingtime,chekouttime,requirementCheckin)"
-                            + "Values(?,?,?,?,?,?,?,?,?,?,?,?)");
-                    inserthotel.setInt(1, id_hotel);
-                    inserthotel.setString(2, hotelname);
-                    inserthotel.setString(3, country);
-                    inserthotel.setInt(4, telphone);
-                    inserthotel.setString(5, ubication);
-                    inserthotel.setString(6, construcctionyear);
-                    inserthotel.setString(7, starnumber);
-                    inserthotel.setString(8, lodgintype);
-                    inserthotel.setInt(9, hotelsize);
-                    inserthotel.setString(10, checkin);
-                    inserthotel.setString(11, chekout);
-                    inserthotel.setString(12, checkinrequeriment);
+        try {
+            PreparedStatement inserthotel = conect.prepareStatement("Insert Into hotel(id_hotel,hotel_name,country,telephone,address,construcctionyears,starnumbers,lodgingtype,"
+                    + "hotelsize,checkingtime,chekouttime,requirementCheckin)"
+                    + "Values(?,?,?,?,?,?,?,?,?,?,?,?)");
+            inserthotel.setInt(1, id_hotel);
+            inserthotel.setString(2, hotelname);
+            inserthotel.setString(3, country);
+            inserthotel.setInt(4, telphone);
+            inserthotel.setString(5, ubication);
+            inserthotel.setString(6, construcctionyear);
+            inserthotel.setString(7, starnumber);
+            inserthotel.setString(8, lodgintype);
+            inserthotel.setInt(9, hotelsize);
+            inserthotel.setString(10, checkin);
+            inserthotel.setString(11, chekout);
+            inserthotel.setString(12, checkinrequeriment);
+            inserthotel.setInt(PROPERTIES, WIDTH);
 
-                    int a = inserthotel.executeUpdate();
+            int a = inserthotel.executeUpdate();
 
-                } catch (Exception e) {
+        } catch (Exception e) {
 
-                    JOptionPane.showMessageDialog(rootPane, "Error");
-                }        // TODO 
-            }
-        }
+            JOptionPane.showMessageDialog(rootPane, "Error");
+        }        // TODO 
 
     }
 
@@ -208,8 +218,9 @@ public class CreateHotel extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         btn_modifyAccount1 = new javax.swing.JButton();
         btn_deleteAccount1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_services = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -220,8 +231,9 @@ public class CreateHotel extends javax.swing.JFrame {
         btn_insertatractive = new javax.swing.JButton();
         btn_deleteAccount2 = new javax.swing.JButton();
         btn_modifyAccount2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbl_attractive = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         btn_selectimage = new javax.swing.JButton();
@@ -415,7 +427,7 @@ public class CreateHotel extends javax.swing.JFrame {
                                 .addComponent(txt_LodgingType)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                     .addComponent(sp_ConstrucctionYear, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(sp_starnumbers, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                     .addComponent(jLabel9)
@@ -544,7 +556,7 @@ public class CreateHotel extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_services.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -555,7 +567,9 @@ public class CreateHotel extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tbl_services);
+
+        jScrollPane3.setViewportView(jScrollPane2);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -564,13 +578,9 @@ public class CreateHotel extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txt_serviceName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_servicecode, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel23))
-                            .addGap(77, 77, 77)))
+                    .addComponent(txt_serviceName, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_servicecode, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,14 +589,13 @@ public class CreateHotel extends javax.swing.JFrame {
                     .addComponent(btn_deleteAccount1))
                 .addGap(71, 71, 71))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(jLabel12))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(119, 119, 119)
+                .addComponent(jLabel12)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -614,9 +623,9 @@ public class CreateHotel extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_deleteAccount1)
                     .addComponent(txt_serviceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -680,7 +689,7 @@ public class CreateHotel extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_attractive.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -691,7 +700,9 @@ public class CreateHotel extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane5.setViewportView(tbl_attractive);
+
+        jScrollPane4.setViewportView(jScrollPane5);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -702,9 +713,8 @@ public class CreateHotel extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_attractivename, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel14)
-                        .addComponent(txt_attractivecode, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel14)
+                    .addComponent(txt_attractivecode, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_modifyAccount2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -712,14 +722,13 @@ public class CreateHotel extends javax.swing.JFrame {
                     .addComponent(btn_insertatractive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(59, 59, 59))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(107, 107, 107)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(293, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -743,8 +752,8 @@ public class CreateHotel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_deleteAccount2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 255, 204));
@@ -781,7 +790,7 @@ public class CreateHotel extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_selectimage)
                     .addComponent(txt_image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -827,13 +836,13 @@ public class CreateHotel extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(53, 53, 53)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(279, 279, 279))
         );
@@ -1509,12 +1518,14 @@ public class CreateHotel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSpinner sp_ConstrucctionYear;
     private javax.swing.JSpinner sp_starnumbers;
+    private javax.swing.JTable tbl_attractive;
+    private javax.swing.JTable tbl_services;
     private javax.swing.JTextField txt_HotelSize;
     private javax.swing.JTextField txt_LodgingType;
     private javax.swing.JTextField txt_attractivecode;
