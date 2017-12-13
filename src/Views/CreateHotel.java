@@ -1,11 +1,15 @@
 package Views;
 
+import Classes.GlobalsSingleton;
 import Conectmysql.ConexionDB;
+import com.mysql.jdbc.ResultSetRow;
 import com.sun.glass.events.KeyEvent;
 import com.sun.prism.PresentableState;
+import com.mysql.jdbc.Statement;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,30 +22,33 @@ import javax.swing.JOptionPane;
  */
 public class CreateHotel extends javax.swing.JFrame {
 
+    Connection conect = ConexionDB.Connectdatabase();
+
     /**
      * Creates new form LogInView
      */
     public CreateHotel() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
-        ConexionDB.Connectdatabase();
+
     }
 
     //this method cleans the textFields of the view.
-    public void cleancreatehotelTextFields() {
+    public void createhotelstatusfalse() {
 
-        txt_hotelName.setText("");
-        txt_telephone.setText("");
-        txt_checkin.setText("");
-        txt_LodgingType.setText("");
-        txt_HotelSize.setText("");
-        sp_ConstrucctionYear.setValue("");
-        txt_checkout.setText("");
-        txt_checkin.setText("");
-        txt_checkinrequeriment.setText("");
-        sp_starnumbers.setValue("");
-        txt_idhotel.setText("");
-        txt_ubication.setText("");
+        txt_hotelName.setEditable(false);
+        txt_telephone.setEditable(false);
+        txt_checkin.setEditable(false);
+        txt_LodgingType.setEditable(false);
+        txt_HotelSize.setEditable(false);
+        sp_ConstrucctionYear.setValue(0);
+        txt_checkout.setEditable(false);
+        txt_checkin.setEditable(false);
+        txt_checkinrequeriment.setEditable(false);
+        sp_starnumbers.setValue(0);
+        txt_idhotel.setEditable(false);
+        txt_ubication.setEditable(false);
+        txt_country.setEditable(false);
 
     }
 
@@ -53,6 +60,20 @@ public class CreateHotel extends javax.swing.JFrame {
     public void insertservice() {
         String servicecode = txt_servicecode.getText();
         String service = txt_serviceName.getText();
+
+        try {
+            PreparedStatement insertatracctive = conect.prepareStatement("Insert Into attractive(attractive_code,attractive_name,id_hotel)"
+                    + "Values(?,?,?)");
+            insertatracctive.setString(1, servicecode);
+            insertatracctive.setString(2, service);
+            insertatracctive.setInt(3, Integer.parseInt(txt_idhotel.getText()));;
+
+            int a = insertatracctive.executeUpdate();
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(rootPane, "Error");
+        }
     }
 
     public void cleanattractiveTextFields() {
@@ -60,13 +81,29 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_attractivename.setText("");
     }
 
-    public void insertattractive() {
+    public void insertattractive() throws SQLException {
         String attrarctivecode = txt_attractivecode.getText();
         String attractivename = txt_attractivename.getText();
+
+        try {
+            PreparedStatement insertatracctive = conect.prepareStatement("Insert Into attractive(attractive_code,attractive_name,id_hotel)"
+                    + "Values(?,?,?)");
+            insertatracctive.setString(1, attrarctivecode);
+            insertatracctive.setString(2, attractivename);
+            insertatracctive.setInt(3, Integer.parseInt(txt_idhotel.getText()));
+
+            int a = insertatracctive.executeUpdate();
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(rootPane, "Error");
+        }        // TODO 
+
     }
 
     //This method creates a new hotel.
     public void createHotel() throws SQLException {
+
         String hotelname = txt_hotelName.getText();
         int telphone = Integer.parseInt(txt_telephone.getText());
         String checkin = txt_checkin.getText();
@@ -80,34 +117,42 @@ public class CreateHotel extends javax.swing.JFrame {
         String ubication = (txt_ubication.getText());
         String country = txt_country.getText();
 
-//         PreparedStatement insert= PreparedStatement("Insert Into hotel(id_hotel,hotel_name,country,telephone,address,construcctionyears,starnumbers,lodgingtype,"
-//                + "hotelsize,checkingtime,chekouttime,requirementCheckin)"
-//                + "Values(?,?,?,?,?,?,?,?,?,?,?,?)");
-        Connection conect = ConexionDB.Connectdatabase();
-        try {
-            PreparedStatement insert = conect.prepareStatement("Insert Into hotel(id_hotel,hotel_name,country,telephone,address,construcctionyears,starnumbers,lodgingtype,"
-                    + "hotelsize,checkingtime,chekouttime,requirementCheckin)"
-                    + "Values(?,?,?,?,?,?,?,?,?,?,?,?)");
-            insert.setInt(1, id_hotel);
-            insert.setString(2, hotelname);
-            insert.setString(3, country);
-            insert.setInt(4, telphone);
-            insert.setString(5, ubication);
-            insert.setString(6, construcctionyear);
-            insert.setString(7, starnumber);
-            insert.setString(8, lodgintype);
-            insert.setInt(9, hotelsize);
-            insert.setString(10, checkin);
-            insert.setString(11, chekout);
-            insert.setString(12, checkinrequeriment);
 
-            int a = insert.executeUpdate();
-            JOptionPane.showMessageDialog(rootPane,"Succesfull");
-           
-        } catch (Exception e) {
-            
-            JOptionPane.showMessageDialog(rootPane,"Error");
-        }        // TODO 
+        String urlhotel = "SELECT * FROM hotel WHERE id_newuser = '" + GlobalsSingleton.getInstance().getIdUser();
+        String useridverification;
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet result = selectconect.executeQuery(urlhotel);
+
+        while (result.next()) {
+            useridverification = result.getString("id_user");
+            if (useridverification.equals(GlobalsSingleton.getInstance().getIdUser())) {
+                createhotelstatusfalse();
+            } else {
+                try {
+                    PreparedStatement inserthotel = conect.prepareStatement("Insert Into hotel(id_hotel,hotel_name,country,telephone,address,construcctionyears,starnumbers,lodgingtype,"
+                            + "hotelsize,checkingtime,chekouttime,requirementCheckin)"
+                            + "Values(?,?,?,?,?,?,?,?,?,?,?,?)");
+                    inserthotel.setInt(1, id_hotel);
+                    inserthotel.setString(2, hotelname);
+                    inserthotel.setString(3, country);
+                    inserthotel.setInt(4, telphone);
+                    inserthotel.setString(5, ubication);
+                    inserthotel.setString(6, construcctionyear);
+                    inserthotel.setString(7, starnumber);
+                    inserthotel.setString(8, lodgintype);
+                    inserthotel.setInt(9, hotelsize);
+                    inserthotel.setString(10, checkin);
+                    inserthotel.setString(11, chekout);
+                    inserthotel.setString(12, checkinrequeriment);
+
+                    int a = inserthotel.executeUpdate();
+
+                } catch (Exception e) {
+
+                    JOptionPane.showMessageDialog(rootPane, "Error");
+                }        // TODO 
+            }
+        }
 
     }
 
@@ -150,13 +195,19 @@ public class CreateHotel extends javax.swing.JFrame {
         sp_starnumbers = new javax.swing.JSpinner();
         jLabel22 = new javax.swing.JLabel();
         txt_idhotel = new javax.swing.JTextField();
+        btn_modifyAccount = new javax.swing.JButton();
+        btn_deleteAccount = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         txt_servicecode = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txt_serviceName = new javax.swing.JTextField();
         btn_insertservice = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        btn_modifyAccount1 = new javax.swing.JButton();
+        btn_deleteAccount1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -165,6 +216,10 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_attractivecode = new javax.swing.JTextField();
         txt_attractivename = new javax.swing.JTextField();
         btn_insertatractive = new javax.swing.JButton();
+        btn_deleteAccount2 = new javax.swing.JButton();
+        btn_modifyAccount2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         btn_selectimage = new javax.swing.JButton();
@@ -247,7 +302,7 @@ public class CreateHotel extends javax.swing.JFrame {
         jLabel9.setText("Construction Year");
 
         btn_createAccount.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        btn_createAccount.setText("Create Hotel");
+        btn_createAccount.setText("Create ");
         btn_createAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_createAccountActionPerformed(evt);
@@ -295,6 +350,32 @@ public class CreateHotel extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel22.setText("Id Hotel");
 
+        btn_modifyAccount.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_modifyAccount.setText("Modify");
+        btn_modifyAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modifyAccountActionPerformed(evt);
+            }
+        });
+        btn_modifyAccount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_modifyAccountKeyPressed(evt);
+            }
+        });
+
+        btn_deleteAccount.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_deleteAccount.setText("Delete");
+        btn_deleteAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteAccountActionPerformed(evt);
+            }
+        });
+        btn_deleteAccount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_deleteAccountKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -308,41 +389,45 @@ public class CreateHotel extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel10)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(txt_HotelSize)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(6, 6, 6))
+                                .addComponent(jLabel17)
+                                .addComponent(jLabel18)
+                                .addComponent(jLabel20)
+                                .addComponent(txt_hotelName)
+                                .addComponent(txt_ubication)
+                                .addComponent(txt_telephone)
+                                .addComponent(txt_country)
+                                .addComponent(txt_checkin)
+                                .addComponent(txt_checkout)
+                                .addComponent(txt_checkinrequeriment)
+                                .addComponent(txt_LodgingType)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(sp_ConstrucctionYear, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                    .addComponent(sp_starnumbers, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addGap(51, 51, 51)
+                                    .addComponent(jLabel21))
+                                .addComponent(jLabel22)
+                                .addComponent(txt_idhotel))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(78, 78, 78)
-                                .addComponent(btn_createAccount))
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel10)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(txt_HotelSize)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6))
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel20)
-                            .addComponent(txt_hotelName)
-                            .addComponent(txt_ubication)
-                            .addComponent(txt_telephone)
-                            .addComponent(txt_country)
-                            .addComponent(txt_checkin)
-                            .addComponent(txt_checkout)
-                            .addComponent(txt_checkinrequeriment)
-                            .addComponent(txt_LodgingType)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(sp_ConstrucctionYear, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                                .addComponent(sp_starnumbers, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(51, 51, 51)
-                                .addComponent(jLabel21))
-                            .addComponent(jLabel22)
-                            .addComponent(txt_idhotel))
-                        .addGap(0, 48, Short.MAX_VALUE))))
+                                .addComponent(btn_createAccount)
+                                .addGap(30, 30, 30)
+                                .addComponent(btn_modifyAccount)
+                                .addGap(18, 18, 18)
+                                .addComponent(btn_deleteAccount)))
+                        .addGap(0, 51, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,16 +482,16 @@ public class CreateHotel extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sp_starnumbers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sp_ConstrucctionYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btn_createAccount)
-                .addGap(7, 7, 7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_createAccount)
+                    .addComponent(btn_modifyAccount)
+                    .addComponent(btn_deleteAccount))
+                .addGap(12, 12, 12))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel6.setText("Services Code");
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setText("Service");
@@ -428,43 +513,108 @@ public class CreateHotel extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel12.setText("Services");
 
+        jLabel23.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel23.setText("Services Code");
+
+        btn_modifyAccount1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_modifyAccount1.setText("Modify");
+        btn_modifyAccount1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modifyAccount1ActionPerformed(evt);
+            }
+        });
+        btn_modifyAccount1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_modifyAccount1KeyPressed(evt);
+            }
+        });
+
+        btn_deleteAccount1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_deleteAccount1.setText("Delete");
+        btn_deleteAccount1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteAccount1ActionPerformed(evt);
+            }
+        });
+        btn_deleteAccount1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_deleteAccount1KeyPressed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(txt_serviceName, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_servicecode, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txt_serviceName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txt_servicecode, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel23))
+                            .addGap(77, 77, 77)))
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_insertservice)
+                    .addComponent(btn_modifyAccount1)
+                    .addComponent(btn_deleteAccount1))
+                .addGap(71, 71, 71))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(119, 119, 119)
                         .addComponent(jLabel12))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(btn_insertservice)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel12)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_servicecode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel23)
+                        .addGap(2, 2, 2)
+                        .addComponent(txt_servicecode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(btn_insertservice)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(btn_modifyAccount1)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addGap(6, 6, 6)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_deleteAccount1)
+                    .addComponent(txt_serviceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_serviceName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(btn_insertservice)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
@@ -502,47 +652,97 @@ public class CreateHotel extends javax.swing.JFrame {
             }
         });
 
+        btn_deleteAccount2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_deleteAccount2.setText("Delete");
+        btn_deleteAccount2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteAccount2ActionPerformed(evt);
+            }
+        });
+        btn_deleteAccount2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_deleteAccount2KeyPressed(evt);
+            }
+        });
+
+        btn_modifyAccount2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        btn_modifyAccount2.setText("Modify");
+        btn_modifyAccount2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modifyAccount2ActionPerformed(evt);
+            }
+        });
+        btn_modifyAccount2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_modifyAccount2KeyPressed(evt);
+            }
+        });
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_attractivename, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel14)
+                        .addComponent(txt_attractivecode, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_modifyAccount2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_deleteAccount2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_insertatractive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel14))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel15))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_attractivecode, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_attractivename, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(btn_insertatractive)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(7, 7, 7)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
-                .addGap(12, 12, 12)
-                .addComponent(txt_attractivecode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(12, 12, 12)
+                        .addComponent(txt_attractivecode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_attractivename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(btn_insertatractive)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_modifyAccount2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_deleteAccount2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_attractivename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(btn_insertatractive)
-                .addGap(29, 29, 29))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 255, 204));
@@ -566,7 +766,7 @@ public class CreateHotel extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(110, 110, 110)
                 .addComponent(jLabel19)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txt_image)
@@ -598,24 +798,22 @@ public class CreateHotel extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel8)
-                        .addGap(216, 216, 216)
-                        .addComponent(jButton1)
-                        .addGap(36, 36, 36))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(98, 98, 98)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(jLabel8)
+                .addGap(216, 216, 216)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -626,16 +824,16 @@ public class CreateHotel extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(279, 279, 279))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -643,16 +841,16 @@ public class CreateHotel extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 983, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -663,7 +861,7 @@ public class CreateHotel extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -778,6 +976,7 @@ public class CreateHotel extends javax.swing.JFrame {
         try {
             createHotel();
             JOptionPane.showMessageDialog(rootPane, "Succesfull");
+            createhotelstatusfalse();
         } catch (SQLException ex) {
             Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -886,7 +1085,11 @@ public class CreateHotel extends javax.swing.JFrame {
             return;
 
         }        // TODO add your handling code here:
-        insertattractive();
+        try {
+            insertattractive();
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         cleanattractiveTextFields();
     }//GEN-LAST:event_btn_insertatractiveActionPerformed
 
@@ -921,6 +1124,54 @@ public class CreateHotel extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_modifyAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifyAccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modifyAccountActionPerformed
+
+    private void btn_modifyAccountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_modifyAccountKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modifyAccountKeyPressed
+
+    private void btn_deleteAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteAccountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_deleteAccountActionPerformed
+
+    private void btn_deleteAccountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_deleteAccountKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_deleteAccountKeyPressed
+
+    private void btn_modifyAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifyAccount1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modifyAccount1ActionPerformed
+
+    private void btn_modifyAccount1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_modifyAccount1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modifyAccount1KeyPressed
+
+    private void btn_deleteAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteAccount1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_deleteAccount1ActionPerformed
+
+    private void btn_deleteAccount1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_deleteAccount1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_deleteAccount1KeyPressed
+
+    private void btn_deleteAccount2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteAccount2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_deleteAccount2ActionPerformed
+
+    private void btn_deleteAccount2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_deleteAccount2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_deleteAccount2KeyPressed
+
+    private void btn_modifyAccount2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifyAccount2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modifyAccount2ActionPerformed
+
+    private void btn_modifyAccount2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_modifyAccount2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modifyAccount2KeyPressed
 
     /**
      * @param args the command line arguments
@@ -1075,6 +1326,134 @@ public class CreateHotel extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1090,8 +1469,14 @@ public class CreateHotel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_createAccount;
+    private javax.swing.JButton btn_deleteAccount;
+    private javax.swing.JButton btn_deleteAccount1;
+    private javax.swing.JButton btn_deleteAccount2;
     private javax.swing.JButton btn_insertatractive;
     private javax.swing.JButton btn_insertservice;
+    private javax.swing.JButton btn_modifyAccount;
+    private javax.swing.JButton btn_modifyAccount1;
+    private javax.swing.JButton btn_modifyAccount2;
     private javax.swing.JButton btn_selectimage;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -1109,10 +1494,10 @@ public class CreateHotel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1122,6 +1507,10 @@ public class CreateHotel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JSpinner sp_ConstrucctionYear;
     private javax.swing.JSpinner sp_starnumbers;
     private javax.swing.JTextField txt_HotelSize;
