@@ -63,13 +63,13 @@ public class CreateHotel extends javax.swing.JFrame {
         String service = txt_serviceName.getText();
 
         try {
-            PreparedStatement insertatracctive = conect.prepareStatement("Insert Into attractive(attractive_code,attractive_name,id_hotel)"
+            PreparedStatement insertser = conect.prepareStatement("Insert Into service(service_code,service_name,id_hotel)"
                     + "Values(?,?,?)");
-            insertatracctive.setString(1, servicecode);
-            insertatracctive.setString(2, service);
-            insertatracctive.setInt(3,GlobalsSingleton.getInstance().getIdHotel());;
+            insertser.setString(1, servicecode);
+            insertser.setString(2, service);
+            insertser.setString(3,GlobalsSingleton.getInstance().getIdHotel());
 
-            int a = insertatracctive.executeUpdate();
+            int servicei = insertser.executeUpdate();
 
         } catch (Exception e) {
 
@@ -91,9 +91,9 @@ public class CreateHotel extends javax.swing.JFrame {
                     + "Values(?,?,?)");
             insertatracctive.setString(1, attrarctivecode);
             insertatracctive.setString(2, attractivename);
-            insertatracctive.setInt(3, GlobalsSingleton.getInstance().getIdHotel());
+            insertatracctive.setString(3, GlobalsSingleton.getInstance().getIdHotel());
 
-            int a = insertatracctive.executeUpdate();
+            int servicei = insertatracctive.executeUpdate();
 
         } catch (Exception e) {
 
@@ -126,14 +126,14 @@ public class CreateHotel extends javax.swing.JFrame {
     public void verifyservice() throws SQLException {
 
         String urlhotelverify = "SELECT * FROM service";
-        int serviceverification;
+        String serviceverification;
 
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet result = selectconect.executeQuery(urlhotelverify);
 
         while (result.next()) {
-            serviceverification = result.getInt("id_hotel");
-            if (serviceverification == GlobalsSingleton.getInstance().getIdHotel()) {
+            serviceverification = result.getString("id_hotel");
+            if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
                 
                 return;
             } 
@@ -176,7 +176,7 @@ public class CreateHotel extends javax.swing.JFrame {
             inserthotel.setString(12, checkinrequeriment);
             inserthotel.setInt(13, GlobalsSingleton.getInstance().getUserID());
 
-            int a = inserthotel.executeUpdate();
+            int hoteli = inserthotel.executeUpdate();
 
         } catch (Exception e) {
 
@@ -1096,7 +1096,8 @@ public class CreateHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_attractivenameActionPerformed
 
     private void btn_insertatractiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertatractiveActionPerformed
-        if (txt_servicecode.getText().equals("")) {
+        
+        if (txt_attractivecode.getText().equals("")) {
 
             JOptionPane.showMessageDialog(this, "You must define a attraction code to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
@@ -1105,7 +1106,7 @@ public class CreateHotel extends javax.swing.JFrame {
 
         }
 
-        if (txt_serviceName.getText().equals("")) {
+        if (txt_attractivename.getText().equals("")) {
 
             JOptionPane.showMessageDialog(this, "You must define  Attraction Name to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);

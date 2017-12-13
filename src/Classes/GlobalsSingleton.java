@@ -14,7 +14,7 @@ public class GlobalsSingleton {
     String userEmail;
     String userType;
     String userCondition = "Inactive";
-    int idHotel;
+    String idHotel = "1";
 
     int userID;
     String userName;
@@ -62,11 +62,11 @@ public class GlobalsSingleton {
         this.userCondition = userCondition;
     }
 
-    public int getIdHotel() {
+    public String getIdHotel() {
         return idHotel;
     }
 
-    public void setIdHotel(int idHotel) {
+    public void setIdHotel(String idHotel) {
         this.idHotel = idHotel;
     }
 
@@ -110,5 +110,4 @@ public class GlobalsSingleton {
         this.userTelephone = userTelephone;
     }
 
-   
 }
