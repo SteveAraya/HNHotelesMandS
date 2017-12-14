@@ -73,7 +73,6 @@ public class CreateHotel extends javax.swing.JFrame {
     }
 
     //This method is for  create service
-
     public void insertservice() {
         String servicecode = txt_servicecode.getText();
         String service = txt_serviceName.getText();
@@ -102,7 +101,7 @@ public class CreateHotel extends javax.swing.JFrame {
     public void verifyservice() throws SQLException {
 
         String urlhotelverify = "SELECT * FROM service";
-        String serviceverification;
+        int serviceverification;
 
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
@@ -111,9 +110,9 @@ public class CreateHotel extends javax.swing.JFrame {
 
         try {
             while (resultservice.next()) {
-                serviceverification = resultservice.getString("id_hotel");
+                serviceverification = resultservice.getInt("id_hotel");
 
-                if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
+                if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
                     try {
                         while (resultservice.next()) {
                             dftables.addRow(new Object[]{resultservice.getString("service_code"), resultservice.getString("service_name")});
@@ -122,11 +121,11 @@ public class CreateHotel extends javax.swing.JFrame {
                     } catch (SQLException e) {
 
                     }
-                    
+
                 } else {
-                    
+
                     btn_insertservice.setEnabled(false);
-                    
+
                 }
             }
         } catch (SQLException e) {
@@ -144,7 +143,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     + "Values(?,?,?)");
             insertatracctive.setString(1, attrarctivecode);
             insertatracctive.setString(2, attractivename);
-            insertatracctive.setInt(3,GlobalsSingleton.getInstance().getIdHotel());
+            insertatracctive.setInt(3, GlobalsSingleton.getInstance().getIdHotel());
 
             int servicei = insertatracctive.executeUpdate();
 
@@ -159,7 +158,7 @@ public class CreateHotel extends javax.swing.JFrame {
     public void verifyattractive() throws SQLException {
 
         String urlhotelverify = "SELECT * FROM attractive";
-        String serviceverification;
+        int serviceverification;
 
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
@@ -168,9 +167,9 @@ public class CreateHotel extends javax.swing.JFrame {
 
         try {
             while (resultservice.next()) {
-                serviceverification = resultservice.getString("id_hotel");
+                serviceverification = resultservice.getInt("id_hotel");
 
-                if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
+                if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
                     dftablea.addRow(new Object[]{resultservice.getString("attractive_code"), resultservice.getString("attractive_name")});
                     return;
                 } else {
