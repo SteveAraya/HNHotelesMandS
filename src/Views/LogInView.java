@@ -23,9 +23,6 @@ public class LogInView extends javax.swing.JFrame {
 
     GlobalsSingleton global = GlobalsSingleton.getInstance();
 
-    /**
-     * Creates new form CreateClientAccountView
-     */
     public LogInView() {
         initComponents();
 
@@ -101,6 +98,7 @@ public class LogInView extends javax.swing.JFrame {
 
     }
 
+    //This method search if the user has a hotel and how many it has.
     public void searchUserHotel(int idUser) throws SQLException{
         
         Connection conect = ConexionDB.Connectdatabase();
@@ -135,6 +133,8 @@ public class LogInView extends javax.swing.JFrame {
             else {
 
                 global.setIdHotel(0);
+                
+                System.out.println(global.getIdHotel());
 
                 return;
    
@@ -143,9 +143,7 @@ public class LogInView extends javax.swing.JFrame {
         }
   
     }
-    
-    
-    
+
     //This method activates the user
     public void activeUser() throws SQLException {
 
