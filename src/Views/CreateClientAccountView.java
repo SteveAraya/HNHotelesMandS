@@ -258,7 +258,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             try {
                 PreparedStatement insert = conect.prepareStatement("Insert Into "
                         + "newuser(usertype, username, last_name, gender, email, "
-                        + "user_password, cellphone, country, coinType)"
+                        + "user_password, cellphone, country, cointype)"
                         + "Values(?,?,?,?,?,?,?,?,?)");
                 
                 insert.setString(1, userType);

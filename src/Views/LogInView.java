@@ -208,7 +208,7 @@ public class LogInView extends javax.swing.JFrame {
             userGenderDB = result.getString("gender");
             userTelephoneDB = result.getInt("cellphone");
             countryDB = result.getString("country");
-            currencyTypeDB = result.getString("coinType");
+            currencyTypeDB = result.getString("cointype");
 
             if (userEmailDB.equals(userEmail)) {
 
