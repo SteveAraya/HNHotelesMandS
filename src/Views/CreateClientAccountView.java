@@ -19,9 +19,6 @@ import static jdk.nashorn.internal.runtime.JSType.isNumber;
  */
 public class CreateClientAccountView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LogInView
-     */
     public CreateClientAccountView() {
         initComponents();
     }
@@ -33,12 +30,13 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         txt_lastName.setText("");
         cbo_Gender.setSelectedIndex(0);
         cbo_UserType.setSelectedIndex(0);
+        cbo_coinType.setSelectedIndex(0);
         txt_email.setText("");
         txt_telephone.setText("");
+        txt_country.setText("");
         psw_password.setText("");
         psw_confirmPassword.setText("");
         
-    
     }
     
     //this method check the password whith the confirpassword.
@@ -138,15 +136,25 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         
         if (cbo_Gender.getSelectedItem().toString().equals("Select a Gender")){
             
-            JOptionPane.showMessageDialog(this, "You must enter an GENDER to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter a GENDER to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.cbo_Gender.requestFocus();
             return;
             
         }
+        
         if (cbo_UserType.getSelectedItem().toString().equals("Select a User Type")){
             
-            JOptionPane.showMessageDialog(this, "You must enter an GENDER to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter a User Type to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.cbo_UserType.requestFocus();
+            return;
+            
+        }
+        
+        if (cbo_coinType.getSelectedItem().toString().equals("Select a Coin Type")){
+            
+            JOptionPane.showMessageDialog(this, "You must enter a Coint Type to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.cbo_UserType.requestFocus();
             return;
@@ -165,6 +173,15 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         if (txt_telephone.getText().equals("")){
             
             JOptionPane.showMessageDialog(this, "You must define a Telephone Number to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_telephone.requestFocus();
+            return;
+            
+        }
+        
+        if (txt_country.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define a Country to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_telephone.requestFocus();
             return;
@@ -193,8 +210,10 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         String lastName = txt_lastName.getText();
         String  gender = cbo_Gender.getSelectedItem().toString();
         String  userType = cbo_UserType.getSelectedItem().toString();
+        String  cointType = cbo_coinType.getSelectedItem().toString();
         String email = txt_email.getText();
         int telephone = Integer.parseInt(txt_telephone.getText());
+        String country = txt_country.getText();
         
         String pass = "";
         
@@ -237,8 +256,10 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             Connection conect = ConexionDB.Connectdatabase();
 
             try {
-                PreparedStatement insert = conect.prepareStatement("Insert Into newuser(usertype, username, last_name, gender, email, user_password, cellphone)"
-                        + "Values(?,?,?,?,?,?,?)");
+                PreparedStatement insert = conect.prepareStatement("Insert Into "
+                        + "newuser(usertype, username, last_name, gender, email, "
+                        + "user_password, cellphone, country, coinType)"
+                        + "Values(?,?,?,?,?,?,?,?,?)");
                 
                 insert.setString(1, userType);
                 insert.setString(2, name);
@@ -247,6 +268,8 @@ public class CreateClientAccountView extends javax.swing.JFrame {
                 insert.setString(5, email);
                 insert.setString(6, pass);
                 insert.setInt(7, telephone);
+                insert.setString(8, country);
+                insert.setString(9, cointType);
 
 
                 int a = insert.executeUpdate();
@@ -290,6 +313,9 @@ public class CreateClientAccountView extends javax.swing.JFrame {
         cbo_UserType = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         txt_telephone = new javax.swing.JTextField();
+        cbo_coinType = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        txt_country = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -389,6 +415,27 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             }
         });
 
+        cbo_coinType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Coin Type", "Colones", "Dollars", "Euro" }));
+        cbo_coinType.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbo_coinTypeKeyPressed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel9.setText("Country");
+
+        txt_country.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_countryActionPerformed(evt);
+            }
+        });
+        txt_country.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_countryKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -396,26 +443,30 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_createAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-                    .addComponent(psw_confirmPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(psw_password, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_lastName)
-                    .addComponent(txt_userName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_email)
-                    .addComponent(txt_telephone)
+                    .addComponent(btn_createAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txt_userName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txt_lastName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(psw_confirmPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(psw_password, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_telephone, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_email, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cbo_Gender, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbo_UserType, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(35, 35, 35)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1)
-                                .addComponent(cbo_UserType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbo_Gender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel9)
+                            .addComponent(txt_country, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbo_coinType, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -432,13 +483,19 @@ public class CreateClientAccountView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbo_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbo_coinType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbo_UserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -469,7 +526,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
                         .addGap(70, 70, 70)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
+                        .addGap(244, 244, 244)
                         .addComponent(jLabel8)))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
@@ -603,11 +660,36 @@ public class CreateClientAccountView extends javax.swing.JFrame {
        
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
             
-            this.psw_password.requestFocus();
+            this.cbo_coinType.requestFocus();
                
         }
         
     }//GEN-LAST:event_txt_telephoneKeyPressed
+
+    private void cbo_coinTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbo_coinTypeKeyPressed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            this.txt_country.requestFocus();
+               
+        }
+        
+    }//GEN-LAST:event_cbo_coinTypeKeyPressed
+
+    private void txt_countryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_countryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_countryActionPerformed
+
+    private void txt_countryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_countryKeyPressed
+        // TODO add your handling code here:
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            this.psw_password.requestFocus();
+               
+        }
+ 
+    }//GEN-LAST:event_txt_countryKeyPressed
 
     /**
      * @param args the command line arguments
@@ -663,6 +745,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
     private javax.swing.JButton btn_createAccount;
     private javax.swing.JComboBox<String> cbo_Gender;
     private javax.swing.JComboBox<String> cbo_UserType;
+    private javax.swing.JComboBox<String> cbo_coinType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -671,10 +754,12 @@ public class CreateClientAccountView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField psw_confirmPassword;
     private javax.swing.JPasswordField psw_password;
+    private javax.swing.JTextField txt_country;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_lastName;
     private javax.swing.JTextField txt_telephone;

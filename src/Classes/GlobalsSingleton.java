@@ -21,6 +21,9 @@ public class GlobalsSingleton {
     String userLastName;
     String userGender;
     int userTelephone;
+    String country;
+    String currencyType;
+    
 
     private GlobalsSingleton() {
 
@@ -39,75 +42,91 @@ public class GlobalsSingleton {
     }
 
     public String getUserEmail() {
-        return userEmail;
+        return instance.userEmail;
     }
 
     public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+        instance.userEmail = userEmail;
     }
 
     public String getUserType() {
-        return userType;
+        return instance.userType;
     }
 
     public void setUserType(String userType) {
-        this.userType = userType;
+        instance.userType = userType;
     }
 
     public String getUserCondition() {
-        return userCondition;
+        return instance.userCondition;
     }
 
     public void setUserCondition(String userCondition) {
-        this.userCondition = userCondition;
+        instance.userCondition = userCondition;
     }
 
     public int getIdHotel() {
-        return idHotel;
+        return instance.idHotel;
     }
 
     public void setIdHotel(int idHotel) {
-        this.idHotel = idHotel;
+        instance.idHotel = idHotel;
     }
 
     public int getUserID() {
-        return userID;
+        return instance.userID;
     }
 
     public void setUserID(int userID) {
-        this.userID = userID;
+        instance.userID = userID;
     }
 
     public String getUserName() {
-        return userName;
+        return instance.userName;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        instance.userName = userName;
     }
 
     public String getUserLastName() {
-        return userLastName;
+        return instance.userLastName;
     }
 
     public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
+        instance.userLastName = userLastName;
     }
 
     public String getUserGender() {
-        return userGender;
+        return instance.userGender;
     }
 
     public void setUserGender(String userGender) {
-        this.userGender = userGender;
+        instance.userGender = userGender;
     }
 
     public int getUserTelephone() {
-        return userTelephone;
+        return instance.userTelephone;
     }
 
     public void setUserTelephone(int userTelephone) {
-        this.userTelephone = userTelephone;
+        instance.userTelephone = userTelephone;
+    }
+
+    public String getCountry() {
+        return instance.country;
+    }
+
+    public void setCountry(String country) {
+        instance.country = country;
+    }
+
+    public String getCurrencyType() {
+        return instance.currencyType;
+    }
+
+    public void setCurrencyType(String currencyType) {
+        instance.currencyType = currencyType;
     }
 
     
