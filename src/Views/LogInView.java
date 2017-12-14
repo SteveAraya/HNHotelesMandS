@@ -188,6 +188,9 @@ public class LogInView extends javax.swing.JFrame {
         String userLastNameDB;
         String userGenderDB;
         int userTelephoneDB;
+        String countryDB;
+        String currencyTypeDB;
+        
 
         java.sql.Statement selectconect = conect.createStatement();
 
@@ -204,6 +207,8 @@ public class LogInView extends javax.swing.JFrame {
             userLastNameDB = result.getString("last_name");
             userGenderDB = result.getString("gender");
             userTelephoneDB = result.getInt("cellphone");
+            countryDB = result.getString("country");
+            currencyTypeDB = result.getString("cointype");
 
             if (userEmailDB.equals(userEmail)) {
 
@@ -224,6 +229,10 @@ public class LogInView extends javax.swing.JFrame {
                     global.setUserGender(userGenderDB);
 
                     global.setUserTelephone(userTelephoneDB);
+                    
+                    global.setCountry(countryDB);
+                    
+                    global.setCurrencyType(currencyTypeDB);
                     
                     searchUserHotel(userIDDB);
 
@@ -307,6 +316,11 @@ public class LogInView extends javax.swing.JFrame {
                 logInButtonActionPerformed(evt);
             }
         });
+        logInButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                logInButtonKeyPressed(evt);
+            }
+        });
 
         psw_password.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -381,13 +395,12 @@ public class LogInView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -427,6 +440,19 @@ public class LogInView extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_psw_passwordKeyPressed
+
+    private void logInButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_logInButtonKeyPressed
+
+        try {
+            activeUser();
+            showUserType();
+            showUserActiveInactive();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(LogInView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+    }//GEN-LAST:event_logInButtonKeyPressed
 
     /**
      * @param args the command line arguments
