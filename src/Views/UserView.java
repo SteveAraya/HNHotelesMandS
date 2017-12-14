@@ -6,6 +6,7 @@ import static Views.MainView.userTypeMenu;
 import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 /**
@@ -24,6 +25,16 @@ public class UserView extends javax.swing.JFrame {
         
     }
 
+    //This method show the Card view.
+    public static void showCardView() {
+
+        CardView oCardView = new CardView();
+        oCardView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        oCardView.setLocationRelativeTo(null);
+        oCardView.setVisible(true);
+
+    }
+    
     //This method show the type user en the view
     public void showUserType() {
 
@@ -211,6 +222,11 @@ public class UserView extends javax.swing.JFrame {
 
         btn_addCard.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         btn_addCard.setText("Add Credit Card");
+        btn_addCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addCardActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -471,6 +487,12 @@ public class UserView extends javax.swing.JFrame {
         jP_changes.setBackground(Color.WHITE);
         
     }//GEN-LAST:event_btn_changeActionPerformed
+
+    private void btn_addCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addCardActionPerformed
+
+        showCardView();
+            
+    }//GEN-LAST:event_btn_addCardActionPerformed
 
     /**
      * @param args the command line arguments
