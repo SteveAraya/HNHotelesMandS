@@ -108,7 +108,7 @@ public class Rooms extends javax.swing.JFrame {
 
     public void insertroom() throws SQLException {
 
-        int num_room = Integer.parseInt(txt_roomtype.getText());
+        int num_room = Integer.parseInt(txt_numroom.getText());
         String floornumber = txt_floornumber.getText();
         String description = txt_description.getText();
         String roomsize = txt_roomsize.getText();
@@ -580,7 +580,11 @@ public class Rooms extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modifyroomActionPerformed
 
     private void btn_insertroomsroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertroomsroomActionPerformed
-        // TODO add your handling code here:
+        try {
+            insertroom();
+        } catch (SQLException ex) {
+            Logger.getLogger(Rooms.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_insertroomsroomActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -622,6 +626,10 @@ public class Rooms extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Rooms.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        GlobalsSingleton.getInstance().cleantableservice(dftablert);
+        
+        
     }//GEN-LAST:event_btn_insertroom1ActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
