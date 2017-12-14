@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Views;
 
 import Classes.GlobalsSingleton;
@@ -25,6 +21,7 @@ public class CardView extends javax.swing.JFrame {
     
     public CardView() {
         initComponents();
+        
     }
 
     //this method cleans the textFields of the view.
@@ -41,6 +38,7 @@ public class CardView extends javax.swing.JFrame {
         
     }
     
+    //This method add cards to the users
     public void addCard() throws SQLException{
         
         if (txt_ownerName.getText().equals("")){
@@ -105,22 +103,14 @@ public class CardView extends javax.swing.JFrame {
             return;
             
         }
- 
-        txt_ownerName.setText("");
-        txt_ownerLastName.setText("");
-        txt_cardNumber.setText("");
-        txt_cardCode.setText("");
-        cbo_cardType.setSelectedIndex(0);
-        cbo_month.setSelectedIndex(0);
-        cbo_year.setSelectedIndex(0);
         
         String ownerName = txt_ownerName.getText();
         String ownerLastName = txt_ownerLastName.getText();
-        int  cardNumber = Integer.parseInt(txt_cardNumber.getText());
+        String  cardNumber = txt_cardNumber.getText();
         int  cardCode = Integer.parseInt(txt_cardCode.getText());
         String  cardType = cbo_cardType.getSelectedItem().toString();
-        int month = Integer.parseInt(cbo_cardType.getSelectedItem().toString());
-        int year = Integer.parseInt(cbo_cardType.getSelectedItem().toString());
+        String month = cbo_month.getSelectedItem().toString();
+        String year = cbo_year.getSelectedItem().toString();
         int idUser = global.getUserID();
 
         Connection conect = ConexionDB.Connectdatabase();
@@ -131,14 +121,14 @@ public class CardView extends javax.swing.JFrame {
                     + "expirationyear, expirationmount)"
                     + "Values(?,?,?,?,?,?,?,?)");
                 
-            insert.setInt(1, cardNumber);
+            insert.setString(1, cardNumber);
             insert.setInt(2, idUser);
             insert.setString(3, ownerName);
             insert.setString(4, ownerLastName);
             insert.setInt(5, cardCode);
             insert.setString(6, cardType);
-            insert.setInt(7, year);
-            insert.setInt(8, month);
+            insert.setString(7, year);
+            insert.setString(8, month);
 
             int a = insert.executeUpdate();
 
@@ -407,8 +397,6 @@ public class CardView extends javax.swing.JFrame {
         }
         
         cleanCardTextFields();
-        
-        this.dispose();
  
     }//GEN-LAST:event_btn_addCardActionPerformed
 
@@ -491,8 +479,6 @@ public class CardView extends javax.swing.JFrame {
         }
         
         cleanCardTextFields();
-        
-        this.dispose();
         
     }//GEN-LAST:event_btn_addCardKeyPressed
 
