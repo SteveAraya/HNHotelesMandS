@@ -40,7 +40,14 @@ public class CreateHotel extends javax.swing.JFrame {
     }
 
     //this method cleans the textFields of the view.
-    
+    public void cleantableservice(DefaultTableModel table) {
+
+        int a = table.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            table.removeRow(table.getRowCount() - 1);
+        }
+    }
+
     public void createhotelstatusfalse() {
 
         txt_hotelName.setEditable(false);
@@ -48,11 +55,11 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_checkin.setEditable(false);
         txt_LodgingType.setEditable(false);
         txt_HotelSize.setEditable(false);
-        sp_ConstrucctionYear.setValue(0);
+        sp_ConstrucctionYear.setEnabled(false);
         txt_checkout.setEditable(false);
         txt_checkin.setEditable(false);
         txt_checkinrequeriment.setEditable(false);
-        sp_starnumbers.setValue(0);
+        sp_starnumbers.setEnabled(false);
         txt_idhotel.setEditable(false);
         txt_ubication.setEditable(false);
         txt_country.setEditable(false);
@@ -64,7 +71,7 @@ public class CreateHotel extends javax.swing.JFrame {
         txt_servicecode.setText("");
         txt_serviceName.setText("");
     }
-    
+
     //This method is for  create service
 
     public void insertservice() {
@@ -107,8 +114,19 @@ public class CreateHotel extends javax.swing.JFrame {
                 serviceverification = resultservice.getString("id_hotel");
 
                 if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
-                    dftables.addRow(new Object[]{resultservice.getString("service_code"), resultservice.getString("service_name")});
-                    return;
+                    try {
+                        while (resultservice.next()) {
+                            dftables.addRow(new Object[]{resultservice.getString("service_code"), resultservice.getString("service_name")});
+
+                        }
+                    } catch (SQLException e) {
+
+                    }
+                    
+                } else {
+                    
+                    btn_insertservice.setEnabled(false);
+                    
                 }
             }
         } catch (SQLException e) {
@@ -126,14 +144,14 @@ public class CreateHotel extends javax.swing.JFrame {
                     + "Values(?,?,?)");
             insertatracctive.setString(1, attrarctivecode);
             insertatracctive.setString(2, attractivename);
-            insertatracctive.setInt(3, GlobalsSingleton.getInstance().getIdHotel());
+            insertatracctive.setInt(3,GlobalsSingleton.getInstance().getIdHotel());
 
             int servicei = insertatracctive.executeUpdate();
 
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(rootPane, "Error");
-        }        // TODO 
+        }
 
     }
 //This method is for  veri if the hotel have an attractive
@@ -154,6 +172,9 @@ public class CreateHotel extends javax.swing.JFrame {
 
                 if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
                     dftablea.addRow(new Object[]{resultservice.getString("attractive_code"), resultservice.getString("attractive_name")});
+                    return;
+                } else {
+                    btn_insertatractive.setEnabled(false);
                     return;
                 }
             }
@@ -215,8 +236,34 @@ public class CreateHotel extends javax.swing.JFrame {
 
         while (result.next()) {
             useridverification = result.getInt("id_user");
+            String hotel_name = result.getString("hotel_name");
+            String country = result.getString("country");
+            String telephone = result.getString("telephone");
+            String address = result.getString("address");
+            int construcctionyears = result.getInt("construcctionyears");
+            int starnumbers = result.getInt("starnumbers");
+            String lodgingtype = result.getString("lodgingtype");
+            int hotelsize = result.getInt("hotelsize");
+            int checkingtime = result.getInt("checkingtime");
+            int chekouttimetime = result.getInt("chekouttime");
+            String requirementCheckin = result.getString("requirementCheckin");
+
             if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
                 JOptionPane.showMessageDialog(rootPane, "Welcome ");
+
+                txt_hotelName.setText(hotel_name);
+                txt_telephone.setText(telephone);
+                txt_checkin.setText("" + checkingtime);
+                txt_LodgingType.setText(lodgingtype);
+                txt_HotelSize.setText("" + hotelsize);
+                sp_ConstrucctionYear.setValue(construcctionyears);
+                txt_checkout.setText("" + chekouttimetime);
+                txt_checkin.setText("" + checkingtime);
+                txt_checkinrequeriment.setText(requirementCheckin);
+                sp_starnumbers.setValue(starnumbers);
+                txt_idhotel.setText("" + useridverification);
+                txt_ubication.setText(address);
+                txt_country.setText(country);
                 createhotelstatusfalse();
                 return;
             } else {
@@ -1109,11 +1156,15 @@ public class CreateHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_serviceNameActionPerformed
 
     private void btn_insertserviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertserviceActionPerformed
+
+        cleantableservice(dftables);
+
         if (txt_servicecode.getText().equals("")) {
 
             JOptionPane.showMessageDialog(this, "You must define a Services Offered to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_servicecode.requestFocus();
+
             return;
 
         }
@@ -1128,6 +1179,11 @@ public class CreateHotel extends javax.swing.JFrame {
         }
         insertservice();
         cleanserviceTextFields();
+        try {
+            verifyservice();
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btn_insertserviceActionPerformed
 
@@ -1140,6 +1196,7 @@ public class CreateHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_attractivenameActionPerformed
 
     private void btn_insertatractiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertatractiveActionPerformed
+        cleantableservice(dftablea);
 
         if (txt_attractivecode.getText().equals("")) {
 
@@ -1283,6 +1340,262 @@ public class CreateHotel extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CreateHotel.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
