@@ -39,15 +39,6 @@ public class CreateHotel extends javax.swing.JFrame {
 
     }
 
-    //this method cleans the textFields of the view.
-//    public void cleantableservice(DefaultTableModel table) {
-//
-//        int a = table.getRowCount() - 1;
-//        for (int i = a; i >= 0; i--) {
-//            table.removeRow(table.getRowCount() - 1);
-//        }
-//    }
-
     public void createhotelstatusfalse() {
 
         txt_hotelName.setEditable(false);
@@ -1302,6 +1293,15 @@ public class CreateHotel extends javax.swing.JFrame {
     private void btn_roomsviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_roomsviewActionPerformed
 
         ConexionDB.Connectdatabase();
+        Rooms viewroom;
+        try {
+            viewroom = new Rooms();
+            viewroom.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btn_roomsviewActionPerformed
 
     /**
