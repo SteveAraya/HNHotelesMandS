@@ -80,14 +80,19 @@ public class UserView extends javax.swing.JFrame {
     public void showInfoEdit(){
         
         txt_country.setEditable(true);
-        txt_currencyType.setEditable(true);
+        txt_telephone.setEditable(true);
         cbo_coinType.setEnabled(true);
         btn_change.setEnabled(true);
         jP_changes.setBackground(Color.CYAN);
  
     }
     
-    
+    public void editInfo(){
+        
+        
+        
+        
+    }
     
     
     
@@ -121,8 +126,6 @@ public class UserView extends javax.swing.JFrame {
         txt_gender = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txt_email = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txt_telephone = new javax.swing.JTextField();
         txt_type = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -134,9 +137,11 @@ public class UserView extends javax.swing.JFrame {
         jP_changes = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         txt_country = new javax.swing.JTextField();
+        cbo_coinType = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        txt_telephone = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txt_currencyType = new javax.swing.JTextField();
-        cbo_coinType = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,15 +182,6 @@ public class UserView extends javax.swing.JFrame {
         txt_email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_emailActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel6.setText("User Telephone");
-
-        txt_telephone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_telephoneActionPerformed(evt);
             }
         });
 
@@ -265,10 +261,16 @@ public class UserView extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel8.setText("Currency Type ");
-
         cbo_coinType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Coin Type", "Colones", "Dollars", "Euro" }));
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel6.setText("User Telephone");
+
+        txt_telephone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_telephoneActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jP_changesLayout = new javax.swing.GroupLayout(jP_changes);
         jP_changes.setLayout(jP_changesLayout);
@@ -282,12 +284,13 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txt_country))
                     .addGroup(jP_changesLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addGap(116, 116, 116)
+                        .addComponent(cbo_coinType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jP_changesLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jP_changesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_currencyType, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbo_coinType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(69, Short.MAX_VALUE))
+                        .addComponent(txt_telephone)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jP_changesLayout.setVerticalGroup(
             jP_changesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,12 +301,15 @@ public class UserView extends javax.swing.JFrame {
                     .addComponent(txt_country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jP_changesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txt_currencyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel6)
+                    .addComponent(txt_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbo_coinType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel8.setText("Currency Type ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -312,21 +318,20 @@ public class UserView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_imageType, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txt_telephone)
-                                .addComponent(txt_gender, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_lastName, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(txt_email, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel1)))
-                    .addComponent(lbl_imageType, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_gender)
+                            .addComponent(txt_lastName)
+                            .addComponent(txt_name, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txt_email)
+                            .addComponent(jLabel1)
+                            .addComponent(txt_currencyType))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -370,9 +375,9 @@ public class UserView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_currencyType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -410,7 +415,9 @@ public class UserView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
