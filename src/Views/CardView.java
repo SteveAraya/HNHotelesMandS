@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Classes.GlobalsSingleton;
 import Conectmysql.ConexionDB;
 import com.sun.glass.events.KeyEvent;
 import java.sql.Connection;
@@ -20,6 +21,8 @@ import javax.swing.JOptionPane;
  */
 public class CardView extends javax.swing.JFrame {
 
+    GlobalsSingleton global = GlobalsSingleton.getInstance();
+    
     public CardView() {
         initComponents();
     }
@@ -118,22 +121,24 @@ public class CardView extends javax.swing.JFrame {
         String  cardType = cbo_cardType.getSelectedItem().toString();
         int month = Integer.parseInt(cbo_cardType.getSelectedItem().toString());
         int year = Integer.parseInt(cbo_cardType.getSelectedItem().toString());
-        
+        int idUser = global.getUserID();
+
         Connection conect = ConexionDB.Connectdatabase();
 
             try {
                 PreparedStatement insert = conect.prepareStatement("Insert Into "
-                        + "card(cardnumber, ownersname, ownerslastname, secury_code, card_type, "
+                        + "card(cardnumber, id_user, ownersname, ownerslastname, secury_code, card_type, "
                         + "expirationyear, expirationmount)"
-                        + "Values(?,?,?,?,?,?,?)");
+                        + "Values(?,?,?,?,?,?,?,?)");
                 
                 insert.setInt(1, cardNumber);
-                insert.setString(2, ownerName);
-                insert.setString(3, ownerLastName);
-                insert.setInt(4, cardCode);
-                insert.setString(5, cardType);
-                insert.setInt(6, year);
-                insert.setInt(7, month);
+                insert.setInt(2, idUser);
+                insert.setString(3, ownerName);
+                insert.setString(4, ownerLastName);
+                insert.setInt(5, cardCode);
+                insert.setString(6, cardType);
+                insert.setInt(7, year);
+                insert.setInt(8, month);
 
                 int a = insert.executeUpdate();
 
@@ -145,21 +150,7 @@ public class CardView extends javax.swing.JFrame {
             this.dispose();
  
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
