@@ -1,6 +1,7 @@
 package Classes;
 
 import Views.MainView;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -39,6 +40,14 @@ public class GlobalsSingleton {
 
         return instance;
 
+    }
+    //methow for refresh jtable
+     public void cleantableservice(DefaultTableModel table) {
+
+        int a = table.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            table.removeRow(table.getRowCount() - 1);
+        }
     }
 
     public String getUserEmail() {

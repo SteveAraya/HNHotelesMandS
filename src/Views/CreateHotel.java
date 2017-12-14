@@ -40,13 +40,13 @@ public class CreateHotel extends javax.swing.JFrame {
     }
 
     //this method cleans the textFields of the view.
-    public void cleantableservice(DefaultTableModel table) {
-
-        int a = table.getRowCount() - 1;
-        for (int i = a; i >= 0; i--) {
-            table.removeRow(table.getRowCount() - 1);
-        }
-    }
+//    public void cleantableservice(DefaultTableModel table) {
+//
+//        int a = table.getRowCount() - 1;
+//        for (int i = a; i >= 0; i--) {
+//            table.removeRow(table.getRowCount() - 1);
+//        }
+//    }
 
     public void createhotelstatusfalse() {
 
@@ -1161,7 +1161,7 @@ public class CreateHotel extends javax.swing.JFrame {
 
     private void btn_insertserviceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertserviceActionPerformed
 
-        cleantableservice(dftables);
+        GlobalsSingleton.getInstance().cleantableservice(dftables);
 
         if (txt_servicecode.getText().equals("")) {
 
@@ -1200,7 +1200,7 @@ public class CreateHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_attractivenameActionPerformed
 
     private void btn_insertatractiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertatractiveActionPerformed
-        cleantableservice(dftablea);
+        GlobalsSingleton.getInstance().cleantableservice(dftablea);
 
         if (txt_attractivecode.getText().equals("")) {
 
@@ -1301,13 +1301,7 @@ public class CreateHotel extends javax.swing.JFrame {
 
     private void btn_roomsviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_roomsviewActionPerformed
 
-        try {
-            ConexionDB.Connectdatabase();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(CreateHotel.class
-                .getName()).log(Level.SEVERE, null, ex);
-        }
+        ConexionDB.Connectdatabase();
     }//GEN-LAST:event_btn_roomsviewActionPerformed
 
     /**

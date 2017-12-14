@@ -26,7 +26,7 @@ public class ConexionDB {
     private static final String passwordBd = "123";
     private static final String url = "jdbc:mysql://localhost:3306/hnhoteles";
 
-    public static Connection Connectdatabase() throws SQLException {
+    public static Connection Connectdatabase(){
         try {
             conexiondb = DriverManager.getConnection(url, userBD, passwordBd);
             System.out.println("Connetion sucesfull");
@@ -54,38 +54,5 @@ public class ConexionDB {
         }
     }
 
-    public static ResultSet databaseQuery(String query) throws SQLException {
-        Statement statement = null;
-        ResultSet resultSet = null;
-        CachedRowSetImpl cachedRowSet = null;
-        
-        try {
-            Connectdatabase();
-            statement = (Statement) conexiondb.createStatement();
-            resultSet = statement.executeQuery(query);
-            cachedRowSet = new CachedRowSetImpl();
-            cachedRowSet.populate(resultSet);
-            
-        } catch (SQLException e) {
-
-            System.out.println("Warning");
-            System.out.println("Ocurred an error executing the query");
-            System.out.println("Error: " + e.getMessage() + "\n" + "Error code: " + e.getErrorCode());
-
-        } finally {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            Dissconectdatabase();
-        }
-        return cachedRowSet;
-    }
-
-    public static PreparedStatement Connectdatabase(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }
