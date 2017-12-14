@@ -101,6 +101,51 @@ public class LogInView extends javax.swing.JFrame {
 
     }
 
+    public void searchUserHotel(int idUser) throws SQLException{
+        
+        Connection conect = ConexionDB.Connectdatabase();
+
+        String urlUser = "SELECT * FROM hotel ";
+
+        int idHotelDB;
+        int idUserDB;
+        
+        java.sql.Statement selectconect = conect.createStatement();
+
+        ResultSet result = selectconect.executeQuery(urlUser);
+
+        while (result.next()) {
+
+            idHotelDB = result.getInt("id_hotel");
+            idUserDB = result.getInt("id_user");
+            
+
+            if (idUserDB == global.getUserID()) {
+            
+                global.setIdHotel(idHotelDB);
+                
+                System.out.println(global.getIdHotel());
+
+                this.dispose();
+
+                return;
+
+            } 
+            
+            else {
+
+                global.setIdHotel(0);
+
+                return;
+   
+            }
+
+        }
+  
+    }
+    
+    
+    
     //This method activates the user
     public void activeUser() throws SQLException {
 
@@ -181,6 +226,8 @@ public class LogInView extends javax.swing.JFrame {
                     global.setUserGender(userGenderDB);
 
                     global.setUserTelephone(userTelephoneDB);
+                    
+                    searchUserHotel(userIDDB);
 
                     this.dispose();
 
