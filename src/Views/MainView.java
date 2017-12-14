@@ -9,6 +9,8 @@ import Classes.GlobalsSingleton;
 import Conectmysql.ConexionDB;
 import com.sun.glass.events.KeyEvent;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,9 +29,6 @@ import javax.swing.border.LineBorder;
  */
 public class MainView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainView
-     */
     public MainView() {
         initComponents();
         blockItems();
@@ -199,6 +199,37 @@ public class MainView extends javax.swing.JFrame {
 //            
 //        }
 
+//        Connection conect = ConexionDB.Connectdatabase();
+//        DefaultTableModel hotelTable = new DefaultTableModel();
+//        
+//        
+//        String urlhotelverify = "SELECT * FROM hotel";
+//        
+//        String hotelNameDB;
+//
+//        java.sql.Statement selectconect = conect.createStatement();
+//        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+//        tbl_Hotels.setModel(hotelTable);
+//        hotelTable.setColumnIdentifiers(new Object[]{"Code", "Attractive"});
+//
+//        try {
+//            while (resultservice.next()) {
+//                
+//                serviceverification = resultservice.getString("id_hotel");
+//
+//                if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
+//                    dftablea.addRow(new Object[]{resultservice.getString("attractive_code"), resultservice.getString("attractive_name")});
+//                    return;
+//                }
+//            }
+//        } catch (SQLException e) {
+//
+//        }
+
+
+
+
+
 //        String Table[][] = new String[getNumberOfRow()][2]; 
 //            
 //            int fila = 0;
@@ -260,7 +291,7 @@ public class MainView extends javax.swing.JFrame {
         exitjDateChooser = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_Hotels = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         seeHotelButton = new javax.swing.JButton();
         selectHotelButton = new javax.swing.JButton();
@@ -373,7 +404,7 @@ public class MainView extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_Hotels.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -384,7 +415,7 @@ public class MainView extends javax.swing.JFrame {
                 "Hotel Name", "Price Per Night", "Number of Stars", "Lodging Type"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_Hotels);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/searchHotel.png"))); // NOI18N
 
@@ -710,7 +741,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenu logInMenu;
     private javax.swing.JMenuItem logInMenuItem;
     public static javax.swing.JMenu modifyUserMenu;
@@ -722,6 +752,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel searchPanel;
     private javax.swing.JButton seeHotelButton;
     private javax.swing.JButton selectHotelButton;
+    private javax.swing.JTable tbl_Hotels;
     public static javax.swing.JMenu userActiveInactiveMenu;
     public static javax.swing.JMenuItem userProfileMenuItem;
     public static javax.swing.JMenu userProfileViewMenu;

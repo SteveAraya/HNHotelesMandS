@@ -76,7 +76,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     + "Values(?,?,?)");
             insertser.setString(1, servicecode);
             insertser.setString(2, service);
-            insertser.setString(3, GlobalsSingleton.getInstance().getIdHotel());
+            insertser.setInt(3, GlobalsSingleton.getInstance().getIdHotel());
 
             int servicei = insertser.executeUpdate();
 
@@ -126,7 +126,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     + "Values(?,?,?)");
             insertatracctive.setString(1, attrarctivecode);
             insertatracctive.setString(2, attractivename);
-            insertatracctive.setString(3, GlobalsSingleton.getInstance().getIdHotel());
+            insertatracctive.setInt(3, GlobalsSingleton.getInstance().getIdHotel());
 
             int servicei = insertatracctive.executeUpdate();
 
