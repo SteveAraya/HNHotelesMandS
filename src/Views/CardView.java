@@ -125,29 +125,29 @@ public class CardView extends javax.swing.JFrame {
 
         Connection conect = ConexionDB.Connectdatabase();
 
-            try {
-                PreparedStatement insert = conect.prepareStatement("Insert Into "
-                        + "card(cardnumber, id_user, ownersname, ownerslastname, secury_code, card_type, "
-                        + "expirationyear, expirationmount)"
-                        + "Values(?,?,?,?,?,?,?,?)");
+        try {
+            PreparedStatement insert = conect.prepareStatement("Insert Into "
+                    + "card(cardnumber, id_user, ownersname, ownerslastname, secury_code, card_type, "
+                    + "expirationyear, expirationmount)"
+                    + "Values(?,?,?,?,?,?,?,?)");
                 
-                insert.setInt(1, cardNumber);
-                insert.setInt(2, idUser);
-                insert.setString(3, ownerName);
-                insert.setString(4, ownerLastName);
-                insert.setInt(5, cardCode);
-                insert.setString(6, cardType);
-                insert.setInt(7, year);
-                insert.setInt(8, month);
+            insert.setInt(1, cardNumber);
+            insert.setInt(2, idUser);
+            insert.setString(3, ownerName);
+            insert.setString(4, ownerLastName);
+            insert.setInt(5, cardCode);
+            insert.setString(6, cardType);
+            insert.setInt(7, year);
+            insert.setInt(8, month);
 
-                int a = insert.executeUpdate();
+            int a = insert.executeUpdate();
 
-            } catch (Exception e) {
+        } catch (Exception e) {
 
                 JOptionPane.showMessageDialog(rootPane,"Error");
-            }        // TODO 
+        }        // TODO 
             
-            this.dispose();
+        this.dispose();
  
     }
 
@@ -223,6 +223,9 @@ public class CardView extends javax.swing.JFrame {
             }
         });
         txt_cardNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_cardNumberKeyTyped(evt);
+            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_cardNumberKeyPressed(evt);
             }
@@ -237,6 +240,9 @@ public class CardView extends javax.swing.JFrame {
             }
         });
         txt_cardCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_cardCodeKeyTyped(evt);
+            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_cardCodeKeyPressed(evt);
             }
@@ -401,6 +407,8 @@ public class CardView extends javax.swing.JFrame {
         }
         
         cleanCardTextFields();
+        
+        this.dispose();
  
     }//GEN-LAST:event_btn_addCardActionPerformed
 
@@ -484,7 +492,29 @@ public class CardView extends javax.swing.JFrame {
         
         cleanCardTextFields();
         
+        this.dispose();
+        
     }//GEN-LAST:event_btn_addCardKeyPressed
+
+    private void txt_cardNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cardNumberKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txt_cardNumberKeyTyped
+
+    private void txt_cardCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cardCodeKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txt_cardCodeKeyTyped
 
     /**
      * @param args the command line arguments
