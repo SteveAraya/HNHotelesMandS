@@ -153,7 +153,7 @@ public class ReservationsView extends javax.swing.JFrame {
                     try {
                         while (resultservice.next()) {
                             
-                            dftables.addRow(new Object[]{resultservice.getString("room_type"),resultservice.getString("bedtype")});
+                            dftables1.addRow(new Object[]{resultservice.getString("room_type"),resultservice.getString("bedtype")});
 
                             global.setIdRoomType(resultservice.getInt("id_type"));
                             
