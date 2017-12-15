@@ -39,6 +39,7 @@ public class Rooms extends javax.swing.JFrame {
         verifytyperoom();
     }
 
+    //This method cleans the text field
     public void cleantexfield() {
 
         txt_numroom.setText("");
@@ -55,6 +56,7 @@ public class Rooms extends javax.swing.JFrame {
 
     }
 
+    //This method verify the rrom in the system
     public void verifyroom() throws SQLException {
 
         String urlhotelverify = "SELECT * FROM room";
@@ -87,6 +89,7 @@ public class Rooms extends javax.swing.JFrame {
 
     }
 
+    //This method verify the type person of the room
     public void verifytyperoom() throws SQLException {
 
         String urlhotelverify = "SELECT * FROM roomtype";
@@ -117,6 +120,7 @@ public class Rooms extends javax.swing.JFrame {
         }
     }
 
+    //This method insert rooms in to the hotel
     public void insertroom() throws SQLException {
 
         int num_room = Integer.parseInt(txt_numroom.getText());
@@ -155,6 +159,7 @@ public class Rooms extends javax.swing.JFrame {
 
     }
 
+    //This method insert the type of room
     public void inserttyperoom() throws SQLException {
 
         String roomtype = txt_roomtype.getText();
@@ -196,6 +201,7 @@ public class Rooms extends javax.swing.JFrame {
 
     }
 
+    //This method update the room of the hotel
     public void updateroom() {
 
         int num_room = Integer.parseInt(txt_numroom.getText());
