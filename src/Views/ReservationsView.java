@@ -120,6 +120,7 @@ public class ReservationsView extends javax.swing.JFrame {
             String cardNumber = tbl_card.getValueAt(row, 0).toString();
 
             txt_cardNumber.setText(cardNumber);
+            global.setCardNumber(cardNumber);
 
         }
 
@@ -311,8 +312,7 @@ public class ReservationsView extends javax.swing.JFrame {
         Connection conect = ConexionDB.Connectdatabase();
 
         try {
-            PreparedStatement insert = conect.prepareStatement("Insert Into "
-                    + "reservation(entrydate,exitdate,nightsnumbers,childrenamount,adultsamount,reservationstatus,num_room,id_user,cardnumber)"
+            PreparedStatement insert = conect.prepareStatement("Insert Into reservation(entrydate,exitdate,nightsnumbers,childrenamount,adultsamount,reservationstatus,num_room,id_user,cardnumber)"
                     + "Values(?,?,?,?,?,?,?,?,?)");
 
             insert.setString(1, entryDate);
@@ -460,7 +460,7 @@ public class ReservationsView extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbl_card);
 
         btn_chooseCard.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        btn_chooseCard.setText("Add Room Type");
+        btn_chooseCard.setText("Add Card");
         btn_chooseCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_chooseCardActionPerformed(evt);

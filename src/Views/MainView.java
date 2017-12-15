@@ -675,6 +675,7 @@ public class MainView extends javax.swing.JFrame {
     private void seeHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeHotelButtonActionPerformed
 
         try {
+            selectdata();
             selectRows();
             showHotel();
 
