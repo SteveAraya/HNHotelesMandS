@@ -280,7 +280,8 @@ public class CreateHotel extends javax.swing.JFrame {
         String country = txt_country.getText();
 
         try {
-            String url=("update hotel SET id_hotel=?,hotel_name=?,country=?,telephone=?,address=?,construcctionyears=?,starnumbers=?,lodgingtype=?,hotelsize=?,checkingtime=?,chekouttime=?,requirementCheckin=?"
+            String url=("update hotel SET id_hotel=?,hotel_name=?,country=?,telephone=?,address=?,construcctionyears=?,starnumbers=?,lodgingtype=?,"
+                    + "hotelsize=?,checkingtime=?,chekouttime=?,requirementCheckin=?"
                     +"where id_user= "+GlobalsSingleton.getInstance().getUserID()+" " );
            
             
