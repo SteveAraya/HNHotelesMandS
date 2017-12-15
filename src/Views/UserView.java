@@ -157,27 +157,9 @@ public class UserView extends javax.swing.JFrame {
         
         if (cbo_coinType.getSelectedItem().toString().equals("Select a Coin Type")){
             
-            JOptionPane.showMessageDialog(this, "You must enter a Coint Type to create an account",
+            JOptionPane.showMessageDialog(this, "You must enter a Coint Type",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.cbo_coinType.requestFocus();
-            return;
-            
-        }
-        
-        if (txt_country.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define a Country to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_telephone.requestFocus();
-            return;
-            
-        }
-        
-        if (txt_telephone.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define a Telephone Number to create an account",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_telephone.requestFocus();
             return;
             
         }
@@ -196,31 +178,28 @@ public class UserView extends javax.swing.JFrame {
             inserthotel.setInt(1, telephone);
             inserthotel.setString(2, country);
             inserthotel.setString(3, cointType);
+            
+            inserthotel.executeUpdate();
 
         
         } catch (SQLException e) {
 
-            JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
-                                              + "Inténtelo nuevamente.\n"
-                                              + "Error: "+e, "Error en la operación", 
+            JOptionPane.showMessageDialog(null, "The data update could not be performed\n"
+                                              + "Try again.\n"
+                                              + "Error: "+e, "Operation error", 
                                               JOptionPane.ERROR_MESSAGE);
 
         }
+        
+        txt_country.setEditable(false);
+        txt_telephone.setEditable(false);
+        cbo_coinType.setEnabled(false);
+        btn_change.setEnabled(false);
+
+        jP_changes.setBackground(Color.WHITE);
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -584,17 +563,14 @@ public class UserView extends javax.swing.JFrame {
 
     private void btn_changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_changeActionPerformed
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        jP_changes.setBackground(Color.WHITE);
-        
+        try {
+            
+            editInfo();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
     }//GEN-LAST:event_btn_changeActionPerformed
 
     private void btn_addCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addCardActionPerformed
