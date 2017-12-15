@@ -5,41 +5,85 @@
  */
 package Views;
 
+import Classes.GlobalsSingleton;
+import Conectmysql.ConexionDB;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Steve
+ * @author Steve and Marcos
  */
 public class HotelView extends javax.swing.JFrame {
-
-    /**
-     * Creates new form HotelView
-     */
-    public HotelView() {
+   
+    GlobalsSingleton global = GlobalsSingleton.getInstance();
+    Connection conect = ConexionDB.Connectdatabase();
+    DefaultTableModel dftables = new DefaultTableModel();
+    
+    public HotelView() throws SQLException {
+        
         initComponents();
-        showStarts();
         showImagesHotel();
-        
-        
+        blockItems();
+        showHotelInfo();
+           
     }
 
-    
-    public void showStarts(){
+    //This method show the starts that the hotel has.
+    public void showStars(){
         
         ImageIcon star = new ImageIcon(getClass().getResource("../images/star.png"));
         Icon iconStar = new ImageIcon(star.getImage());
         
+        if (global.getHotelStars() == 1){
+            
+            star1jLabel.setIcon(iconStar);
+            
+        }
         
-        star1jLabel.setIcon(iconStar);
-        star2jLabel.setIcon(iconStar);
-        star3jLabel.setIcon(iconStar);
-        star4jLabel.setIcon(iconStar);
-        star5jLabel.setIcon(iconStar);
+        if (global.getHotelStars() == 2){
+            
+            star1jLabel.setIcon(iconStar);
+            star2jLabel.setIcon(iconStar);
+            
+        }
         
-  
+        if (global.getHotelStars() == 3){
+            
+            star1jLabel.setIcon(iconStar);
+            star2jLabel.setIcon(iconStar);
+            star3jLabel.setIcon(iconStar);
+            
+        }
+        
+        if (global.getHotelStars() == 4){
+            
+            star1jLabel.setIcon(iconStar);
+            star2jLabel.setIcon(iconStar);
+            star3jLabel.setIcon(iconStar);
+            star4jLabel.setIcon(iconStar);
+            
+        }
+        
+        else{
+            
+            star1jLabel.setIcon(iconStar);
+            star2jLabel.setIcon(iconStar);
+            star3jLabel.setIcon(iconStar);
+            star4jLabel.setIcon(iconStar);
+            star5jLabel.setIcon(iconStar);
+
+        }
+
     }
     
     public void showImagesHotel(){
@@ -55,11 +99,89 @@ public class HotelView extends javax.swing.JFrame {
         
     }
     
+    //This method show the Queries view.
+    public static void showReservation() {
+
+        ReservationsView oReservationsView = new ReservationsView();
+        oReservationsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        oReservationsView.setLocationRelativeTo(null);
+        oReservationsView.setVisible(true);
+
+    }
+    
+    public void blockItems(){
+        
+        txt_hotelName.setEditable(false);
+        txt_telNumber.setEditable(false);
+        txt_country.setEditable(false);
+        txt_ubication.setEditable(false);
+        txt_chechInTime.setEditable(false);
+        txt_checkOutTime.setEditable(false);
+        txt_lodgingType.setEditable(false);
+        txt_construtionYear.setEditable(false);
+        txt_hotelSize.setEditable(false);
+        txt_requirementCheckin.setEditable(false);
+  
+    }
+    
    
-    
-    
-    
-    
+    //This method show the information about the Hotel
+    public void showHotelInfo() throws SQLException{
+        
+        String urlUser = "SELECT * FROM hotel ";
+
+        String hotelName;
+        int telNumber;
+        String country;
+        String ubication;
+        int chechInTime;
+        int checkOutTime;
+        String lodgingType;
+        int construtionYear;
+        int hotelSize;
+        int starnumbers;
+        String requirementCheckin;
+
+        java.sql.Statement selectconect = conect.createStatement();
+
+        ResultSet result = selectconect.executeQuery(urlUser);
+
+        while (result.next()) {
+
+            hotelName = result.getString("hotel_name");
+            telNumber = result.getInt("telephone");
+            country = result.getString("country");
+            ubication = result.getString("address");
+            chechInTime = result.getInt("checkingtime");
+            checkOutTime = result.getInt("chekouttime");
+            lodgingType = result.getString("lodgingtype");
+            construtionYear = result.getInt("construcctionyears");
+            hotelSize = result.getInt("hotelsize");
+            starnumbers = result.getInt("starnumbers");
+            requirementCheckin = result.getString("requirementCheckin");
+
+            if (hotelName.equals(global.getHotelName())) {
+                    
+                txt_hotelName.setText(hotelName);
+                txt_telNumber.setText(String.valueOf(telNumber));
+                txt_country.setText(country);
+                txt_ubication.setText(ubication);
+                txt_chechInTime.setText(String.valueOf(chechInTime));
+                txt_checkOutTime.setText(String.valueOf(checkOutTime));
+                txt_lodgingType.setText(lodgingType);
+                txt_construtionYear.setText(String.valueOf(construtionYear));
+                txt_hotelSize.setText(String.valueOf(hotelSize));
+                txt_requirementCheckin.setText(requirementCheckin);
+                
+                global.setHotelStars(starnumbers);
+                
+                showStars();
+
+            }
+
+        }
+
+    }
     
     
     
@@ -86,26 +208,24 @@ public class HotelView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        hotelNamejTextField = new javax.swing.JTextField();
-        telNumberjTextField = new javax.swing.JTextField();
-        countryjTextField = new javax.swing.JTextField();
-        ubicationjTextField = new javax.swing.JTextField();
-        chechInTimejTextField = new javax.swing.JTextField();
-        checkOutTimejTextField = new javax.swing.JTextField();
-        lodgingTypejTextField = new javax.swing.JTextField();
-        construtionYearjTextField = new javax.swing.JTextField();
+        txt_hotelName = new javax.swing.JTextField();
+        txt_telNumber = new javax.swing.JTextField();
+        txt_country = new javax.swing.JTextField();
+        txt_ubication = new javax.swing.JTextField();
+        txt_chechInTime = new javax.swing.JTextField();
+        txt_checkOutTime = new javax.swing.JTextField();
+        txt_lodgingType = new javax.swing.JTextField();
+        txt_construtionYear = new javax.swing.JTextField();
         hotelPicturejLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        hotelSizejTextField = new javax.swing.JTextField();
+        txt_hotelSize = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        servicesHotelTable = new javax.swing.JTable();
+        tbl_servicesHotel = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        attractionsHotelTable = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        requirementsCheckInTable = new javax.swing.JTable();
+        tbl_attractionsHotel = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
-        roomInformationTable = new javax.swing.JTable();
+        tbl_roomInformation = new javax.swing.JTable();
         star2jLabel = new javax.swing.JLabel();
         star1jLabel = new javax.swing.JLabel();
         star5jLabel = new javax.swing.JLabel();
@@ -114,6 +234,9 @@ public class HotelView extends javax.swing.JFrame {
         imagesHoteljLabel = new javax.swing.JLabel();
         previousjButton = new javax.swing.JButton();
         nextjButton = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txt_requirementCheckin = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,33 +268,33 @@ public class HotelView extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel8.setText("Construction Year");
 
-        hotelNamejTextField.addActionListener(new java.awt.event.ActionListener() {
+        txt_hotelName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hotelNamejTextFieldActionPerformed(evt);
+                txt_hotelNameActionPerformed(evt);
             }
         });
 
-        telNumberjTextField.addActionListener(new java.awt.event.ActionListener() {
+        txt_telNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telNumberjTextFieldActionPerformed(evt);
+                txt_telNumberActionPerformed(evt);
             }
         });
 
-        ubicationjTextField.addActionListener(new java.awt.event.ActionListener() {
+        txt_ubication.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ubicationjTextFieldActionPerformed(evt);
+                txt_ubicationActionPerformed(evt);
             }
         });
 
-        checkOutTimejTextField.addActionListener(new java.awt.event.ActionListener() {
+        txt_checkOutTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkOutTimejTextFieldActionPerformed(evt);
+                txt_checkOutTimeActionPerformed(evt);
             }
         });
 
-        construtionYearjTextField.addActionListener(new java.awt.event.ActionListener() {
+        txt_construtionYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                construtionYearjTextFieldActionPerformed(evt);
+                txt_construtionYearActionPerformed(evt);
             }
         });
 
@@ -183,7 +306,7 @@ public class HotelView extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel11.setText("m² ");
 
-        servicesHotelTable.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_servicesHotel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -191,9 +314,9 @@ public class HotelView extends javax.swing.JFrame {
                 "Hotel's Services "
             }
         ));
-        jScrollPane1.setViewportView(servicesHotelTable);
+        jScrollPane1.setViewportView(tbl_servicesHotel);
 
-        attractionsHotelTable.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_attractionsHotel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -201,19 +324,9 @@ public class HotelView extends javax.swing.JFrame {
                 "Hotel's Attractions "
             }
         ));
-        jScrollPane2.setViewportView(attractionsHotelTable);
+        jScrollPane2.setViewportView(tbl_attractionsHotel);
 
-        requirementsCheckInTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Requirements to Check-In"
-            }
-        ));
-        jScrollPane3.setViewportView(requirementsCheckInTable);
-
-        roomInformationTable.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_roomInformation.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -221,7 +334,7 @@ public class HotelView extends javax.swing.JFrame {
                 "Room Type", "Room Information "
             }
         ));
-        jScrollPane4.setViewportView(roomInformationTable);
+        jScrollPane4.setViewportView(tbl_roomInformation);
 
         previousjButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/previous.png"))); // NOI18N
 
@@ -229,6 +342,17 @@ public class HotelView extends javax.swing.JFrame {
         nextjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextjButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel9.setText("Check In Requirement");
+
+        jButton1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jButton1.setText("Make a Reservation In This Hotel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -243,43 +367,43 @@ public class HotelView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hotelNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_hotelName, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ubicationjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_ubication, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(countryjTextField))
+                            .addComponent(txt_country))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(telNumberjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_telNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(checkOutTimejTextField))
+                            .addComponent(txt_checkOutTime))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(chechInTimejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_chechInTime, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lodgingTypejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_lodgingType, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hotelSizejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_hotelSize, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(construtionYearjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txt_construtionYear, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(imagesHoteljLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -301,7 +425,9 @@ public class HotelView extends javax.swing.JFrame {
                         .addComponent(star4jLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(star5jLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel9)
+                    .addComponent(txt_requirementCheckin)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -322,19 +448,19 @@ public class HotelView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(hotelNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_hotelName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(telNumberjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_telNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(countryjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(ubicationjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_ubication, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,28 +469,30 @@ public class HotelView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_requirementCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(127, 127, 127))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(chechInTimejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_chechInTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(checkOutTimejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_checkOutTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(lodgingTypejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_lodgingType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(construtionYearjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_construtionYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(hotelSizejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_hotelSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,8 +501,12 @@ public class HotelView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(previousjButton)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(imagesHoteljLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(imagesHoteljLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap())))))
         );
 
@@ -411,29 +543,36 @@ public class HotelView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void hotelNamejTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotelNamejTextFieldActionPerformed
+    private void txt_hotelNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hotelNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_hotelNamejTextFieldActionPerformed
+    }//GEN-LAST:event_txt_hotelNameActionPerformed
 
-    private void telNumberjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telNumberjTextFieldActionPerformed
+    private void txt_telNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telNumberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_telNumberjTextFieldActionPerformed
+    }//GEN-LAST:event_txt_telNumberActionPerformed
 
-    private void ubicationjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubicationjTextFieldActionPerformed
+    private void txt_ubicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ubicationActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ubicationjTextFieldActionPerformed
+    }//GEN-LAST:event_txt_ubicationActionPerformed
 
-    private void checkOutTimejTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutTimejTextFieldActionPerformed
+    private void txt_checkOutTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_checkOutTimeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_checkOutTimejTextFieldActionPerformed
+    }//GEN-LAST:event_txt_checkOutTimeActionPerformed
 
-    private void construtionYearjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_construtionYearjTextFieldActionPerformed
+    private void txt_construtionYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_construtionYearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_construtionYearjTextFieldActionPerformed
+    }//GEN-LAST:event_txt_construtionYearActionPerformed
 
     private void nextjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextjButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nextjButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        showReservation();
+  
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -465,21 +604,19 @@ public class HotelView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HotelView().setVisible(true);
+                try {
+                    new HotelView().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(HotelView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable attractionsHotelTable;
-    private javax.swing.JTextField chechInTimejTextField;
-    private javax.swing.JTextField checkOutTimejTextField;
-    private javax.swing.JTextField construtionYearjTextField;
-    private javax.swing.JTextField countryjTextField;
-    private javax.swing.JTextField hotelNamejTextField;
     private javax.swing.JLabel hotelPicturejLabel;
-    private javax.swing.JTextField hotelSizejTextField;
     private javax.swing.JLabel imagesHoteljLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -490,24 +627,31 @@ public class HotelView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField lodgingTypejTextField;
     private javax.swing.JButton nextjButton;
     private javax.swing.JButton previousjButton;
-    private javax.swing.JTable requirementsCheckInTable;
-    private javax.swing.JTable roomInformationTable;
-    private javax.swing.JTable servicesHotelTable;
     private javax.swing.JLabel star1jLabel;
     private javax.swing.JLabel star2jLabel;
     private javax.swing.JLabel star3jLabel;
     private javax.swing.JLabel star4jLabel;
     private javax.swing.JLabel star5jLabel;
-    private javax.swing.JTextField telNumberjTextField;
-    private javax.swing.JTextField ubicationjTextField;
+    private javax.swing.JTable tbl_attractionsHotel;
+    private javax.swing.JTable tbl_roomInformation;
+    private javax.swing.JTable tbl_servicesHotel;
+    private javax.swing.JTextField txt_chechInTime;
+    private javax.swing.JTextField txt_checkOutTime;
+    private javax.swing.JTextField txt_construtionYear;
+    private javax.swing.JTextField txt_country;
+    private javax.swing.JTextField txt_hotelName;
+    private javax.swing.JTextField txt_hotelSize;
+    private javax.swing.JTextField txt_lodgingType;
+    private javax.swing.JTextField txt_requirementCheckin;
+    private javax.swing.JTextField txt_telNumber;
+    private javax.swing.JTextField txt_ubication;
     // End of variables declaration//GEN-END:variables
 }

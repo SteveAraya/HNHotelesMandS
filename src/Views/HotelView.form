@@ -81,53 +81,53 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="hotelNamejTextField" min="-2" pref="292" max="-2" attributes="0"/>
+                              <Component id="txt_hotelName" min="-2" pref="292" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ubicationjTextField" min="-2" pref="306" max="-2" attributes="0"/>
+                              <Component id="txt_ubication" min="-2" pref="306" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="countryjTextField" max="32767" attributes="0"/>
+                                  <Component id="txt_country" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="telNumberjTextField" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Component id="txt_telNumber" min="-2" pref="147" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="checkOutTimejTextField" max="32767" attributes="0"/>
+                                  <Component id="txt_checkOutTime" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="chechInTimejTextField" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="txt_chechInTime" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="lodgingTypejTextField" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="txt_lodgingType" min="-2" pref="184" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="hotelSizejTextField" min="-2" pref="114" max="-2" attributes="0"/>
+                              <Component id="txt_hotelSize" min="-2" pref="114" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="construtionYearjTextField" min="-2" pref="157" max="-2" attributes="0"/>
+                              <Component id="txt_construtionYear" min="-2" pref="157" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="imagesHoteljLabel" min="-2" pref="278" max="-2" attributes="0"/>
@@ -154,7 +154,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="star5jLabel" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
+                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_requirementCheckin" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="33" max="32767" attributes="0"/>
                   </Group>
@@ -181,22 +183,22 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hotelNamejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_hotelName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="telNumberjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_telNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="countryjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_country" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ubicationjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_ubication" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jScrollPane1" min="-2" pref="140" max="-2" attributes="0"/>
@@ -208,33 +210,35 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane4" min="-2" pref="140" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" min="-2" pref="140" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txt_requirementCheckin" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="chechInTimejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_chechInTime" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="checkOutTimejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_checkOutTime" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lodgingTypejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_lodgingType" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="construtionYearjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_construtionYear" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hotelSizejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_hotelSize" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -245,8 +249,14 @@
                                       <Component id="previousjButton" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="imagesHoteljLabel" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="imagesHoteljLabel" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <Component id="jButton1" min="-2" pref="58" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -321,35 +331,35 @@
                 <Property name="text" type="java.lang.String" value="Construction Year"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="hotelNamejTextField">
+            <Component class="javax.swing.JTextField" name="txt_hotelName">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hotelNamejTextFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_hotelNameActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="telNumberjTextField">
+            <Component class="javax.swing.JTextField" name="txt_telNumber">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="telNumberjTextFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_telNumberActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="countryjTextField">
+            <Component class="javax.swing.JTextField" name="txt_country">
             </Component>
-            <Component class="javax.swing.JTextField" name="ubicationjTextField">
+            <Component class="javax.swing.JTextField" name="txt_ubication">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ubicationjTextFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_ubicationActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="chechInTimejTextField">
+            <Component class="javax.swing.JTextField" name="txt_chechInTime">
             </Component>
-            <Component class="javax.swing.JTextField" name="checkOutTimejTextField">
+            <Component class="javax.swing.JTextField" name="txt_checkOutTime">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkOutTimejTextFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_checkOutTimeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="lodgingTypejTextField">
+            <Component class="javax.swing.JTextField" name="txt_lodgingType">
             </Component>
-            <Component class="javax.swing.JTextField" name="construtionYearjTextField">
+            <Component class="javax.swing.JTextField" name="txt_construtionYear">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="construtionYearjTextFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_construtionYearActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="hotelPicturejLabel">
@@ -365,7 +375,7 @@
                 <Property name="text" type="java.lang.String" value="Hotel Size"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="hotelSizejTextField">
+            <Component class="javax.swing.JTextField" name="txt_hotelSize">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
@@ -382,7 +392,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="servicesHotelTable">
+                <Component class="javax.swing.JTable" name="tbl_servicesHotel">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="1" rowCount="0">
@@ -400,29 +410,11 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="attractionsHotelTable">
+                <Component class="javax.swing.JTable" name="tbl_attractionsHotel">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="1" rowCount="0">
                         <Column editable="true" title="Hotel&apos;s Attractions " type="java.lang.Object"/>
-                      </Table>
-                    </Property>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTable" name="requirementsCheckInTable">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="1" rowCount="0">
-                        <Column editable="true" title="Requirements to Check-In" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>
@@ -436,7 +428,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="roomInformationTable">
+                <Component class="javax.swing.JTable" name="tbl_roomInformation">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="0">
@@ -475,6 +467,27 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextjButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel9">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Lucida Grande" size="13" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Check In Requirement"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txt_requirementCheckin">
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Lucida Grande" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Make a Reservation In This Hotel"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

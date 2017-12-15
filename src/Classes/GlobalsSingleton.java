@@ -34,6 +34,7 @@ public class GlobalsSingleton {
     Date exitDate;
     
     String hotelName;
+    int hotelStars;
     
 
     private GlobalsSingleton() {
@@ -197,6 +198,16 @@ public class GlobalsSingleton {
     public void setHotelName(String hotelName) {
         instance.hotelName = hotelName;
     }
+
+    public int getHotelStars() {
+        return instance.hotelStars;
+    }
+
+    public void setHotelStars(int hotelStars) {
+        instance.hotelStars = hotelStars;
+    }
+    
+    
 
     
     
