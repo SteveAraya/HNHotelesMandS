@@ -48,7 +48,7 @@ public class Rooms extends javax.swing.JFrame {
         ResultSet resultroom = selectconect.executeQuery(urlhotelverify);
         tbl_typeroom.setModel(dftablert);
         dftablert.setColumnIdentifiers(new Object[]{"Num Room", "Floor", "Description","Room size","Room Price",
-        "Room Attractive","Room Type"});
+        "Room Attractive","Room Type","Room status","roomprice"});
 
         try {
             while (resultroom.next()) {
@@ -114,7 +114,7 @@ public class Rooms extends javax.swing.JFrame {
         int roomprice = Integer.parseInt(txt_roomprice.getText());
 
         try {
-            PreparedStatement insertroom = conect.prepareStatement("Insert Into room(num_room,floornumber,description,roomsize,room_attractive,room_type,roomstatus,roomprice,id_hotel)"
+            PreparedStatement insertroom = conect.prepareStatement("Insert Into room(num_room,floornumber,description,roomsize,room_attractive,id_type,roomstatus,roomprice,id_hotel)"
                     + "Values(?,?,?,?,?,?,?,?,?)");
             insertroom.setInt(1, num_room);
             insertroom.setString(2, floornumber);
