@@ -36,6 +36,10 @@ public class GlobalsSingleton {
     String hotelName;
     int hotelStars;
     
+    String cardNumber;
+    int numRoom;
+    int idRoomType;
+    
 
     private GlobalsSingleton() {
 
@@ -205,6 +209,30 @@ public class GlobalsSingleton {
 
     public void setHotelStars(int hotelStars) {
         instance.hotelStars = hotelStars;
+    }
+
+    public String getCardNumber() {
+        return instance.cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        instance.cardNumber = cardNumber;
+    }
+
+    public int getNumRoom() {
+        return instance.numRoom;
+    }
+
+    public void setNumRoom(int numRoom) {
+        instance.numRoom = numRoom;
+    }
+
+    public int getIdRoomType() {
+        return instance.idRoomType;
+    }
+
+    public void setIdRoomType(int idRoomType) {
+        instance.idRoomType = idRoomType;
     }
     
     
