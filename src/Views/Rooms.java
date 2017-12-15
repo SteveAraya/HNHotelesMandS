@@ -39,6 +39,21 @@ public class Rooms extends javax.swing.JFrame {
         verifytyperoom();
     }
 
+    public void cleantexfield() {
+
+        txt_numroom.setText("");
+        txt_floornumber.setText("");
+        txt_description.setText("");
+        txt_roomsize.setText("");
+        txt_roomprice.setText("");
+        txt_roomattractive.setText("");
+        txt_roomprice.setText("");
+        txt_roomtype.setText("");
+        txt_capacity.setText("");
+        txt_bedtype.setText("");
+
+    }
+
     public void verifyroom() throws SQLException {
 
         String urlhotelverify = "SELECT * FROM room";
@@ -46,9 +61,9 @@ public class Rooms extends javax.swing.JFrame {
 
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultroom = selectconect.executeQuery(urlhotelverify);
-        tbl_typeroom.setModel(dftablert);
-        dftablert.setColumnIdentifiers(new Object[]{"Num Room", "Floor", "Description","Room size","Room Price",
-        "Room Attractive","Room Type","Room status","roomprice"});
+        tbl_room.setModel(dftabler);
+        dftabler.setColumnIdentifiers(new Object[]{"Num Room", "Floor", "Description", "Room size", "Room Price",
+            "Room Attractive", "Room Type", "Room status", "roomprice"});
 
         try {
             while (resultroom.next()) {
@@ -56,10 +71,10 @@ public class Rooms extends javax.swing.JFrame {
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
 
-                    dftablert.addRow(new Object[]{resultroom.getString("num_room"), resultroom.getInt("floornumber"),
-                        resultroom.getString("description"),resultroom.getString("roomsize"), resultroom.getInt("room_attractive"),
-                    resultroom.getString("id_type"), resultroom.getInt("roomstatus"),resultroom.getString("roomprice"), 
-                    resultroom.getInt("id_hotel"),});
+                    dftabler.addRow(new Object[]{resultroom.getInt("num_room"), resultroom.getString("floornumber"),
+                        resultroom.getString("description"), resultroom.getInt("roomsize"), resultroom.getString("room_attractive"),
+                        resultroom.getInt("id_type"), resultroom.getString("roomstatus"), resultroom.getInt("roomprice"),
+                        resultroom.getInt("id_hotel"),});
 
                 }
             }
@@ -230,7 +245,7 @@ public class Rooms extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         txt_typeroom = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        txt_roomattractive1 = new javax.swing.JTextField();
+        txt_roomattractive = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -494,9 +509,9 @@ public class Rooms extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Room Type");
 
-        txt_roomattractive1.addActionListener(new java.awt.event.ActionListener() {
+        txt_roomattractive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_roomattractive1jTextField4ActionPerformed(evt);
+                txt_roomattractivejTextField4ActionPerformed(evt);
             }
         });
 
@@ -534,7 +549,7 @@ public class Rooms extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createSequentialGroup()
                             .addComponent(jLabel17)
                             .addGap(18, 18, 18)
-                            .addComponent(txt_roomattractive1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txt_roomattractive, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(111, 111, 111)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_modifyrooms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -577,7 +592,7 @@ public class Rooms extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(txt_roomattractive1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_roomattractive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
@@ -644,11 +659,14 @@ public class Rooms extends javax.swing.JFrame {
     private void btn_insertroomsroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertroomsroomActionPerformed
         try {
             insertroom();
+            verifyroom();
 
         } catch (SQLException ex) {
             Logger.getLogger(Rooms.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        GlobalsSingleton.getInstance().cleantableservice(dftabler);
+        cleantexfield();
     }//GEN-LAST:event_btn_insertroomsroomActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -698,9 +716,7 @@ public class Rooms extends javax.swing.JFrame {
         }
 
         GlobalsSingleton.getInstance().cleantableservice(dftablert);
-        txt_bedtype.setText("");
-        txt_capacity.setText("");
-        txt_roomtype.setText("");
+        cleantexfield();
 
 
     }//GEN-LAST:event_btn_insertroom1ActionPerformed
@@ -729,28 +745,29 @@ public class Rooms extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_typeroomjTextField4ActionPerformed
 
-    private void txt_roomattractive1jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_roomattractive1jTextField4ActionPerformed
+    private void txt_roomattractivejTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_roomattractivejTextField4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_roomattractive1jTextField4ActionPerformed
+    }//GEN-LAST:event_txt_roomattractivejTextField4ActionPerformed
 
     private void tbl_typeroomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_typeroomMouseClicked
 
         int select = tbl_typeroom.rowAtPoint(evt.getPoint());
-        txt_roomtype.setText(String.valueOf(tbl_typeroom.getValueAt(select, 1)));
-        txt_capacity.setText(String.valueOf(tbl_typeroom.getValueAt(select, 2)));
-        txt_bedtype.setText(String.valueOf(tbl_typeroom.getValueAt(select, 3)));
+        txt_roomtype.setText(String.valueOf(tbl_typeroom.getValueAt(select, 0)));
+        txt_capacity.setText(String.valueOf(tbl_typeroom.getValueAt(select, 1)));
+        txt_bedtype.setText(String.valueOf(tbl_typeroom.getValueAt(select, 2)));
 
     }//GEN-LAST:event_tbl_typeroomMouseClicked
 
     private void tbl_roomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_roomMouseClicked
-        int select = tbl_typeroom.rowAtPoint(evt.getPoint());
-        txt_numroom.setText(String.valueOf(tbl_typeroom.getValueAt(select, 1)));
-        txt_floornumber.setText(String.valueOf(tbl_typeroom.getValueAt(select, 2)));
-        txt_description.setText(String.valueOf(tbl_typeroom.getValueAt(select, 3)));
-        txt_roomsize.setText(String.valueOf(tbl_typeroom.getValueAt(select, 4)));
-        txt_roomprice.setText(String.valueOf(tbl_typeroom.getValueAt(select, 5)));
-        txt_roomattractive1.setText(String.valueOf(tbl_typeroom.getValueAt(select, 6)));
-        txt_roomprice.setText(String.valueOf(tbl_typeroom.getValueAt(select, 7)));
+
+        int select = tbl_room.rowAtPoint(evt.getPoint());
+        txt_numroom.setText(String.valueOf(tbl_room.getValueAt(select, 0)));
+        txt_floornumber.setText(String.valueOf(tbl_room.getValueAt(select, 1)));
+        txt_description.setText(String.valueOf(tbl_room.getValueAt(select, 2)));
+        txt_roomsize.setText(String.valueOf(tbl_room.getValueAt(select, 3)));
+        txt_roomprice.setText(String.valueOf(tbl_room.getValueAt(select, 4)));
+        txt_roomattractive.setText(String.valueOf(tbl_room.getValueAt(select, 5)));
+        txt_roomprice.setText(String.valueOf(tbl_room.getValueAt(select, 6)));
 
     }//GEN-LAST:event_tbl_roomMouseClicked
 
@@ -837,7 +854,7 @@ public class Rooms extends javax.swing.JFrame {
     private javax.swing.JTextField txt_description;
     private javax.swing.JTextField txt_floornumber;
     private javax.swing.JTextField txt_numroom;
-    private javax.swing.JTextField txt_roomattractive1;
+    private javax.swing.JTextField txt_roomattractive;
     private javax.swing.JTextField txt_roomprice;
     private javax.swing.JTextField txt_roomsize;
     private javax.swing.JTextField txt_roomtype;
