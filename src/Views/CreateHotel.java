@@ -280,9 +280,9 @@ public class CreateHotel extends javax.swing.JFrame {
         String country = txt_country.getText();
 
         try {
-            String url=("update Hotel SET id_hotel=?,hotel_name=?,country=?,telephone=?,address=?,construcctionyears=?,starnumbers=?,"
-                    + "lodgingtype=?,hotelsize=?,checkingtime=?,chekouttime=?,requirementCheckin=?,id_user=?"
-                    +"where id_user=?");
+            String url=("update hotel SET id_hotel=?,hotel_name=?,country=?,telephone=?,address=?,construcctionyears=?,starnumbers=?,lodgingtype=?,hotelsize=?,checkingtime=?,chekouttime=?,requirementCheckin=?"
+                    +"where id_user= "+GlobalsSingleton.getInstance().getUserID()+" " );
+           
             
              PreparedStatement inserthotel = conect.prepareStatement(url);
             inserthotel.setInt(1, id_hotel);
@@ -297,7 +297,7 @@ public class CreateHotel extends javax.swing.JFrame {
             inserthotel.setString(10, checkin);
             inserthotel.setString(11, chekout);
             inserthotel.setString(12, checkinrequeriment);
-            inserthotel.setInt(13, GlobalsSingleton.getInstance().getUserID());
+//            inserthotel.setInt(13, GlobalsSingleton.getInstance().getUserID());
 
         if(inserthotel.executeUpdate() > 0){
         

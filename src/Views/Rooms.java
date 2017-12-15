@@ -76,7 +76,7 @@ public class Rooms extends javax.swing.JFrame {
         int capacity = Integer.parseInt(txt_capacity.getText());
         String bedtype = txt_bedtype.getText();
 
-        String urlhotelverify = "SELECT * FROM season";
+        String urlhotelverify = "SELECT * FROM season where season_code= ?";
         String seasonverify = null;
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
@@ -95,7 +95,7 @@ public class Rooms extends javax.swing.JFrame {
             insertroomtype.setString(1, roomtype);
             insertroomtype.setInt(2, capacity);
             insertroomtype.setString(3, bedtype);
-            insertroomtype.setString(4, "2");
+            insertroomtype.setString(4,seasonverify);
 
             int servicei = insertroomtype.executeUpdate();
 
