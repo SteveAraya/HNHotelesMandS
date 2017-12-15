@@ -29,6 +29,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainView extends javax.swing.JFrame {
 
+    GlobalsSingleton global = GlobalsSingleton.getInstance();
+    Connection conect = ConexionDB.Connectdatabase();
+    DefaultTableModel dftables = new DefaultTableModel();
+    
     public MainView() {
         initComponents();
         blockItems();
@@ -84,6 +88,16 @@ public class MainView extends javax.swing.JFrame {
         oHotelView.setVisible(true);
 
     }
+    
+    //This method show the Queries view.
+    public static void showQuery() {
+
+        QueriesView oQueriesView = new QueriesView();
+        oQueriesView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        oQueriesView.setLocationRelativeTo(null);
+        oQueriesView.setVisible(true);
+
+    }
 
     //This method block the Items of the main view.
     public void blockItems() {
@@ -91,14 +105,14 @@ public class MainView extends javax.swing.JFrame {
         entryjDateChooser.setEnabled(false);
         exitjDateChooser.setEnabled(false);
 
-        ((DefaultEditor) roomAmountjSpinner.getEditor()).getTextField().setEditable(false);
-        roomAmountjSpinner.setEnabled(false);
+        ((DefaultEditor) sp_roomAmount.getEditor()).getTextField().setEditable(false);
+        sp_roomAmount.setEnabled(false);
 
-        ((DefaultEditor) adultAmountjSpinner.getEditor()).getTextField().setEditable(false);
-        adultAmountjSpinner.setEnabled(false);
+        ((DefaultEditor) sp_adultAmount.getEditor()).getTextField().setEditable(false);
+        sp_adultAmount.setEnabled(false);
 
-        ((DefaultEditor) childremAmountjSpinner.getEditor()).getTextField().setEditable(false);
-        childremAmountjSpinner.setEnabled(false);
+        ((DefaultEditor) sp_childremAmount.getEditor()).getTextField().setEditable(false);
+        sp_childremAmount.setEnabled(false);
 
         searchButton.setEnabled(false);
         seeHotelButton.setEnabled(false);
@@ -123,14 +137,14 @@ public class MainView extends javax.swing.JFrame {
         entryjDateChooser.setEnabled(true);
         exitjDateChooser.setEnabled(true);
 
-        ((DefaultEditor) roomAmountjSpinner.getEditor()).getTextField().setEditable(true);
-        roomAmountjSpinner.setEnabled(true);
+        ((DefaultEditor) sp_roomAmount.getEditor()).getTextField().setEditable(true);
+        sp_roomAmount.setEnabled(true);
 
-        ((DefaultEditor) adultAmountjSpinner.getEditor()).getTextField().setEditable(true);
-        adultAmountjSpinner.setEnabled(true);
+        ((DefaultEditor) sp_adultAmount.getEditor()).getTextField().setEditable(true);
+        sp_adultAmount.setEnabled(true);
 
-        ((DefaultEditor) childremAmountjSpinner.getEditor()).getTextField().setEditable(true);
-        childremAmountjSpinner.setEnabled(true);
+        ((DefaultEditor) sp_childremAmount.getEditor()).getTextField().setEditable(true);
+        sp_childremAmount.setEnabled(true);
 
         searchButton.setEnabled(true);
         seeHotelButton.setEnabled(true);
@@ -153,65 +167,52 @@ public class MainView extends javax.swing.JFrame {
 
 
 
-    //This method obtains the position of the tree.
-    //Tengo que hacerlo para que la base de datos
-//    public int getNumberOfRow(){
-//        
-//            int numRow = 0;
-//            
-//            while(tempTree.getTreeNext() != firstTree){
-//                numRow += 1;
-//                tempTree = tempTree.getTreeNext();
-//            }
-//            
-//            return 1 + numRow;
-//            
-//        }
-//    
-//    }
 
+    public void searchHotels() throws SQLException {
 
-    public void searchHotels() {
+        
+        if (sp_roomAmount.getValue().toString().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define an amount of rooms to search hotels",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.sp_roomAmount.requestFocus();
+            return;
+            
+        }
+        if (sp_adultAmount.getValue().toString().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define an amount of adults to search hotels",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.sp_adultAmount.requestFocus();
+            return;
+            
+        }
+        if (sp_childremAmount.getValue().toString().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define an amount of childrem to search hotels",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.sp_childremAmount.requestFocus();
+            return;
+            
+        }
+        
+        int roomAmount = Integer.parseInt(sp_roomAmount.getValue().toString());
+        int adultAmount = Integer.parseInt(sp_adultAmount.getValue().toString());
+        int childremAmount = Integer.parseInt(sp_childremAmount.getValue().toString());
 
-        //ver que putas recibe un spiner
-//        if (roomAmountjSpinner.getText().equals("")){
-//            
-//            JOptionPane.showMessageDialog(this, "You must define an amount of rooms to search hotels",
-//                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-//            this.roomAmountjSpinner.requestFocus();
-//            return;
-//            
-//        }
-//        if (adultAmountjSpinner.getText().equals("")){
-//            
-//            JOptionPane.showMessageDialog(this, "You must define an amount of adults to search hotels",
-//                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-//            this.adultAmountjSpinner.requestFocus();
-//            return;
-//            
-//        }
-//        if (childremAmountjSpinner.getText().equals("")){
-//            
-//            JOptionPane.showMessageDialog(this, "You must define an amount of childrem to search hotels",
-//                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-//            this.childremAmountjSpinner.requestFocus();
-//            return;
-//            
-//        }
+        Connection conect = ConexionDB.Connectdatabase();
+        DefaultTableModel hotelTable = new DefaultTableModel();
+        
+        
+        String urlhotelverify = "SELECT * FROM hotel";
+        
+        String hotelNameDB;
 
-//        Connection conect = ConexionDB.Connectdatabase();
-//        DefaultTableModel hotelTable = new DefaultTableModel();
-//        
-//        
-//        String urlhotelverify = "SELECT * FROM hotel";
-//        
-//        String hotelNameDB;
-//
-//        java.sql.Statement selectconect = conect.createStatement();
-//        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
-//        tbl_Hotels.setModel(hotelTable);
-//        hotelTable.setColumnIdentifiers(new Object[]{"Code", "Attractive"});
-//
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_Hotels.setModel(hotelTable);
+        hotelTable.setColumnIdentifiers(new Object[]{"Code", "Attractive"});
+
 //        try {
 //            while (resultservice.next()) {
 //                
@@ -230,29 +231,7 @@ public class MainView extends javax.swing.JFrame {
 
 
 
-//        String Table[][] = new String[getNumberOfRow()][2]; 
-//            
-//            int fila = 0;
-//            
-//            while(tempTree.getTreeNext() != firstTree){
-//                
-//                Table[fila][0] = String.valueOf(tempTree.getTreeID());
-//                Table[fila][1] = tempTree.getTopicDescription();
-//                fila+=1;
-//                tempTree = tempTree.getTreeNext();
-//  
-//            }
-//            
-//            Table[fila][0] = String.valueOf(tempTree.getTreeID());
-//            Table[fila][1] = tempTree.getTopicDescription();
-//            
-//            
-//               treeTable.setModel(new javax.swing.table.DefaultTableModel(
-//                Table,
-//                new String[]{
-//                    "Numerical identifier", "Description of the topic"
-//                        
-//                }
+
 
 
 
@@ -284,9 +263,9 @@ public class MainView extends javax.swing.JFrame {
         childremAmountjLabel = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         searchButton = new javax.swing.JButton();
-        roomAmountjSpinner = new javax.swing.JSpinner();
-        adultAmountjSpinner = new javax.swing.JSpinner();
-        childremAmountjSpinner = new javax.swing.JSpinner();
+        sp_roomAmount = new javax.swing.JSpinner();
+        sp_adultAmount = new javax.swing.JSpinner();
+        sp_childremAmount = new javax.swing.JSpinner();
         entryjDateChooser = new com.toedter.calendar.JDateChooser();
         exitjDateChooser = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
@@ -305,7 +284,7 @@ public class MainView extends javax.swing.JFrame {
         userProfileViewMenu = new javax.swing.JMenu();
         userProfileMenuItem = new javax.swing.JMenuItem();
         modifyUserMenu = new javax.swing.JMenu();
-        editUserMenuItem = new javax.swing.JMenuItem();
+        queriesMenuItem = new javax.swing.JMenuItem();
         createHotelMenu = new javax.swing.JMenu();
         createHotelMenuItem = new javax.swing.JMenuItem();
         userTypeMenu = new javax.swing.JMenu();
@@ -366,9 +345,9 @@ public class MainView extends javax.swing.JFrame {
                     .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(adultAmountjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(childremAmountjLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-                        .addComponent(adultAmountjSpinner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(roomAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(childremAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sp_adultAmount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sp_roomAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sp_childremAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(entryjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(exitjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -387,15 +366,15 @@ public class MainView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(roomAmountLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(roomAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp_roomAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adultAmountjLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(adultAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp_adultAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(childremAmountjLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(childremAmountjSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp_childremAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
@@ -536,15 +515,15 @@ public class MainView extends javax.swing.JFrame {
 
         jMenuBar1.add(userProfileViewMenu);
 
-        modifyUserMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/UserEdit.png"))); // NOI18N
+        modifyUserMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/queryView.png"))); // NOI18N
 
-        editUserMenuItem.setText("Edit User");
-        editUserMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        queriesMenuItem.setText("Queries View");
+        queriesMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editUserMenuItemActionPerformed(evt);
+                queriesMenuItemActionPerformed(evt);
             }
         });
-        modifyUserMenu.add(editUserMenuItem);
+        modifyUserMenu.add(queriesMenuItem);
 
         jMenuBar1.add(modifyUserMenu);
 
@@ -609,10 +588,11 @@ public class MainView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_logInMenuItemActionPerformed
 
-    private void editUserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserMenuItemActionPerformed
+    private void queriesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queriesMenuItemActionPerformed
 
+        showQuery();
 
-    }//GEN-LAST:event_editUserMenuItemActionPerformed
+    }//GEN-LAST:event_queriesMenuItemActionPerformed
 
     private void userProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userProfileMenuItemActionPerformed
 
@@ -666,14 +646,22 @@ public class MainView extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
 
-        searchHotels();
+        try {
+            searchHotels();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyPressed
 
-        searchHotels();
+        try {
+            searchHotels();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_searchButtonKeyPressed
@@ -725,16 +713,13 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adultAmountjLabel;
-    private javax.swing.JSpinner adultAmountjSpinner;
     private javax.swing.JLabel childremAmountjLabel;
-    private javax.swing.JSpinner childremAmountjSpinner;
     private javax.swing.JMenu closeMenu;
     private javax.swing.JMenuItem closeProgramMenuItem;
     private javax.swing.JMenu createAccountMenu;
     public static javax.swing.JMenu createHotelMenu;
     private javax.swing.JMenuItem createHotelMenuItem;
     private javax.swing.JMenuItem createUserAccountMenuItem;
-    private javax.swing.JMenuItem editUserMenuItem;
     private javax.swing.JLabel entryDateLabel;
     private com.toedter.calendar.JDateChooser entryjDateChooser;
     private javax.swing.JLabel exitDateLabel;
@@ -748,14 +733,17 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu logInMenu;
     private javax.swing.JMenuItem logInMenuItem;
     public static javax.swing.JMenu modifyUserMenu;
+    private javax.swing.JMenuItem queriesMenuItem;
     private javax.swing.JLabel roomAmountLabel;
-    private javax.swing.JSpinner roomAmountjSpinner;
     private javax.swing.JButton searchButton;
     private javax.swing.JMenuItem searchHotelMenuItem;
     private javax.swing.JMenu searchMenu;
     private javax.swing.JPanel searchPanel;
     private javax.swing.JButton seeHotelButton;
     private javax.swing.JButton selectHotelButton;
+    private javax.swing.JSpinner sp_adultAmount;
+    private javax.swing.JSpinner sp_childremAmount;
+    private javax.swing.JSpinner sp_roomAmount;
     private javax.swing.JTable tbl_Hotels;
     public static javax.swing.JMenu userActiveInactiveMenu;
     public static javax.swing.JMenuItem userProfileMenuItem;

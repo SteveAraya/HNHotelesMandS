@@ -88,19 +88,19 @@
         <Menu class="javax.swing.JMenu" name="modifyUserMenu">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/UserEdit.png"/>
+              <Image iconType="3" name="/images/queryView.png"/>
             </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="editUserMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="queriesMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Edit User"/>
+                <Property name="text" type="java.lang.String" value="Queries View"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editUserMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="queriesMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -260,10 +260,10 @@
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Component id="adultAmountjLabel" alignment="0" max="32767" attributes="0"/>
                               <Component id="childremAmountjLabel" alignment="0" pref="219" max="32767" attributes="0"/>
-                              <Component id="adultAmountjSpinner" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                              <Component id="sp_adultAmount" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="roomAmountjSpinner" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
-                          <Component id="childremAmountjSpinner" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                          <Component id="sp_roomAmount" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                          <Component id="sp_childremAmount" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
                           <Component id="entryjDateChooser" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="exitjDateChooser" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -285,15 +285,15 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="roomAmountLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="roomAmountjSpinner" min="-2" max="-2" attributes="0"/>
+                      <Component id="sp_roomAmount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="adultAmountjLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="adultAmountjSpinner" min="-2" max="-2" attributes="0"/>
+                      <Component id="sp_adultAmount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="childremAmountjLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="childremAmountjSpinner" min="-2" max="-2" attributes="0"/>
+                      <Component id="sp_childremAmount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="searchButton" min="-2" pref="79" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -361,11 +361,11 @@
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchButtonKeyPressed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JSpinner" name="roomAmountjSpinner">
+            <Component class="javax.swing.JSpinner" name="sp_roomAmount">
             </Component>
-            <Component class="javax.swing.JSpinner" name="adultAmountjSpinner">
+            <Component class="javax.swing.JSpinner" name="sp_adultAmount">
             </Component>
-            <Component class="javax.swing.JSpinner" name="childremAmountjSpinner">
+            <Component class="javax.swing.JSpinner" name="sp_childremAmount">
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="entryjDateChooser">
             </Component>
