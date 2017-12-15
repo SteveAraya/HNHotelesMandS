@@ -1,21 +1,120 @@
 
 package Views;
 
+import Classes.GlobalsSingleton;
+import Conectmysql.ConexionDB;
+import static Views.UserView.tbl_cards;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Marcos and Steve
  */
 public class QueriesView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form userProfileView
-     */
+    
+    GlobalsSingleton global = GlobalsSingleton.getInstance();
+    Connection conect = ConexionDB.Connectdatabase();
+    DefaultTableModel dftables = new DefaultTableModel();
+    int idUser;
+    
     public QueriesView() {
         initComponents();
     }
 
     
     
+    public void boton11() throws SQLException{
+        
+        String urlhotelverify = "SELECT * FROM reservation";
+        int serviceverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_queries.setModel(dftables);
+        dftables.setColumnIdentifiers(new Object[]{"List of reservations", "Status Reservation"});
+
+        try {
+            while (resultservice.next()) {
+                
+                serviceverification = resultservice.getInt("id_user");
+
+                if (serviceverification == (GlobalsSingleton.getInstance().getUserID())) {
+                    try {
+                        while (resultservice.next()) {
+                            
+                            dftables.addRow(new Object[]{resultservice.getString("id_user"),
+                                resultservice.getString("reservationstatus")});
+
+                        }
+                    } catch (SQLException e) {
+
+                    }
+
+                } 
+                
+            }
+            
+        } 
+        
+        catch (SQLException e) {
+
+        }
+  
+    }
+
+    public void boton1() throws SQLException{
+        
+        if (txt_queries.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must enter an Date",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_queries.requestFocus();
+            return;
+            
+        }
+        
+        String emailUser = txt_queries.getText();
+        
+        
+
+        String urlhotelverify = "SELECT * FROM user";
+        String serviceverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        
+
+        try {
+            while (resultservice.next()) {
+                
+                serviceverification = resultservice.getString("email");
+
+                if (serviceverification.equals(emailUser)) {
+                    
+                    idUser = resultservice.getInt("id_user");
+                    
+
+                } 
+                
+            }
+            
+        } 
+        
+        catch (SQLException e) {
+
+        }
+        
+        boton11();
+        
+   
+    }
     
     
     
@@ -46,16 +145,17 @@ public class QueriesView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_queries = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btn_1 = new javax.swing.JButton();
+        btn_2 = new javax.swing.JButton();
+        btn_3 = new javax.swing.JButton();
+        btn_4 = new javax.swing.JButton();
+        btn_5 = new javax.swing.JButton();
+        btn_6 = new javax.swing.JButton();
+        btn_7 = new javax.swing.JButton();
+        btn_8 = new javax.swing.JButton();
+        txt_queries = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,7 +163,7 @@ public class QueriesView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_queries.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -74,71 +174,77 @@ public class QueriesView extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_queries);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/query.png"))); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton1.setText("Pending, completed and canceled reservations of a client.");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btn_1.setText("Pending, completed and canceled reservations of a client.");
+        btn_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_1ActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton2.setText("Pending reservations, completed and canceled per month of a hotel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btn_2.setText("Pending reservations, completed and canceled per month of a hotel");
+        btn_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_2ActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton3.setText("Top 10 hotels by number of reservations");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btn_3.setText("Top 10 hotels by number of reservations");
+        btn_3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_3ActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton4.setText("Statistics of income and visits of a hotel by season");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btn_4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btn_4.setText("Statistics of income and visits of a hotel by season");
+        btn_4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btn_4ActionPerformed(evt);
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton5.setText("Top of the 3 months with the highest occupancy in a year for a hotel");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btn_5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btn_5.setText("Top of the 3 months with the highest occupancy in a year for a hotel");
+        btn_5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btn_5ActionPerformed(evt);
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton6.setText("Top de los 3 meses con mayores ingresos para un hotel");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btn_6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btn_6.setText("Top de los 3 meses con mayores ingresos para un hotel");
+        btn_6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btn_6ActionPerformed(evt);
             }
         });
 
-        jButton7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton7.setText("General statistics of complete and canceled reservations");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btn_7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btn_7.setText("General statistics of complete and canceled reservations");
+        btn_7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btn_7ActionPerformed(evt);
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jButton8.setText("Falta la 8 pero hay que trabajarla aparte");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btn_8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        btn_8.setText("Falta la 8 pero hay que trabajarla aparte");
+        btn_8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btn_8ActionPerformed(evt);
+            }
+        });
+
+        txt_queries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_queriesActionPerformed(evt);
             }
         });
 
@@ -149,45 +255,52 @@ public class QueriesView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btn_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txt_queries, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_queries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btn_1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
+                        .addComponent(btn_2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
+                        .addComponent(btn_3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btn_4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5)
+                        .addComponent(btn_5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6)
+                        .addComponent(btn_6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton7)
+                        .addComponent(btn_7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton8)))
+                        .addComponent(btn_8)))
                 .addGap(12, 12, 12))
         );
 
@@ -224,37 +337,47 @@ public class QueriesView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_1ActionPerformed
+        
+        try {
+            boton1();
+        } catch (SQLException ex) {
+            Logger.getLogger(QueriesView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
+    }//GEN-LAST:event_btn_1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btn_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btn_4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btn_5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btn_5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btn_6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btn_6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btn_7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_7ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btn_7ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btn_8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_8ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btn_8ActionPerformed
+
+    private void txt_queriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_queriesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_queriesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,18 +416,19 @@ public class QueriesView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton btn_1;
+    private javax.swing.JButton btn_2;
+    private javax.swing.JButton btn_3;
+    private javax.swing.JButton btn_4;
+    private javax.swing.JButton btn_5;
+    private javax.swing.JButton btn_6;
+    private javax.swing.JButton btn_7;
+    private javax.swing.JButton btn_8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbl_queries;
+    private javax.swing.JTextField txt_queries;
     // End of variables declaration//GEN-END:variables
 }
