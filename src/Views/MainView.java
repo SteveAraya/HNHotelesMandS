@@ -100,6 +100,16 @@ public class MainView extends javax.swing.JFrame {
         oQueriesView.setVisible(true);
 
     }
+    
+    //This method show the Queries view.
+    public static void showReservation() {
+
+        ReservationsView oReservationsView = new ReservationsView();
+        oReservationsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        oReservationsView.setLocationRelativeTo(null);
+        oReservationsView.setVisible(true);
+
+    }
 
     //This method block the Items of the main view.
     public void blockItems() {
@@ -149,8 +159,6 @@ public class MainView extends javax.swing.JFrame {
         sp_childremAmount.setEnabled(true);
 
         searchButton.setEnabled(true);
-        seeHotelButton.setEnabled(true);
-        selectHotelButton.setEnabled(true);
 
         entryDateLabel.setText("Entry Date");
         exitDateLabel.setText("Exit Date");
@@ -231,6 +239,8 @@ public class MainView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Select one Hotel Please.",
                     "Empty fields", JOptionPane.WARNING_MESSAGE);
             
+            return;
+            
         }
         
         else{
@@ -239,12 +249,8 @@ public class MainView extends javax.swing.JFrame {
         
             global.setHotelName(hotelName);
             
-            showHotel();
-            
         }
-        
 
-  
     }
     
     
@@ -634,24 +640,26 @@ public class MainView extends javax.swing.JFrame {
     private void seeHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeHotelButtonActionPerformed
 
         selectRows();
+        showHotel();
 
     }//GEN-LAST:event_seeHotelButtonActionPerformed
 
     private void selectHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectHotelButtonActionPerformed
         // TODO add your handling code here:
         
-        cleanValues();
-        clearHotelsTable();
-        
-        
-        
-        
+        selectRows();
+        showReservation();
+         
     }//GEN-LAST:event_selectHotelButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
 
         try {
+            
             searchHotels();
+            seeHotelButton.setEnabled(true);
+            selectHotelButton.setEnabled(true);
+            
         } catch (SQLException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
