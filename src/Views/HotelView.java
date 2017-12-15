@@ -32,6 +32,7 @@ public class HotelView extends javax.swing.JFrame {
         ImageIcon star = new ImageIcon(getClass().getResource("../images/star.png"));
         Icon iconStar = new ImageIcon(star.getImage());
         
+        
         star1jLabel.setIcon(iconStar);
         star2jLabel.setIcon(iconStar);
         star3jLabel.setIcon(iconStar);

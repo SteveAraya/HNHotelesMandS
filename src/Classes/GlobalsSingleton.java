@@ -1,6 +1,7 @@
 package Classes;
 
 import Views.MainView;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,7 +12,7 @@ public class GlobalsSingleton {
 
     static GlobalsSingleton instance;
 
-    //Aqui van todas las globales que tengamos que usar
+    //User
     String userEmail;
     String userType;
     String userCondition = "Inactive";
@@ -24,6 +25,15 @@ public class GlobalsSingleton {
     int userTelephone;
     String country;
     String currencyType;
+    
+    //Hotel
+    int roomAmount;
+    int adultAmount;
+    int childremAmount;
+    Date entryDate;
+    Date exitDate;
+    
+    String hotelName;
     
 
     private GlobalsSingleton() {
@@ -138,6 +148,54 @@ public class GlobalsSingleton {
 
     public void setCurrencyType(String currencyType) {
         instance.currencyType = currencyType;
+    }
+
+    public int getRoomAmount() {
+        return instance.roomAmount;
+    }
+
+    public void setRoomAmount(int roomAmount) {
+        instance.roomAmount = roomAmount;
+    }
+
+    public int getAdultAmount() {
+        return instance.adultAmount;
+    }
+
+    public void setAdultAmount(int adultAmount) {
+        instance.adultAmount = adultAmount;
+    }
+
+    public int getChildremAmount() {
+        return instance.childremAmount;
+    }
+
+    public void setChildremAmount(int childremAmount) {
+        instance.childremAmount = childremAmount;
+    }
+
+    public Date getEntryDate() {
+        return instance.entryDate;
+    }
+
+    public void setEntryDate(Date entryDate) {
+        instance.entryDate = entryDate;
+    }
+
+    public Date getExitDate() {
+        return instance.exitDate;
+    }
+
+    public void setExitDate(Date exitDate) {
+        instance.exitDate = exitDate;
+    }
+
+    public String getHotelName() {
+        return instance.hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        instance.hotelName = hotelName;
     }
 
     

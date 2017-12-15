@@ -170,6 +170,20 @@ public class MainView extends javax.swing.JFrame {
         exitjDateChooser.setCalendar(null);
 
     }
+    
+    //This method cleans the Hotels Table. This is done to re-insert the data and not to repeat the data.
+    private void clearHotelsTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) tbl_Hotels.getModel();
+        
+        for (int i = 0; i < tbl_Hotels.getRowCount(); i++) {
+            
+           model.removeRow(i);
+           
+           i-=1;
+              
+       }
+    }
 
     //This method search all the hoteles that the program has
     public void searchHotels() throws SQLException {
@@ -206,6 +220,34 @@ public class MainView extends javax.swing.JFrame {
         }
 
     }
+    
+    //This method select the hotel that the user wants to watch
+    public void selectRows() {
+
+        int row = tbl_Hotels.getSelectedRow();
+        
+        if (row == -1){
+            
+            JOptionPane.showMessageDialog(this, "Select one Hotel Please.",
+                    "Empty fields", JOptionPane.WARNING_MESSAGE);
+            
+        }
+        
+        else{
+            
+            String hotelName = tbl_Hotels.getValueAt(row, 0).toString();
+        
+            global.setHotelName(hotelName);
+            
+            showHotel();
+            
+        }
+        
+
+  
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -591,8 +633,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void seeHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeHotelButtonActionPerformed
 
-        showHotel();
-
+        selectRows();
 
     }//GEN-LAST:event_seeHotelButtonActionPerformed
 
@@ -600,6 +641,7 @@ public class MainView extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         cleanValues();
+        clearHotelsTable();
         
         
         
