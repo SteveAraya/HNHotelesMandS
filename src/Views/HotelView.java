@@ -7,6 +7,8 @@ package Views;
 
 import Classes.GlobalsSingleton;
 import Conectmysql.ConexionDB;
+import static Views.MainView.showCreateAccount;
+import static Views.MainView.showLogIn;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +30,8 @@ public class HotelView extends javax.swing.JFrame {
     GlobalsSingleton global = GlobalsSingleton.getInstance();
     Connection conect = ConexionDB.Connectdatabase();
     DefaultTableModel dftables = new DefaultTableModel();
+    DefaultTableModel dftables2 = new DefaultTableModel();
+    DefaultTableModel dftables3 = new DefaultTableModel();
     
     public HotelView() throws SQLException {
         
@@ -124,12 +128,138 @@ public class HotelView extends javax.swing.JFrame {
   
     }
     
+    //This method verify if the user is active or not
+    public void verifyUser(){
+        
+        if(global.getUserCondition().equals("Inactive")){
+            
+            Icon blueIcon = new ImageIcon("yourFile.gif");
+            Object[] options = { "Create an Account", "Initiate Session" };
+            int choice = JOptionPane.showOptionDialog(null, 
+                "You must initiate secion and if you do not have an account you must create one.", 
+                "Select an Option", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                blueIcon, 
+                options, 
+                options[0]);
+
+            if (choice == JOptionPane.YES_OPTION){
+
+                showCreateAccount();
+
+            }
+
+            else{
+
+                showLogIn();
+
+            }
+
+        }
+   
+    }
+    
+    //This method is for  veri if the hotel has a  service
+    public void verifyService() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM service";
+        int serviceverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_servicesHotel.setModel(dftables);
+        dftables.setColumnIdentifiers(new Object[]{"Hotel's Services "});
+
+        try {
+            while (resultservice.next()) {
+                
+                serviceverification = resultservice.getInt("id_hotel");
+
+                if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
+
+                    dftables.addRow(new Object[]{resultservice.getString("service_name")});
+
+                }
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+        //This method is for  veri if the hotel has a  service
+    public void verifyRoomType() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM roomtype";
+        int serviceverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_roomInformation.setModel(dftables3);
+        dftables3.setColumnIdentifiers(new Object[]{"Room Type", "Room Information "});
+
+        try {
+            while (resultservice.next()) {
+                
+                serviceverification = resultservice.getInt("id_hotel");
+
+                if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
+
+                    dftables3.addRow(new Object[]{resultservice.getString("room_type"), resultservice.getString("bedtype")});
+
+                }
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    //This method is for  veri if the hotel has room type
+
+    public void verifyAttractive() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM attractive";
+        int serviceverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_attractionsHotel.setModel(dftables2);
+        dftables2.setColumnIdentifiers(new Object[]{"Hotel's Attractions"});
+
+        try {
+            
+            while (resultservice.next()) {
+                
+                serviceverification = resultservice.getInt("id_hotel");
+
+                if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
+                    
+                    dftables2.addRow(new Object[]{resultservice.getString("attractive_name")});
+
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
    
     //This method show the information about the Hotel
     public void showHotelInfo() throws SQLException{
         
         String urlUser = "SELECT * FROM hotel ";
 
+        int idHotel;
         String hotelName;
         int telNumber;
         String country;
@@ -148,6 +278,7 @@ public class HotelView extends javax.swing.JFrame {
 
         while (result.next()) {
 
+            idHotel = result.getInt("id_hotel");
             hotelName = result.getString("hotel_name");
             telNumber = result.getInt("telephone");
             country = result.getString("country");
@@ -174,8 +305,12 @@ public class HotelView extends javax.swing.JFrame {
                 txt_requirementCheckin.setText(requirementCheckin);
                 
                 global.setHotelStars(starnumbers);
+                global.setIdHotel(idHotel);
                 
                 showStars();
+                verifyService();
+                verifyAttractive();
+                verifyRoomType();
 
             }
 

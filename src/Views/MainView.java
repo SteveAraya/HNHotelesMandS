@@ -82,7 +82,7 @@ public class MainView extends javax.swing.JFrame {
     }
 
     //This method show the Hotel view.
-    public static void showHotel() {
+    public static void showHotel() throws SQLException {
 
         HotelView oHotelView = new HotelView();
         oHotelView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -253,6 +253,37 @@ public class MainView extends javax.swing.JFrame {
 
     }
     
+    //This method verify if the user is active or not
+    public void verifyUser(){
+        
+        if(global.getUserCondition().equals("Inactive")){
+            
+            Icon blueIcon = new ImageIcon("yourFile.gif");
+            Object[] options = { "Create an Account", "Initiate Session" };
+            int choice = JOptionPane.showOptionDialog(null, 
+                "You must initiate secion and if you do not have an account you must create one.", 
+                "Select an Option", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                blueIcon, 
+                options, 
+                options[0]);
+
+            if (choice == JOptionPane.YES_OPTION){
+
+                showCreateAccount();
+
+            }
+
+            else{
+
+                showLogIn();
+
+            }
+
+        }
+   
+    }
     
 
     /**
@@ -639,8 +670,14 @@ public class MainView extends javax.swing.JFrame {
 
     private void seeHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeHotelButtonActionPerformed
 
-        selectRows();
-        showHotel();
+        
+        try {
+            selectRows();
+            showHotel();
+   
+        } catch (SQLException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_seeHotelButtonActionPerformed
 
@@ -648,7 +685,7 @@ public class MainView extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         selectRows();
-        showReservation();
+        verifyUser();
          
     }//GEN-LAST:event_selectHotelButtonActionPerformed
 
@@ -670,6 +707,7 @@ public class MainView extends javax.swing.JFrame {
     private void searchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyPressed
 
         try {
+            clearHotelsTable();
             searchHotels();
         } catch (SQLException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
