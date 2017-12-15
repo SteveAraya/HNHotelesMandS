@@ -12,6 +12,7 @@ import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -36,6 +37,7 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         blockItems();
+        
 
     }
 
@@ -158,90 +160,50 @@ public class MainView extends javax.swing.JFrame {
 
     }
 
-    public void cleanjSpinner() {
-//        roomAmountjSpinner.
-//        adultAmountjSpinner.
-//        childremAmountjSpinner.
+    //This method clean the values of the search
+    public void cleanValues() {
+        
+        sp_roomAmount.setModel(new javax.swing.SpinnerNumberModel());
+        sp_adultAmount.setModel(new javax.swing.SpinnerNumberModel());
+        sp_childremAmount.setModel(new javax.swing.SpinnerNumberModel());
+        entryjDateChooser.setCalendar(null);
+        exitjDateChooser.setCalendar(null);
 
     }
 
-
-
-
+    //This method search all the hoteles that the program has
     public void searchHotels() throws SQLException {
-
-        
-        if (sp_roomAmount.getValue().toString().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define an amount of rooms to search hotels",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.sp_roomAmount.requestFocus();
-            return;
-            
-        }
-        if (sp_adultAmount.getValue().toString().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define an amount of adults to search hotels",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.sp_adultAmount.requestFocus();
-            return;
-            
-        }
-        if (sp_childremAmount.getValue().toString().equals("")){
-            
-            JOptionPane.showMessageDialog(this, "You must define an amount of childrem to search hotels",
-                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.sp_childremAmount.requestFocus();
-            return;
-            
-        }
         
         int roomAmount = Integer.parseInt(sp_roomAmount.getValue().toString());
         int adultAmount = Integer.parseInt(sp_adultAmount.getValue().toString());
         int childremAmount = Integer.parseInt(sp_childremAmount.getValue().toString());
+        Date entryDate = entryjDateChooser.getDate();
+        Date exitDate = exitjDateChooser.getDate();
 
-        Connection conect = ConexionDB.Connectdatabase();
-        DefaultTableModel hotelTable = new DefaultTableModel();
+        String urlhotelverify = "SELECT * FROM hotel ORDER BY starnumbers DESC;";
         
-        
-        String urlhotelverify = "SELECT * FROM hotel";
-        
-        String hotelNameDB;
+        int serviceverification;
 
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
-        tbl_Hotels.setModel(hotelTable);
-        hotelTable.setColumnIdentifiers(new Object[]{"Code", "Attractive"});
+        tbl_Hotels.setModel(dftables);
+        dftables.setColumnIdentifiers(new Object[]{"Hotel Name", "Number of Stars", "Lodging Type"});
 
-//        try {
-//            while (resultservice.next()) {
-//                
-//                serviceverification = resultservice.getString("id_hotel");
-//
-//                if (serviceverification.equals(GlobalsSingleton.getInstance().getIdHotel())) {
-//                    dftablea.addRow(new Object[]{resultservice.getString("attractive_code"), resultservice.getString("attractive_name")});
-//                    return;
-//                }
-//            }
-//        } catch (SQLException e) {
-//
-//        }
+        try {
+            
+            while (resultservice.next()) {
+    
+                dftables.addRow(new Object[]{resultservice.getString("hotel_name"),
+                resultservice.getString("starnumbers"),
+                resultservice.getString("lodgingtype")});
 
+            } 
+   
+        } 
+        
+        catch (SQLException e) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
     }
 
@@ -385,13 +347,13 @@ public class MainView extends javax.swing.JFrame {
 
         tbl_Hotels.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Hotel Name", "Price Per Night", "Number of Stars", "Lodging Type"
+                "Hotel Name", "Number of Stars", "Lodging Type"
             }
         ));
         jScrollPane1.setViewportView(tbl_Hotels);
@@ -637,7 +599,7 @@ public class MainView extends javax.swing.JFrame {
     private void selectHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectHotelButtonActionPerformed
         // TODO add your handling code here:
         
-        
+        cleanValues();
         
         
         
@@ -721,9 +683,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem createHotelMenuItem;
     private javax.swing.JMenuItem createUserAccountMenuItem;
     private javax.swing.JLabel entryDateLabel;
-    private com.toedter.calendar.JDateChooser entryjDateChooser;
+    public static com.toedter.calendar.JDateChooser entryjDateChooser;
     private javax.swing.JLabel exitDateLabel;
-    private com.toedter.calendar.JDateChooser exitjDateChooser;
+    public static com.toedter.calendar.JDateChooser exitjDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuBar jMenuBar1;
@@ -741,9 +703,9 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel searchPanel;
     private javax.swing.JButton seeHotelButton;
     private javax.swing.JButton selectHotelButton;
-    private javax.swing.JSpinner sp_adultAmount;
-    private javax.swing.JSpinner sp_childremAmount;
-    private javax.swing.JSpinner sp_roomAmount;
+    public static javax.swing.JSpinner sp_adultAmount;
+    public static javax.swing.JSpinner sp_childremAmount;
+    public static javax.swing.JSpinner sp_roomAmount;
     private javax.swing.JTable tbl_Hotels;
     public static javax.swing.JMenu userActiveInactiveMenu;
     public static javax.swing.JMenuItem userProfileMenuItem;
