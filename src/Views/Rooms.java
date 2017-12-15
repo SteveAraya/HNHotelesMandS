@@ -51,6 +51,7 @@ public class Rooms extends javax.swing.JFrame {
         txt_roomtype.setText("");
         txt_capacity.setText("");
         txt_bedtype.setText("");
+        txt_typeroom.setText("");
 
     }
 
@@ -62,8 +63,8 @@ public class Rooms extends javax.swing.JFrame {
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultroom = selectconect.executeQuery(urlhotelverify);
         tbl_room.setModel(dftabler);
-        dftabler.setColumnIdentifiers(new Object[]{"Num Room", "Floor", "Description", "Room size", "Room Price",
-            "Room Attractive", "Room Type", "Room status", "roomprice"});
+        dftabler.setColumnIdentifiers(new Object[]{"Num Room", "Floor", "Description", "Room size",
+            "Room Attractive", "Room Type", "Room status", "Room Price"});
 
         try {
             while (resultroom.next()) {
@@ -73,8 +74,7 @@ public class Rooms extends javax.swing.JFrame {
 
                     dftabler.addRow(new Object[]{resultroom.getInt("num_room"), resultroom.getString("floornumber"),
                         resultroom.getString("description"), resultroom.getInt("roomsize"), resultroom.getString("room_attractive"),
-                        resultroom.getInt("id_type"), resultroom.getString("roomstatus"), resultroom.getInt("roomprice"),
-                        resultroom.getInt("id_hotel"),});
+                        resultroom.getInt("id_type"), resultroom.getString("roomstatus"), resultroom.getInt("roomprice")});
 
                 }
             }
@@ -123,10 +123,11 @@ public class Rooms extends javax.swing.JFrame {
         String floornumber = txt_floornumber.getText();
         String description = txt_description.getText();
         String roomsize = txt_roomsize.getText();
-        String room_attractive = txt_typeroom.getText();
+        String room_attractive = txt_roomattractive.getText();
         String room_type = txt_typeroom.getText();
         int roomstatus = 0;
         int roomprice = Integer.parseInt(txt_roomprice.getText());
+        
 
         try {
             PreparedStatement insertroom = conect.prepareStatement("Insert Into room(num_room,floornumber,description,roomsize,room_attractive,id_type,roomstatus,roomprice,id_hotel)"
@@ -196,11 +197,53 @@ public class Rooms extends javax.swing.JFrame {
 
     }
 
-    public void selectrows(DefaultTableModel table) {
-        int row = table.getRowCount();
+    public void updateroom() {
 
-        String id = table.getValueAt(row, 0).toString();
-        String name = table.getValueAt(row, 1).toString();
+        int num_room = Integer.parseInt(txt_numroom.getText());
+        String floornumber = txt_floornumber.getText();
+        String description = txt_description.getText();
+        String roomsize = txt_roomsize.getText();
+        String room_attractive = txt_typeroom.getText();
+        String room_type = txt_typeroom.getText();
+        int roomstatus = 0;
+        int roomprice = Integer.parseInt(txt_roomprice.getText());
+
+        try {
+            String url = ("update room SET floornumber=?,description=?,roomsize=?,room_attractive=?,id_type=?,roomstatus=?,roomprice=?,id_hotel"
+                    + "where id_hotel= " + GlobalsSingleton.getInstance().getIdHotel() + " ");
+
+            PreparedStatement insertroom = conect.prepareStatement(url);
+            
+            insertroom.setString(1, floornumber);
+            insertroom.setString(2, description);
+            insertroom.setString(3, roomsize);
+            insertroom.setString(4, room_attractive);
+            insertroom.setString(5, room_type);
+            insertroom.setInt(6, roomstatus);
+            insertroom.setInt(7, roomprice);
+            insertroom.setInt(8, GlobalsSingleton.getInstance().getIdHotel());
+
+            if (insertroom.executeUpdate() > 0) {
+
+                JOptionPane.showMessageDialog(null, "Los datos han sido modificados con éxito", "Operación Exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
+                        + "Inténtelo nuevamente.", "Error en la operación",
+                        JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
+
+        }
     }
 
     /**
@@ -653,7 +696,13 @@ public class Rooms extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modifyroomKeyPressed
 
     private void btn_modifyroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifyroomActionPerformed
-        // TODO add your handling code here:
+        try {
+            updateroom();
+            GlobalsSingleton.getInstance().cleantableservice(dftabler);
+            verifyroom();
+        } catch (SQLException ex) {
+            Logger.getLogger(Rooms.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_modifyroomActionPerformed
 
     private void btn_insertroomsroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertroomsroomActionPerformed
@@ -708,7 +757,7 @@ public class Rooms extends javax.swing.JFrame {
             inserttyperoom();
 
             GlobalsSingleton.getInstance().cleantableservice(dftablert);
-            verifytyperoom();
+            verifyroom();
 
         } catch (SQLException ex) {
             Logger.getLogger(Rooms.class
@@ -716,6 +765,7 @@ public class Rooms extends javax.swing.JFrame {
         }
 
         GlobalsSingleton.getInstance().cleantableservice(dftablert);
+        
         cleantexfield();
 
 
@@ -765,9 +815,9 @@ public class Rooms extends javax.swing.JFrame {
         txt_floornumber.setText(String.valueOf(tbl_room.getValueAt(select, 1)));
         txt_description.setText(String.valueOf(tbl_room.getValueAt(select, 2)));
         txt_roomsize.setText(String.valueOf(tbl_room.getValueAt(select, 3)));
-        txt_roomprice.setText(String.valueOf(tbl_room.getValueAt(select, 4)));
-        txt_roomattractive.setText(String.valueOf(tbl_room.getValueAt(select, 5)));
-        txt_roomprice.setText(String.valueOf(tbl_room.getValueAt(select, 6)));
+        txt_roomattractive.setText(String.valueOf(tbl_room.getValueAt(select, 4)));
+        txt_typeroom.setText(String.valueOf(tbl_room.getValueAt(select, 5)));
+        txt_roomprice.setText(String.valueOf(tbl_room.getValueAt(select, 7)));
 
     }//GEN-LAST:event_tbl_roomMouseClicked
 
