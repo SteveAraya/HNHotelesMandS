@@ -12,6 +12,8 @@ import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,11 +35,10 @@ public class MainView extends javax.swing.JFrame {
     GlobalsSingleton global = GlobalsSingleton.getInstance();
     Connection conect = ConexionDB.Connectdatabase();
     DefaultTableModel dftables = new DefaultTableModel();
-    
+
     public MainView() {
         initComponents();
         blockItems();
-        
 
     }
 
@@ -90,7 +91,7 @@ public class MainView extends javax.swing.JFrame {
         oHotelView.setVisible(true);
 
     }
-    
+
     //This method show the Queries view.
     public static void showQuery() {
 
@@ -100,9 +101,9 @@ public class MainView extends javax.swing.JFrame {
         oQueriesView.setVisible(true);
 
     }
-    
+
     //This method show the Queries view.
-    public static void showReservation() {
+    public static void showReservation() throws SQLException {
 
         ReservationsView oReservationsView = new ReservationsView();
         oReservationsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -114,8 +115,8 @@ public class MainView extends javax.swing.JFrame {
     //This method block the Items of the main view.
     public void blockItems() {
 
-        entryjDateChooser.setEnabled(false);
-        exitjDateChooser.setEnabled(false);
+        txt_entrydate.setEnabled(false);
+        txt_exitdate.setEnabled(false);
 
         ((DefaultEditor) sp_roomAmount.getEditor()).getTextField().setEditable(false);
         sp_roomAmount.setEnabled(false);
@@ -146,8 +147,8 @@ public class MainView extends javax.swing.JFrame {
     //This method enable the Items of the main view.
     public void enableItems() {
 
-        entryjDateChooser.setEnabled(true);
-        exitjDateChooser.setEnabled(true);
+        txt_entrydate.setEnabled(true);
+        txt_exitdate.setEnabled(true);
 
         ((DefaultEditor) sp_roomAmount.getEditor()).getTextField().setEditable(true);
         sp_roomAmount.setEnabled(true);
@@ -170,40 +171,27 @@ public class MainView extends javax.swing.JFrame {
 
     //This method clean the values of the search
     public void cleanValues() {
-        
+
         sp_roomAmount.setModel(new javax.swing.SpinnerNumberModel());
         sp_adultAmount.setModel(new javax.swing.SpinnerNumberModel());
         sp_childremAmount.setModel(new javax.swing.SpinnerNumberModel());
-        entryjDateChooser.setCalendar(null);
-        exitjDateChooser.setCalendar(null);
+        txt_entrydate.setText("");
+        txt_exitdate.setText("");
 
     }
-    
+
     //This method cleans the Hotels Table. This is done to re-insert the data and not to repeat the data.
-    private void clearHotelsTable(){
-        
-        DefaultTableModel model = (DefaultTableModel) tbl_Hotels.getModel();
-        
-        for (int i = 0; i < tbl_Hotels.getRowCount(); i++) {
-            
-           model.removeRow(i);
-           
-           i-=1;
-              
-       }
-    }
-
     //This method search all the hoteles that the program has
     public void searchHotels() throws SQLException {
-        
+
         int roomAmount = Integer.parseInt(sp_roomAmount.getValue().toString());
         int adultAmount = Integer.parseInt(sp_adultAmount.getValue().toString());
         int childremAmount = Integer.parseInt(sp_childremAmount.getValue().toString());
-        Date entryDate = entryjDateChooser.getDate();
-        Date exitDate = exitjDateChooser.getDate();
+        String entryDate = txt_entrydate.getText();
+        String exitDate = txt_exitdate.getText();
 
         String urlhotelverify = "SELECT * FROM hotel ORDER BY starnumbers DESC;";
-        
+
         int serviceverification;
 
         java.sql.Statement selectconect = conect.createStatement();
@@ -212,79 +200,89 @@ public class MainView extends javax.swing.JFrame {
         dftables.setColumnIdentifiers(new Object[]{"Hotel Name", "Number of Stars", "Lodging Type"});
 
         try {
-            
-            while (resultservice.next()) {
-    
-                dftables.addRow(new Object[]{resultservice.getString("hotel_name"),
-                resultservice.getString("starnumbers"),
-                resultservice.getString("lodgingtype")});
 
-            } 
-   
-        } 
-        
-        catch (SQLException e) {
+            while (resultservice.next()) {
+
+                dftables.addRow(new Object[]{resultservice.getString("hotel_name"),
+                    resultservice.getString("starnumbers"),
+                    resultservice.getString("lodgingtype")});
+
+            }
+
+        } catch (SQLException e) {
 
         }
 
     }
-    
+
     //This method select the hotel that the user wants to watch
     public void selectRows() {
 
         int row = tbl_Hotels.getSelectedRow();
-        
-        if (row == -1){
-            
+
+        if (row == -1) {
+
             JOptionPane.showMessageDialog(this, "Select one Hotel Please.",
                     "Empty fields", JOptionPane.WARNING_MESSAGE);
-            
+
             return;
-            
-        }
-        
-        else{
-            
+
+        } else {
+
             String hotelName = tbl_Hotels.getValueAt(row, 0).toString();
-        
+
             global.setHotelName(hotelName);
-            
+
         }
 
     }
-    
-    //This method verify if the user is active or not
-    public void verifyUser(){
-        
-        if(global.getUserCondition().equals("Inactive")){
-            
-            Icon blueIcon = new ImageIcon("yourFile.gif");
-            Object[] options = { "Create an Account", "Initiate Session" };
-            int choice = JOptionPane.showOptionDialog(null, 
-                "You must initiate secion and if you do not have an account you must create one.", 
-                "Select an Option", 
-                JOptionPane.YES_NO_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                blueIcon, 
-                options, 
-                options[0]);
 
-            if (choice == JOptionPane.YES_OPTION){
+    //This method verify if the user is active or not
+    public void verifyUser() {
+
+        if (global.getUserCondition().equals("Inactive")) {
+
+            Icon blueIcon = new ImageIcon("yourFile.gif");
+            Object[] options = {"Create an Account", "Initiate Session"};
+            int choice = JOptionPane.showOptionDialog(null,
+                    "You must initiate secion and if you do not have an account you must create one.",
+                    "Select an Option",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    blueIcon,
+                    options,
+                    options[0]);
+
+            if (choice == JOptionPane.YES_OPTION) {
 
                 showCreateAccount();
 
-            }
-
-            else{
+            } else {
 
                 showLogIn();
 
             }
 
         }
-   
+
     }
-    
+
+    public void selectdata() {
+        
+        int adultamount=(int) sp_adultAmount.getValue();
+        int childrenamount=(int) sp_adultAmount.getValue();
+        int roomnamount=(int) sp_adultAmount.getValue();
+        String entry=txt_entrydate.getText();
+        String exit=txt_exitdate.getText();
+        
+        global.setAdultAmount(adultamount);
+        global.setChildremAmount(childrenamount);
+        global.setRoomAmount(roomnamount);
+
+        global.setEntryDate(entry);
+        global.setExitDate(exit);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -307,8 +305,8 @@ public class MainView extends javax.swing.JFrame {
         sp_roomAmount = new javax.swing.JSpinner();
         sp_adultAmount = new javax.swing.JSpinner();
         sp_childremAmount = new javax.swing.JSpinner();
-        entryjDateChooser = new com.toedter.calendar.JDateChooser();
-        exitjDateChooser = new com.toedter.calendar.JDateChooser();
+        txt_entrydate = new javax.swing.JTextField();
+        txt_exitdate = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_Hotels = new javax.swing.JTable();
@@ -368,6 +366,12 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        txt_entrydate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_entrydateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
         searchPanel.setLayout(searchPanelLayout);
         searchPanelLayout.setHorizontalGroup(
@@ -389,8 +393,8 @@ public class MainView extends javax.swing.JFrame {
                         .addComponent(sp_adultAmount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(sp_roomAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sp_childremAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(entryjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(exitjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_entrydate, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_exitdate, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchPanelLayout.setVerticalGroup(
@@ -398,12 +402,12 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(entryDateLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(entryjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_entrydate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(exitDateLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(exitjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txt_exitdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(roomAmountLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -619,7 +623,7 @@ public class MainView extends javax.swing.JFrame {
     private void searchHotelMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchHotelMenuItemActionPerformed
 
         enableItems();
-        this.entryjDateChooser.requestFocus();
+        this.txt_entrydate.requestFocus();
 
     }//GEN-LAST:event_searchHotelMenuItemActionPerformed
 
@@ -670,11 +674,10 @@ public class MainView extends javax.swing.JFrame {
 
     private void seeHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeHotelButtonActionPerformed
 
-        
         try {
             selectRows();
             showHotel();
-   
+
         } catch (SQLException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -683,20 +686,21 @@ public class MainView extends javax.swing.JFrame {
 
     private void selectHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectHotelButtonActionPerformed
         // TODO add your handling code here:
-        
+
         selectRows();
         verifyUser();
-         
+
     }//GEN-LAST:event_selectHotelButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
 
         try {
-            
+            GlobalsSingleton.getInstance().cleantableservice(dftables);
+            selectdata();
             searchHotels();
             seeHotelButton.setEnabled(true);
             selectHotelButton.setEnabled(true);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -707,7 +711,7 @@ public class MainView extends javax.swing.JFrame {
     private void searchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyPressed
 
         try {
-            clearHotelsTable();
+            GlobalsSingleton.getInstance().cleantableservice(dftables);
             searchHotels();
         } catch (SQLException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
@@ -725,6 +729,10 @@ public class MainView extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_exitjDateChooserKeyPressed
+
+    private void txt_entrydateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_entrydateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_entrydateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -752,6 +760,7 @@ public class MainView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -771,9 +780,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem createHotelMenuItem;
     private javax.swing.JMenuItem createUserAccountMenuItem;
     private javax.swing.JLabel entryDateLabel;
-    public static com.toedter.calendar.JDateChooser entryjDateChooser;
     private javax.swing.JLabel exitDateLabel;
-    public static com.toedter.calendar.JDateChooser exitjDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuBar jMenuBar1;
@@ -795,6 +802,8 @@ public class MainView extends javax.swing.JFrame {
     public static javax.swing.JSpinner sp_childremAmount;
     public static javax.swing.JSpinner sp_roomAmount;
     private javax.swing.JTable tbl_Hotels;
+    private javax.swing.JTextField txt_entrydate;
+    private javax.swing.JTextField txt_exitdate;
     public static javax.swing.JMenu userActiveInactiveMenu;
     public static javax.swing.JMenuItem userProfileMenuItem;
     public static javax.swing.JMenu userProfileViewMenu;

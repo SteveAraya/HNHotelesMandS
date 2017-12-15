@@ -104,7 +104,7 @@ public class HotelView extends javax.swing.JFrame {
     }
     
     //This method show the Queries view.
-    public static void showReservation() {
+    public static void showReservation() throws SQLException {
 
         ReservationsView oReservationsView = new ReservationsView();
         oReservationsView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -703,9 +703,13 @@ public class HotelView extends javax.swing.JFrame {
     }//GEN-LAST:event_nextjButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        showReservation();
+        try {
+            // TODO add your handling code here:
+
+            showReservation();
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelView.class.getName()).log(Level.SEVERE, null, ex);
+        }
   
     }//GEN-LAST:event_jButton1ActionPerformed
 

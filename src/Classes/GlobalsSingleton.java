@@ -2,6 +2,7 @@ package Classes;
 
 import Views.MainView;
 import java.util.Date;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,21 +26,21 @@ public class GlobalsSingleton {
     int userTelephone;
     String country;
     String currencyType;
-    
+
     //Hotel
     int roomAmount;
     int adultAmount;
     int childremAmount;
-    Date entryDate;
-    Date exitDate;
-    
+    String entryDate;
+    String exitDate;
+    int nigthnumbers;
+
     String hotelName;
     int hotelStars;
-    
+
     String cardNumber;
     int numRoom;
     int idRoomType;
-    
 
     private GlobalsSingleton() {
 
@@ -56,193 +57,191 @@ public class GlobalsSingleton {
         return instance;
 
     }
+
     //methow for refresh jtable
-     public void cleantableservice(DefaultTableModel table) {
+    public void cleantableservice(DefaultTableModel table) {
 
         int a = table.getRowCount() - 1;
         for (int i = a; i >= 0; i--) {
             table.removeRow(table.getRowCount() - 1);
         }
     }
-     
-
 
     public String getUserEmail() {
-        return instance.userEmail;
+        return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
-        instance.userEmail = userEmail;
+        this.userEmail = userEmail;
     }
 
     public String getUserType() {
-        return instance.userType;
+        return userType;
     }
 
     public void setUserType(String userType) {
-        instance.userType = userType;
+        this.userType = userType;
     }
 
     public String getUserCondition() {
-        return instance.userCondition;
+        return userCondition;
     }
 
     public void setUserCondition(String userCondition) {
-        instance.userCondition = userCondition;
+        this.userCondition = userCondition;
     }
 
     public int getIdHotel() {
-        return instance.idHotel;
+        return idHotel;
     }
 
     public void setIdHotel(int idHotel) {
-        instance.idHotel = idHotel;
+        this.idHotel = idHotel;
     }
 
     public int getUserID() {
-        return instance.userID;
+        return userID;
     }
 
     public void setUserID(int userID) {
-        instance.userID = userID;
+        this.userID = userID;
     }
 
     public String getUserName() {
-        return instance.userName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        instance.userName = userName;
+        this.userName = userName;
     }
 
     public String getUserLastName() {
-        return instance.userLastName;
+        return userLastName;
     }
 
     public void setUserLastName(String userLastName) {
-        instance.userLastName = userLastName;
+        this.userLastName = userLastName;
     }
 
     public String getUserGender() {
-        return instance.userGender;
+        return userGender;
     }
 
     public void setUserGender(String userGender) {
-        instance.userGender = userGender;
+        this.userGender = userGender;
     }
 
     public int getUserTelephone() {
-        return instance.userTelephone;
+        return userTelephone;
     }
 
     public void setUserTelephone(int userTelephone) {
-        instance.userTelephone = userTelephone;
+        this.userTelephone = userTelephone;
     }
 
     public String getCountry() {
-        return instance.country;
+        return country;
     }
 
     public void setCountry(String country) {
-        instance.country = country;
+        this.country = country;
     }
 
     public String getCurrencyType() {
-        return instance.currencyType;
+        return currencyType;
     }
 
     public void setCurrencyType(String currencyType) {
-        instance.currencyType = currencyType;
+        this.currencyType = currencyType;
     }
 
     public int getRoomAmount() {
-        return instance.roomAmount;
+        return roomAmount;
     }
 
     public void setRoomAmount(int roomAmount) {
-        instance.roomAmount = roomAmount;
+        this.roomAmount = roomAmount;
     }
 
     public int getAdultAmount() {
-        return instance.adultAmount;
+        return adultAmount;
     }
 
     public void setAdultAmount(int adultAmount) {
-        instance.adultAmount = adultAmount;
+        this.adultAmount = adultAmount;
     }
 
     public int getChildremAmount() {
-        return instance.childremAmount;
+        return childremAmount;
     }
 
     public void setChildremAmount(int childremAmount) {
-        instance.childremAmount = childremAmount;
+        this.childremAmount = childremAmount;
     }
 
-    public Date getEntryDate() {
-        return instance.entryDate;
+    public String getEntryDate() {
+        return entryDate;
     }
 
-    public void setEntryDate(Date entryDate) {
-        instance.entryDate = entryDate;
+    public void setEntryDate(String entryDate) {
+        this.entryDate = entryDate;
     }
 
-    public Date getExitDate() {
-        return instance.exitDate;
+    public String getExitDate() {
+        return exitDate;
     }
 
-    public void setExitDate(Date exitDate) {
-        instance.exitDate = exitDate;
+    public void setExitDate(String exitDate) {
+        this.exitDate = exitDate;
+    }
+
+    public int getNigthnumbers() {
+        return nigthnumbers;
+    }
+
+    public void setNigthnumbers(int nigthnumbers) {
+        this.nigthnumbers = nigthnumbers;
     }
 
     public String getHotelName() {
-        return instance.hotelName;
+        return hotelName;
     }
 
     public void setHotelName(String hotelName) {
-        instance.hotelName = hotelName;
+        this.hotelName = hotelName;
     }
 
     public int getHotelStars() {
-        return instance.hotelStars;
+        return hotelStars;
     }
 
     public void setHotelStars(int hotelStars) {
-        instance.hotelStars = hotelStars;
+        this.hotelStars = hotelStars;
     }
 
     public String getCardNumber() {
-        return instance.cardNumber;
+        return cardNumber;
     }
 
     public void setCardNumber(String cardNumber) {
-        instance.cardNumber = cardNumber;
+        this.cardNumber = cardNumber;
     }
 
     public int getNumRoom() {
-        return instance.numRoom;
+        return numRoom;
     }
 
     public void setNumRoom(int numRoom) {
-        instance.numRoom = numRoom;
+        this.numRoom = numRoom;
     }
 
     public int getIdRoomType() {
-        return instance.idRoomType;
+        return idRoomType;
     }
 
     public void setIdRoomType(int idRoomType) {
-        instance.idRoomType = idRoomType;
+        this.idRoomType = idRoomType;
     }
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
+   
 }

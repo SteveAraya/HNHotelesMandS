@@ -28,68 +28,52 @@ public class ReservationsView extends javax.swing.JFrame {
     Connection conect = ConexionDB.Connectdatabase();
     DefaultTableModel dftables = new DefaultTableModel();
     DefaultTableModel dftables1 = new DefaultTableModel();
-    
+
     public ReservationsView() throws SQLException {
         initComponents();
         blockItems();
         showCards();
         showRoomType();
         showInfoReservation();
-        
-        
-        
-        
+
     }
-    
-    public void blockItems(){
-        
+
+    public void blockItems() {
+
         txt_entryDate.setEnabled(false);
         txt_exitDate.setEnabled(false);
-        txt_nightsNumber.setEnabled(false);
         txt_childremAmount.setEnabled(false);
         txt_adultsAmount.setEnabled(false);
         txt_roomType.setEnabled(false);
         txt_bedType.setEnabled(false);
         txt_cardNumber.setEnabled(false);
-  
+
+        txt_entryDate.setText(global.getEntryDate());
+        txt_exitDate.setText(global.getExitDate());
+        txt_childremAmount.setText(" " + global.getChildremAmount());
+        txt_adultsAmount.setText(" " + global.getAdultAmount());
+
     }
-    
-    
-    
-    public void addRoomType(){
+
+    public void addRoomType() {
 
         String roomType = txt_roomType.getText();
         String bedType = txt_bedType.getText();
         String cardNumber = txt_cardNumber.getText();
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
     }
-    
-    
-    public void showInfoReservation(){
-        
+
+    public void showInfoReservation() {
+
 //        txt_entryDate.setText(global.getEntryDate());
 //        txt_exitDate.setText(global.getEntryDate());
-        
         //este night number hay que calcular el numero de noche con los jcaledar
         txt_nightsNumber.setText("8");
         txt_childremAmount.setText(Integer.toString(global.getChildremAmount()));
         txt_adultsAmount.setText(Integer.toString(global.getAdultAmount()));
-        
-        
-        
-        
-        
-        
+
     }
-    
+
     //This method show all the cards that the user has.
     public void showCards() throws SQLException {
 
@@ -103,47 +87,40 @@ public class ReservationsView extends javax.swing.JFrame {
 
         try {
             while (resultservice.next()) {
-                
+
                 serviceverification = resultservice.getInt("id_user");
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getUserID())) {
-                    
-                            
+
                     dftables.addRow(new Object[]{resultservice.getString("cardnumber")});
 
-                    
+                }
 
-                } 
-                
             }
-            
-        } 
-        
-        catch (SQLException e) {
+
+        } catch (SQLException e) {
 
         }
     }
-    
+
     //This method select the card that the user wants to choose
     public void selectRowsCard() {
 
         int row = tbl_card.getSelectedRow();
-        
-        if (row == -1){
-            
+
+        if (row == -1) {
+
             JOptionPane.showMessageDialog(this, "Select one Card please.",
                     "Empty fields", JOptionPane.WARNING_MESSAGE);
-            
+
             return;
-            
-        }
-        
-        else{
-            
+
+        } else {
+
             String cardNumber = tbl_card.getValueAt(row, 0).toString();
-        
+
             txt_cardNumber.setText(cardNumber);
-            
+
         }
 
     }
@@ -161,59 +138,55 @@ public class ReservationsView extends javax.swing.JFrame {
 
         try {
             while (resultservice.next()) {
-                
+
                 serviceverification = resultservice.getInt("id_hotel");
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
                     try {
                         while (resultservice.next()) {
-                            
-                            dftables1.addRow(new Object[]{resultservice.getString("room_type"),resultservice.getString("bedtype")});
+
+                            dftables1.addRow(new Object[]{resultservice.getString("room_type"), resultservice.getString("bedtype")});
 
                             global.setIdRoomType(resultservice.getInt("id_type"));
-                            
+
                         }
                     } catch (SQLException e) {
 
                     }
 
-                } 
-                
+                }
+
             }
-            
-        } 
-        
-        catch (SQLException e) {
+
+        } catch (SQLException e) {
 
         }
     }
-    
+
     //This method select the card that the user wants to choose
     public void selectRowsRoom() {
 
         int row = tbl_roomType.getSelectedRow();
-        
-        if (row == -1){
-            
+
+        if (row == -1) {
+
             JOptionPane.showMessageDialog(this, "Select one Room Type Please",
                     "Empty fields", JOptionPane.WARNING_MESSAGE);
-            
+
             return;
-            
-        }
-        
-        else{
-            
+
+        } else {
+
             String roomType = tbl_roomType.getValueAt(row, 0).toString();
             String bedType = tbl_roomType.getValueAt(row, 1).toString();
-        
+
             txt_roomType.setText(roomType);
             txt_bedType.setText(bedType);
-            
+
         }
 
     }
-    
+
     //This method show all the cards that the user has.
     public void saveNumRoom() throws SQLException {
 
@@ -223,110 +196,106 @@ public class ReservationsView extends javax.swing.JFrame {
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
 
-
         try {
             while (resultservice.next()) {
-                
+
                 serviceverification = resultservice.getInt("id_type");
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getIdRoomType())) {
-                    
+
                     global.setNumRoom(resultservice.getInt("num_room"));
 
-                } 
-                
+                }
+
             }
-            
-        } 
-        
-        catch (SQLException e) {
+
+        } catch (SQLException e) {
 
         }
     }
 
-    
     //This method has a reservation
-    public void makeReservation(){
-        
-        if (txt_entryDate.getText().equals("")){
-            
+    public void makeReservation() {
+
+        if (txt_entryDate.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter an Owner Name to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_entryDate.requestFocus();
             return;
-            
+
         }
-        
-        if (txt_exitDate.getText().equals("")){
-            
+
+        if (txt_exitDate.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter an Owner Last Name to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_exitDate.requestFocus();
             return;
-            
+
         }
-        
-        if (txt_cardNumber.getText().equals("")){
-            
+
+        if (txt_cardNumber.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter a Card Number to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_cardNumber.requestFocus();
             return;
-            
+
         }
-        
-        if (txt_nightsNumber.getText().equals("")){
-            
+
+        if (txt_nightsNumber.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter a Card Code to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_nightsNumber.requestFocus();
             return;
-            
+
         }
-        
-        if (txt_childremAmount.getText().equals("")){
-            
+
+        if (txt_childremAmount.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter a Card Code to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_childremAmount.requestFocus();
             return;
-            
+
         }
-        
-        if (txt_adultsAmount.getText().equals("")){
-            
+
+        if (txt_adultsAmount.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter a Card Code to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_adultsAmount.requestFocus();
             return;
-            
+
         }
-        
-        if (txt_roomType.getText().equals("")){
-            
+
+        if (txt_roomType.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter a Card Code to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_roomType.requestFocus();
             return;
-            
+
         }
-        
-        if (txt_bedType.getText().equals("")){
-            
+
+        if (txt_bedType.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter a Card Code to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_bedType.requestFocus();
             return;
-            
+
         }
-        
-        if (txt_cardNumber.getText().equals("")){
-            
+
+        if (txt_cardNumber.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "You must enter a Card Code to add a Card",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
             this.txt_cardNumber.requestFocus();
             return;
-            
+
         }
 
         String entryDate = txt_entryDate.getText();
@@ -345,7 +314,7 @@ public class ReservationsView extends javax.swing.JFrame {
             PreparedStatement insert = conect.prepareStatement("Insert Into "
                     + "reservation(entrydate,exitdate,nightsnumbers,childrenamount,adultsamount,reservationstatus,num_room,id_user,cardnumber)"
                     + "Values(?,?,?,?,?,?,?,?,?)");
-                
+
             insert.setString(1, entryDate);
             insert.setString(2, exitDate);
             insert.setInt(3, nightsNumber);
@@ -360,35 +329,15 @@ public class ReservationsView extends javax.swing.JFrame {
 
         } catch (Exception e) {
 
-                JOptionPane.showMessageDialog(rootPane,"Error");
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
         }        // TODO 
-            
-        this.dispose();
- 
-    }
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        this.dispose();
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -661,13 +610,14 @@ public class ReservationsView extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_bedTypeActionPerformed
 
     private void btn_makeReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_makeReservationActionPerformed
-        
+
         try {
             saveNumRoom();
+            makeReservation();
         } catch (SQLException ex) {
             Logger.getLogger(ReservationsView.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+
     }//GEN-LAST:event_btn_makeReservationActionPerformed
 
     private void txt_entryDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_entryDateActionPerformed
@@ -685,13 +635,13 @@ public class ReservationsView extends javax.swing.JFrame {
     private void btn_chooseRoomTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chooseRoomTypeActionPerformed
 
         selectRowsRoom();
- 
+
     }//GEN-LAST:event_btn_chooseRoomTypeActionPerformed
 
     private void btn_chooseCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chooseCardActionPerformed
-        
+
         selectRowsCard();
-  
+
     }//GEN-LAST:event_btn_chooseCardActionPerformed
 
     /**
