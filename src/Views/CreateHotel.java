@@ -256,11 +256,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     txt_country.setText(country);
                     btn_createAccount.setEnabled(false);
                     return;
-                } else {
-
-                    JOptionPane.showMessageDialog(rootPane, "Welcome can you create your hotel ");
-                    return;
-                }
+                } 
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error\n"

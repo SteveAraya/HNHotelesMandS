@@ -161,6 +161,7 @@ public class Rooms extends javax.swing.JFrame {
                     try {
                         PreparedStatement insertroomtype = conect.prepareStatement("Insert Into roomtype(room_type,capacity,bedtype,season_code,id_hotel)"
                                 + "Values(?,?,?,?,?)");
+
                         insertroomtype.setString(1, roomtype);
                         insertroomtype.setInt(2, capacity);
                         insertroomtype.setString(3, bedtype);
@@ -668,9 +669,9 @@ public class Rooms extends javax.swing.JFrame {
         }
         try {
             inserttyperoom();
-            verifytyperoom();
-            GlobalsSingleton.getInstance().cleantableservice(dftablert);
 
+            GlobalsSingleton.getInstance().cleantableservice(dftablert);
+            verifytyperoom();
         } catch (SQLException ex) {
             Logger.getLogger(Rooms.class
                     .getName()).log(Level.SEVERE, null, ex);
