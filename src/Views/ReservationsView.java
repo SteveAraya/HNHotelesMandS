@@ -34,6 +34,7 @@ public class ReservationsView extends javax.swing.JFrame {
         blockItems();
         showCards();
         showRoomType();
+        showInfoReservation();
         
         
         
@@ -71,6 +72,24 @@ public class ReservationsView extends javax.swing.JFrame {
         
     }
     
+    
+    public void showInfoReservation(){
+        
+//        txt_entryDate.setText(global.getEntryDate());
+//        txt_exitDate.setText(global.getEntryDate());
+        
+        //este night number hay que calcular el numero de noche con los jcaledar
+        txt_nightsNumber.setText("8");
+        txt_childremAmount.setText(Integer.toString(global.getChildremAmount()));
+        txt_adultsAmount.setText(Integer.toString(global.getAdultAmount()));
+        
+        
+        
+        
+        
+        
+    }
+    
     //This method show all the cards that the user has.
     public void showCards() throws SQLException {
 
@@ -88,15 +107,11 @@ public class ReservationsView extends javax.swing.JFrame {
                 serviceverification = resultservice.getInt("id_user");
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getUserID())) {
-                    try {
-                        while (resultservice.next()) {
+                    
                             
-                            dftables.addRow(new Object[]{resultservice.getString("cardnumber")});
+                    dftables.addRow(new Object[]{resultservice.getString("cardnumber")});
 
-                        }
-                    } catch (SQLException e) {
-
-                    }
+                    
 
                 } 
                 
