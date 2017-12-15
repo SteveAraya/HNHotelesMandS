@@ -114,12 +114,13 @@ public class LogInView extends javax.swing.JFrame {
 
         while (result.next()) {
 
-            idHotelDB = result.getInt("id_hotel");
+            
             idUserDB = result.getInt("id_user");
             
 
             if (idUserDB == global.getUserID()) {
-            
+                
+                idHotelDB = result.getInt("id_hotel");
                 global.setIdHotel(idHotelDB);
                 
                 System.out.println(global.getIdHotel());

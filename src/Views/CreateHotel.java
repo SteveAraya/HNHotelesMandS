@@ -161,8 +161,8 @@ public class CreateHotel extends javax.swing.JFrame {
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
                     dftablea.addRow(new Object[]{resultservice.getString("attractive_code"), resultservice.getString("attractive_name")});
-                    
-                } 
+
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error\n"
@@ -222,44 +222,51 @@ public class CreateHotel extends javax.swing.JFrame {
 
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet result = selectconect.executeQuery(urlhotelverify);
+        try {
+            while (result.next()) {
+                useridverification = result.getInt("id_user");
 
-        while (result.next()) {
-            useridverification = result.getInt("id_user");
-            String hotel_name = result.getString("hotel_name");
-            String country = result.getString("country");
-            String telephone = result.getString("telephone");
-            String address = result.getString("address");
-            int construcctionyears = result.getInt("construcctionyears");
-            int starnumbers = result.getInt("starnumbers");
-            String lodgingtype = result.getString("lodgingtype");
-            int hotelsize = result.getInt("hotelsize");
-            int checkingtime = result.getInt("checkingtime");
-            int chekouttimetime = result.getInt("chekouttime");
-            String requirementCheckin = result.getString("requirementCheckin");
+                if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
+                    
+                    JOptionPane.showMessageDialog(rootPane, "Welcome ");
+                    String hotel_name = result.getString("hotel_name");
+                    String country = result.getString("country");
+                    String telephone = result.getString("telephone");
+                    String address = result.getString("address");
+                    int construcctionyears = result.getInt("construcctionyears");
+                    int starnumbers = result.getInt("starnumbers");
+                    String lodgingtype = result.getString("lodgingtype");
+                    int hotelsize = result.getInt("hotelsize");
+                    int checkingtime = result.getInt("checkingtime");
+                    int chekouttimetime = result.getInt("chekouttime");
+                    String requirementCheckin = result.getString("requirementCheckin");
+                    
+                    txt_hotelName.setText(hotel_name);
+                    txt_telephone.setText(telephone);
+                    txt_checkin.setText("" + checkingtime);
+                    txt_LodgingType.setText(lodgingtype);
+                    txt_HotelSize.setText("" + hotelsize);
+                    sp_ConstrucctionYear.setValue(construcctionyears);
+                    txt_checkout.setText("" + chekouttimetime);
+                    txt_checkin.setText("" + checkingtime);
+                    txt_checkinrequeriment.setText(requirementCheckin);
+                    sp_starnumbers.setValue(starnumbers);
+                    txt_idhotel.setText("" + useridverification);
+                    txt_ubication.setText(address);
+                    txt_country.setText(country);
+                    btn_createAccount.setEnabled(false);
+                    return;
+                } else {
 
-            if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
-                JOptionPane.showMessageDialog(rootPane, "Welcome ");
-
-                txt_hotelName.setText(hotel_name);
-                txt_telephone.setText(telephone);
-                txt_checkin.setText("" + checkingtime);
-                txt_LodgingType.setText(lodgingtype);
-                txt_HotelSize.setText("" + hotelsize);
-                sp_ConstrucctionYear.setValue(construcctionyears);
-                txt_checkout.setText("" + chekouttimetime);
-                txt_checkin.setText("" + checkingtime);
-                txt_checkinrequeriment.setText(requirementCheckin);
-                sp_starnumbers.setValue(starnumbers);
-                txt_idhotel.setText("" + useridverification);
-                txt_ubication.setText(address);
-                txt_country.setText(country);
-                btn_createAccount.setEnabled(false);
-                return;
-            } else {
-
-                JOptionPane.showMessageDialog(rootPane, "Welcome can you create your hotel ");
-                return;
+                    JOptionPane.showMessageDialog(rootPane, "Welcome can you create your hotel ");
+                    return;
+                }
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
