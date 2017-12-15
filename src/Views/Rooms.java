@@ -127,7 +127,6 @@ public class Rooms extends javax.swing.JFrame {
         String room_type = txt_typeroom.getText();
         int roomstatus = 0;
         int roomprice = Integer.parseInt(txt_roomprice.getText());
-        
 
         try {
             PreparedStatement insertroom = conect.prepareStatement("Insert Into room(num_room,floornumber,description,roomsize,room_attractive,id_type,roomstatus,roomprice,id_hotel)"
@@ -209,11 +208,11 @@ public class Rooms extends javax.swing.JFrame {
         int roomprice = Integer.parseInt(txt_roomprice.getText());
 
         try {
-            String url = ("update room SET floornumber=?,description=?,roomsize=?,room_attractive=?,id_type=?,roomstatus=?,roomprice=?,id_hotel"
+            String url = ("update room SET floornumber=?,description=?,roomsize=?,room_attractive=?,id_type=?,roomstatus=?,roomprice=?,id_hotel=?"
                     + "where id_hotel= " + GlobalsSingleton.getInstance().getIdHotel() + " ");
 
             PreparedStatement insertroom = conect.prepareStatement(url);
-            
+
             insertroom.setString(1, floornumber);
             insertroom.setString(2, description);
             insertroom.setString(3, roomsize);
@@ -765,7 +764,7 @@ public class Rooms extends javax.swing.JFrame {
         }
 
         GlobalsSingleton.getInstance().cleantableservice(dftablert);
-        
+
         cleantexfield();
 
 
