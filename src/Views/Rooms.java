@@ -446,16 +446,17 @@ public class Rooms extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Type Room", jPanel7);
 
-        jPanel6.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel6.setBackground(new java.awt.Color(204, 255, 204));
         jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel7.setText("Num Room");
 
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel8.setText("Floor Number");
 
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel9.setText("Description");
 
         txt_roomsize.addActionListener(new java.awt.event.ActionListener() {
@@ -510,10 +511,10 @@ public class Rooms extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel13.setText("Room size");
 
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel16.setText("Room Price");
 
         txt_description.addActionListener(new java.awt.event.ActionListener() {
@@ -546,7 +547,7 @@ public class Rooms extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbl_room);
 
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel17.setText("Room Attractive");
 
         txt_typeroom.addActionListener(new java.awt.event.ActionListener() {
@@ -555,7 +556,7 @@ public class Rooms extends javax.swing.JFrame {
             }
         });
 
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel18.setText("Room Type");
 
         txt_roomattractive.addActionListener(new java.awt.event.ActionListener() {
@@ -604,7 +605,7 @@ public class Rooms extends javax.swing.JFrame {
                     .addComponent(btn_modifyrooms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_deleterooms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_insertrooms, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
