@@ -49,6 +49,8 @@ public class GlobalsSingleton {
             table.removeRow(table.getRowCount() - 1);
         }
     }
+     
+
 
     public String getUserEmail() {
         return instance.userEmail;

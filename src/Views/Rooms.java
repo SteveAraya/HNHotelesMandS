@@ -7,6 +7,7 @@ package Views;
 
 import Classes.GlobalsSingleton;
 import Conectmysql.ConexionDB;
+import java.awt.event.MouseAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,6 +29,8 @@ public class Rooms extends javax.swing.JFrame {
 
     /**
      * Creates new form Rooms
+     *
+     * @throws java.sql.SQLException
      */
     public Rooms() throws SQLException {
         initComponents();
@@ -44,28 +47,19 @@ public class Rooms extends javax.swing.JFrame {
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultroom = selectconect.executeQuery(urlhotelverify);
         tbl_typeroom.setModel(dftablert);
-        dftablert.setColumnIdentifiers(new Object[]{"Room Type", "Capacity", "Bed Type"});
+        dftablert.setColumnIdentifiers(new Object[]{"Num Room", "Floor", "Description","Room size","Room Price",
+        "Room Attractive","Room Type"});
 
         try {
             while (resultroom.next()) {
                 serviceverification = resultroom.getInt("id_hotel");
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
-                    try {
-                        while (resultroom.next()) {
-                            dftablert.addRow(new Object[]{resultroom.getString("room_type"), resultroom.getInt("capacity"), resultroom.getString("bedtype")});
 
-                        }
-                    } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null, "Error\n"
-                                + "Try Again .\n"
-                                + "Error: " + e, "Error in the operation:",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-
-                } else {
-
-                    btn_inserttype.setEnabled(false);
+                    dftablert.addRow(new Object[]{resultroom.getString("num_room"), resultroom.getInt("floornumber"),
+                        resultroom.getString("description"),resultroom.getString("roomsize"), resultroom.getInt("room_attractive"),
+                    resultroom.getString("id_type"), resultroom.getInt("roomstatus"),resultroom.getString("roomprice"), 
+                    resultroom.getInt("id_hotel"),});
 
                 }
             }
@@ -75,6 +69,7 @@ public class Rooms extends javax.swing.JFrame {
                     + "Error: " + e, "Error in the operation:",
                     JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     public void verifytyperoom() throws SQLException {
@@ -86,7 +81,7 @@ public class Rooms extends javax.swing.JFrame {
         ResultSet resultroomtype = selectconect.executeQuery(urlhotelverify);
 
         tbl_typeroom.setModel(dftablert);
-        dftablert.setColumnIdentifiers(new Object[]{"Room Type", "Capacity", "Bed Type"});
+        dftablert.setColumnIdentifiers(new Object[]{"Room Type", "Capacity", "Bed Type", "Code"});
 
         try {
             while (resultroomtype.next()) {
@@ -94,7 +89,8 @@ public class Rooms extends javax.swing.JFrame {
 
                 if (typeroomverify == GlobalsSingleton.getInstance().getIdHotel()) {
 
-                    dftablert.addRow(new Object[]{resultroomtype.getString("room_type"), resultroomtype.getInt("capacity"), resultroomtype.getString("bedtype")});
+                    dftablert.addRow(new Object[]{resultroomtype.getString("room_type"), resultroomtype.getInt("capacity"), resultroomtype.getString("bedtype"),
+                        resultroomtype.getString("id_type")});
 
                 }
             }
@@ -183,6 +179,13 @@ public class Rooms extends javax.swing.JFrame {
 
         }
 
+    }
+
+    public void selectrows(DefaultTableModel table) {
+        int row = table.getRowCount();
+
+        String id = table.getValueAt(row, 0).toString();
+        String name = table.getValueAt(row, 1).toString();
     }
 
     /**
@@ -300,6 +303,12 @@ public class Rooms extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
+
         tbl_typeroom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -311,6 +320,11 @@ public class Rooms extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_typeroom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_typeroomMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbl_typeroom);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -461,6 +475,11 @@ public class Rooms extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_room.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_roomMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_room);
 
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -672,6 +691,7 @@ public class Rooms extends javax.swing.JFrame {
 
             GlobalsSingleton.getInstance().cleantableservice(dftablert);
             verifytyperoom();
+
         } catch (SQLException ex) {
             Logger.getLogger(Rooms.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -712,6 +732,31 @@ public class Rooms extends javax.swing.JFrame {
     private void txt_roomattractive1jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_roomattractive1jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_roomattractive1jTextField4ActionPerformed
+
+    private void tbl_typeroomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_typeroomMouseClicked
+
+        int select = tbl_typeroom.rowAtPoint(evt.getPoint());
+        txt_roomtype.setText(String.valueOf(tbl_typeroom.getValueAt(select, 1)));
+        txt_capacity.setText(String.valueOf(tbl_typeroom.getValueAt(select, 2)));
+        txt_bedtype.setText(String.valueOf(tbl_typeroom.getValueAt(select, 3)));
+
+    }//GEN-LAST:event_tbl_typeroomMouseClicked
+
+    private void tbl_roomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_roomMouseClicked
+        int select = tbl_typeroom.rowAtPoint(evt.getPoint());
+        txt_numroom.setText(String.valueOf(tbl_typeroom.getValueAt(select, 1)));
+        txt_floornumber.setText(String.valueOf(tbl_typeroom.getValueAt(select, 2)));
+        txt_description.setText(String.valueOf(tbl_typeroom.getValueAt(select, 3)));
+        txt_roomsize.setText(String.valueOf(tbl_typeroom.getValueAt(select, 4)));
+        txt_roomprice.setText(String.valueOf(tbl_typeroom.getValueAt(select, 5)));
+        txt_roomattractive1.setText(String.valueOf(tbl_typeroom.getValueAt(select, 6)));
+        txt_roomprice.setText(String.valueOf(tbl_typeroom.getValueAt(select, 7)));
+
+    }//GEN-LAST:event_tbl_roomMouseClicked
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+
+    }//GEN-LAST:event_jScrollPane2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -763,19 +808,12 @@ public class Rooms extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_deleteroom;
-    private javax.swing.JButton btn_deleteroom1;
     private javax.swing.JButton btn_deleterooms;
     private javax.swing.JButton btn_deletetype;
-    private javax.swing.JButton btn_insertroom;
-    private javax.swing.JButton btn_insertroom1;
     private javax.swing.JButton btn_insertrooms;
     private javax.swing.JButton btn_inserttype;
-    private javax.swing.JButton btn_modifyroom;
-    private javax.swing.JButton btn_modifyroom1;
     private javax.swing.JButton btn_modifyrooms;
     private javax.swing.JButton btn_modifytype;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -783,30 +821,15 @@ public class Rooms extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTable tbl_room;
     private javax.swing.JTable tbl_typeroom;
     private javax.swing.JTextField txt_bedtype;
