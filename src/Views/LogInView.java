@@ -235,6 +235,8 @@ public class LogInView extends javax.swing.JFrame {
                     global.setCurrencyType(currencyTypeDB);
                     
                     searchUserHotel(userIDDB);
+                    
+                    showUserType();
 
                     this.dispose();
 
@@ -412,7 +414,6 @@ public class LogInView extends javax.swing.JFrame {
 
         try {
             activeUser();
-            showUserType();
             showUserActiveInactive();
 
         } catch (SQLException ex) {

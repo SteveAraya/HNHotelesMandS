@@ -3,13 +3,16 @@ package Views;
 
 import Classes.GlobalsSingleton;
 import Conectmysql.ConexionDB;
+import static Views.UserView.tbl_cards;
 import com.sun.glass.events.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +21,8 @@ import javax.swing.JOptionPane;
 public class CardView extends javax.swing.JFrame {
 
     GlobalsSingleton global = GlobalsSingleton.getInstance();
+    Connection conect = ConexionDB.Connectdatabase();
+    DefaultTableModel dftables = new DefaultTableModel();
     
     public CardView() {
         initComponents();
@@ -139,6 +144,48 @@ public class CardView extends javax.swing.JFrame {
             
         this.dispose();
  
+    }
+    
+    //This method show all the cards that the user has.
+    public void showCards() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM card";
+        int serviceverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_cards.setModel(dftables);
+        dftables.setColumnIdentifiers(new Object[]{"Card Type", "Card Number", "Security Code", "Month Expiration", "Year Expiration"});
+
+        try {
+            while (resultservice.next()) {
+                
+                serviceverification = resultservice.getInt("id_user");
+
+                if (serviceverification == (GlobalsSingleton.getInstance().getUserID())) {
+                    try {
+                        while (resultservice.next()) {
+                            
+                            dftables.addRow(new Object[]{resultservice.getString("card_type"),
+                                resultservice.getString("cardnumber"),
+                                resultservice.getString("secury_code"),
+                                resultservice.getString("expirationmount"),
+                                resultservice.getString("expirationyear")});
+
+                        }
+                    } catch (SQLException e) {
+
+                    }
+
+                } 
+                
+            }
+            
+        } 
+        
+        catch (SQLException e) {
+
+        }
     }
 
     /**
@@ -392,6 +439,7 @@ public class CardView extends javax.swing.JFrame {
         
         try {
             addCard();
+            showCards();
         } catch (SQLException ex) {
             Logger.getLogger(CreateClientAccountView.class.getName()).log(Level.SEVERE, null, ex);
         }

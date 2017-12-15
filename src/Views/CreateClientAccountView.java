@@ -156,7 +156,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "You must enter a Coint Type to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.cbo_UserType.requestFocus();
+            this.cbo_coinType.requestFocus();
             return;
             
         }
@@ -183,7 +183,7 @@ public class CreateClientAccountView extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "You must define a Country to create an account",
                     "Problem creating user account", JOptionPane.ERROR_MESSAGE);
-            this.txt_telephone.requestFocus();
+            this.txt_country.requestFocus();
             return;
             
         }

@@ -2,12 +2,21 @@
 package Views;
 
 import Classes.GlobalsSingleton;
+import Conectmysql.ConexionDB;
 import static Views.MainView.userTypeMenu;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,12 +25,15 @@ import javax.swing.JTextField;
 public class UserView extends javax.swing.JFrame {
 
     GlobalsSingleton global = GlobalsSingleton.getInstance();
+    Connection conect = ConexionDB.Connectdatabase();
+    DefaultTableModel dftables = new DefaultTableModel();
     
-    public UserView() {
+    public UserView() throws SQLException {
         initComponents();
         
         showUserType();
         showUserInfo();
+        showCards();
         
     }
 
@@ -98,11 +110,103 @@ public class UserView extends javax.swing.JFrame {
  
     }
     
-    public void editInfo(){
+    //This method show all the cards that the user has.
+    public void showCards() throws SQLException {
+
+        String urlhotelverify = "SELECT * FROM card";
+        int serviceverification;
+
+        java.sql.Statement selectconect = conect.createStatement();
+        ResultSet resultservice = selectconect.executeQuery(urlhotelverify);
+        tbl_cards.setModel(dftables);
+        dftables.setColumnIdentifiers(new Object[]{"Card Type", "Card Number", "Security Code", "Month Expiration", "Year Expiration"});
+
+        try {
+            while (resultservice.next()) {
+                
+                serviceverification = resultservice.getInt("id_user");
+
+                if (serviceverification == (GlobalsSingleton.getInstance().getUserID())) {
+                    try {
+                        while (resultservice.next()) {
+                            
+                            dftables.addRow(new Object[]{resultservice.getString("card_type"),
+                                resultservice.getString("cardnumber"),
+                                resultservice.getString("secury_code"),
+                                resultservice.getString("expirationmount"),
+                                resultservice.getString("expirationyear")});
+
+                        }
+                    } catch (SQLException e) {
+
+                    }
+
+                } 
+                
+            }
+            
+        } 
         
+        catch (SQLException e) {
+
+        }
+    }
+    
+    //This method save the changes that the user do it
+    public void editInfo() throws SQLException {
         
+        if (cbo_coinType.getSelectedItem().toString().equals("Select a Coin Type")){
+            
+            JOptionPane.showMessageDialog(this, "You must enter a Coint Type to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.cbo_coinType.requestFocus();
+            return;
+            
+        }
         
+        if (txt_country.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define a Country to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_telephone.requestFocus();
+            return;
+            
+        }
         
+        if (txt_telephone.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(this, "You must define a Telephone Number to create an account",
+                    "Problem creating user account", JOptionPane.ERROR_MESSAGE);
+            this.txt_telephone.requestFocus();
+            return;
+            
+        }
+
+        String country = txt_country.getText();
+        int telephone = Integer.parseInt(txt_telephone.getText());
+        String  cointType = cbo_coinType.getSelectedItem().toString();
+        
+
+        try {
+            String url=("update newuser SET cellphone=?,country=?,cointype=?"
+                    +"where id_user= "+GlobalsSingleton.getInstance().getUserID()+" " );
+           
+            
+            PreparedStatement inserthotel = conect.prepareStatement(url);
+            inserthotel.setInt(1, telephone);
+            inserthotel.setString(2, country);
+            inserthotel.setString(3, cointType);
+
+        
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
+                                              + "Inténtelo nuevamente.\n"
+                                              + "Error: "+e, "Error en la operación", 
+                                              JOptionPane.ERROR_MESSAGE);
+
+        }
+
     }
     
     
@@ -141,7 +245,7 @@ public class UserView extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_cards = new javax.swing.JTable();
         btn_addCard = new javax.swing.JButton();
         btn_userEdit = new javax.swing.JButton();
         btn_change = new javax.swing.JButton();
@@ -207,7 +311,7 @@ public class UserView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("Credit Cards");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_cards.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -215,10 +319,10 @@ public class UserView extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Card Type", "Card Number", "Security Code ", "Month", "Year"
+                "Card Type", "Card Number", "Security Code ", "Month Expiration", "Year Expiration"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_cards);
 
         btn_addCard.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         btn_addCard.setText("Add Credit Card");
@@ -235,10 +339,13 @@ public class UserView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(btn_addCard))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(btn_addCard))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,14 +459,14 @@ public class UserView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jP_changes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_change))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_userEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_type, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txt_type, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jP_changes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_change)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -413,7 +520,7 @@ public class UserView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,7 +534,9 @@ public class UserView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,7 +633,11 @@ public class UserView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserView().setVisible(true);
+                try {
+                    new UserView().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -547,8 +660,8 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_imageType;
+    public static javax.swing.JTable tbl_cards;
     private javax.swing.JTextField txt_country;
     private javax.swing.JTextField txt_currencyType;
     private javax.swing.JTextField txt_email;

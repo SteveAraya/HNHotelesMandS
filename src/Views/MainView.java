@@ -56,7 +56,7 @@ public class MainView extends javax.swing.JFrame {
     }
 
     //This method show the User view.
-    public static void showUserView() {
+    public static void showUserView() throws SQLException {
 
         UserView oUserView = new UserView();
         oUserView.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -616,7 +616,11 @@ public class MainView extends javax.swing.JFrame {
 
     private void userProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userProfileMenuItemActionPerformed
 
-        showUserView();
+        try {
+            showUserView();
+        } catch (SQLException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_userProfileMenuItemActionPerformed
 
