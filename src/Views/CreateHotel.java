@@ -57,7 +57,6 @@ public class CreateHotel extends javax.swing.JFrame {
 //        
 //
 //    }
-
     public void cleanserviceTextFields() {
         txt_servicecode.setText("");
         txt_serviceName.setText("");
@@ -79,7 +78,10 @@ public class CreateHotel extends javax.swing.JFrame {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(rootPane, "Error");
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -104,27 +106,21 @@ public class CreateHotel extends javax.swing.JFrame {
                 serviceverification = resultservice.getInt("id_hotel");
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
-                    try {
-                        while (resultservice.next()) {
-                            dftables.addRow(new Object[]{resultservice.getString("service_code"), resultservice.getString("service_name")});
 
-                        }
-                    } catch (SQLException e) {
-
-                    }
-
-                } else {
-
-                    btn_insertservice.setEnabled(false);
+                    dftables.addRow(new Object[]{resultservice.getString("service_code"), resultservice.getString("service_name")});
 
                 }
+
             }
         } catch (SQLException e) {
-
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //This method is for  create attractive
+//This method is for  create attractive
     public void insertattractive() throws SQLException {
         String attrarctivecode = txt_attractivecode.getText();
         String attractivename = txt_attractivename.getText();
@@ -140,7 +136,10 @@ public class CreateHotel extends javax.swing.JFrame {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(rootPane, "Error");
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -162,14 +161,14 @@ public class CreateHotel extends javax.swing.JFrame {
 
                 if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
                     dftablea.addRow(new Object[]{resultservice.getString("attractive_code"), resultservice.getString("attractive_name")});
-                    return;
-                } else {
-                    btn_insertatractive.setEnabled(false);
-                    return;
-                }
+                    
+                } 
             }
         } catch (SQLException e) {
-
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -265,7 +264,7 @@ public class CreateHotel extends javax.swing.JFrame {
     }
 
     public void updatehotel() throws SQLException {
-        
+
         String hotelname = txt_hotelName.getText();
         int telphone = Integer.parseInt(txt_telephone.getText());
         String checkin = txt_checkin.getText();
@@ -280,12 +279,11 @@ public class CreateHotel extends javax.swing.JFrame {
         String country = txt_country.getText();
 
         try {
-            String url=("update hotel SET id_hotel=?,hotel_name=?,country=?,telephone=?,address=?,construcctionyears=?,starnumbers=?,lodgingtype=?,"
+            String url = ("update hotel SET id_hotel=?,hotel_name=?,country=?,telephone=?,address=?,construcctionyears=?,starnumbers=?,lodgingtype=?,"
                     + "hotelsize=?,checkingtime=?,chekouttime=?,requirementCheckin=?"
-                    +"where id_user= "+GlobalsSingleton.getInstance().getUserID()+" " );
-           
-            
-             PreparedStatement inserthotel = conect.prepareStatement(url);
+                    + "where id_user= " + GlobalsSingleton.getInstance().getUserID() + " ");
+
+            PreparedStatement inserthotel = conect.prepareStatement(url);
             inserthotel.setInt(1, id_hotel);
             inserthotel.setString(2, hotelname);
             inserthotel.setString(3, country);
@@ -300,27 +298,27 @@ public class CreateHotel extends javax.swing.JFrame {
             inserthotel.setString(12, checkinrequeriment);
 //            inserthotel.setInt(13, GlobalsSingleton.getInstance().getUserID());
 
-        if(inserthotel.executeUpdate() > 0){
-        
-            JOptionPane.showMessageDialog(null, "Los datos han sido modificados con éxito", "Operación Exitosa", 
-                                          JOptionPane.INFORMATION_MESSAGE);
-            
-        }else{
-        
-            JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
-                                          + "Inténtelo nuevamente.", "Error en la operación", 
-                                          JOptionPane.ERROR_MESSAGE);
-        
+            if (inserthotel.executeUpdate() > 0) {
+
+                JOptionPane.showMessageDialog(null, "Los datos han sido modificados con éxito", "Operación Exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
+                        + "Inténtelo nuevamente.", "Error en la operación",
+                        JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
+
         }
-        
-    } catch (SQLException e) {
-    
-        JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
-                                          + "Inténtelo nuevamente.\n"
-                                          + "Error: "+e, "Error en la operación", 
-                                          JOptionPane.ERROR_MESSAGE);
-    
-    }
 
     }
 
@@ -1148,7 +1146,6 @@ public class CreateHotel extends javax.swing.JFrame {
         try {
             createHotel();
             JOptionPane.showMessageDialog(rootPane, "Succesfull");
-            
 
         } catch (SQLException ex) {
             Logger.getLogger(CreateHotel.class
@@ -1236,8 +1233,10 @@ public class CreateHotel extends javax.swing.JFrame {
         cleanserviceTextFields();
         try {
             verifyservice();
+
         } catch (SQLException ex) {
-            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateHotel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btn_insertserviceActionPerformed
@@ -1305,8 +1304,10 @@ public class CreateHotel extends javax.swing.JFrame {
     private void btn_modifyAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifyAccountActionPerformed
         try {
             updatehotel();
+
         } catch (SQLException ex) {
-            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateHotel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_modifyAccountActionPerformed
 
@@ -1362,8 +1363,10 @@ public class CreateHotel extends javax.swing.JFrame {
             viewroom = new Rooms();
             viewroom.setVisible(true);
             this.dispose();
+
         } catch (SQLException ex) {
-            Logger.getLogger(CreateHotel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CreateHotel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btn_roomsviewActionPerformed

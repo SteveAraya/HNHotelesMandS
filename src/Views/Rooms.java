@@ -57,7 +57,10 @@ public class Rooms extends javax.swing.JFrame {
 
                         }
                     } catch (SQLException e) {
-
+                        JOptionPane.showMessageDialog(null, "Error\n"
+                                + "Try Again .\n"
+                                + "Error: " + e, "Error in the operation:",
+                                JOptionPane.ERROR_MESSAGE);
                     }
 
                 } else {
@@ -67,45 +70,39 @@ public class Rooms extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException e) {
-
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void verifytyperoom() throws SQLException {
 
         String urlhotelverify = "SELECT * FROM roomtype";
-        String url = "select * from room";
-        int serviceverification;
+        int typeroomverify;
 
         java.sql.Statement selectconect = conect.createStatement();
         ResultSet resultroomtype = selectconect.executeQuery(urlhotelverify);
-        ResultSet resultroom = selectconect.executeQuery(url);
 
         tbl_typeroom.setModel(dftablert);
         dftablert.setColumnIdentifiers(new Object[]{"Room Type", "Capacity", "Bed Type"});
 
         try {
-            while (resultroom.next()) {
-                serviceverification = resultroom.getInt("id_hotel");
+            while (resultroomtype.next()) {
+                typeroomverify = resultroomtype.getInt("id_hotel");
 
-                if (serviceverification == (GlobalsSingleton.getInstance().getIdHotel())) {
-                    try {
-                        while (resultroomtype.next()) {
-                            dftablert.addRow(new Object[]{resultroomtype.getString("room_type"), resultroomtype.getInt("capacity"), resultroomtype.getString("bedtype")});
+                if (typeroomverify == GlobalsSingleton.getInstance().getIdHotel()) {
 
-                        }
-                    } catch (SQLException e) {
-
-                    }
-
-                } else {
-
-                    btn_inserttype.setEnabled(false);
+                    dftablert.addRow(new Object[]{resultroomtype.getString("room_type"), resultroomtype.getInt("capacity"), resultroomtype.getString("bedtype")});
 
                 }
             }
         } catch (SQLException e) {
-
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -119,11 +116,9 @@ public class Rooms extends javax.swing.JFrame {
         String room_type = txt_typeroom.getText();
         int roomstatus = 0;
         int roomprice = Integer.parseInt(txt_roomprice.getText());
-        int id_hotel = GlobalsSingleton.getInstance().getIdHotel();
 
         try {
-            PreparedStatement insertroom = conect.prepareStatement("Insert Into room(num_room,floornumber,description"
-                    + "roomsize,room_attractive,room_type,roomstatus,roomprice,id_hotel)"
+            PreparedStatement insertroom = conect.prepareStatement("Insert Into room(num_room,floornumber,description,roomsize,room_attractive,room_type,roomstatus,roomprice,id_hotel)"
                     + "Values(?,?,?,?,?,?,?,?,?)");
             insertroom.setInt(1, num_room);
             insertroom.setString(2, floornumber);
@@ -133,19 +128,19 @@ public class Rooms extends javax.swing.JFrame {
             insertroom.setString(6, room_type);
             insertroom.setInt(7, roomstatus);
             insertroom.setInt(8, roomprice);
-            insertroom.setInt(9, id_hotel);
+            insertroom.setInt(9, GlobalsSingleton.getInstance().getIdHotel());
 
             int servicei = insertroom.executeUpdate();
             JOptionPane.showMessageDialog(rootPane, "succesfull");
 
         } catch (SQLException e) {
-    
-        JOptionPane.showMessageDialog(null, "No se ha podido realizar la actualización de los datos\n"
-                                          + "Inténtelo nuevamente.\n"
-                                          + "Error: "+e, "Error en la operación", 
-                                          JOptionPane.ERROR_MESSAGE);
-    
-    }
+
+            JOptionPane.showMessageDialog(null, "Error\n"
+                    + "Try Again .\n"
+                    + "Error: " + e, "Error in the operation:",
+                    JOptionPane.ERROR_MESSAGE);
+
+        }
 
     }
 
@@ -164,18 +159,22 @@ public class Rooms extends javax.swing.JFrame {
                     String seasonverify = resultservice.getString("season_code");
 
                     try {
-                        PreparedStatement insertroomtype = conect.prepareStatement("Insert Into roomtype(room_type,capacity,bedtype,season_code)"
-                                + "Values(?,?,?,?)");
+                        PreparedStatement insertroomtype = conect.prepareStatement("Insert Into roomtype(room_type,capacity,bedtype,season_code,id_hotel)"
+                                + "Values(?,?,?,?,?)");
                         insertroomtype.setString(1, roomtype);
                         insertroomtype.setInt(2, capacity);
                         insertroomtype.setString(3, bedtype);
                         insertroomtype.setString(4, seasonverify);
+                        insertroomtype.setInt(5, GlobalsSingleton.getInstance().getIdHotel());
 
                         int servicei = insertroomtype.executeUpdate();
 
                     } catch (Exception e) {
 
-                        JOptionPane.showMessageDialog(rootPane, "Error");
+                        JOptionPane.showMessageDialog(null, "Error\n"
+                                + "Try Again .\n"
+                                + "Error: " + e, "Error in the operation:",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -625,8 +624,10 @@ public class Rooms extends javax.swing.JFrame {
     private void btn_insertroomsroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertroomsroomActionPerformed
         try {
             insertroom();
+
         } catch (SQLException ex) {
-            Logger.getLogger(Rooms.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Rooms.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_insertroomsroomActionPerformed
 
@@ -659,6 +660,7 @@ public class Rooms extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modifyroom1ActionPerformed
 
     private void btn_insertroom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_insertroom1ActionPerformed
+
         if (txt_roomtype.getText().isEmpty() || txt_capacity.getText().isEmpty() || txt_bedtype.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "you must fill all the fields");
             GlobalsSingleton.getInstance().cleantableservice(dftablert);
@@ -666,8 +668,12 @@ public class Rooms extends javax.swing.JFrame {
         }
         try {
             inserttyperoom();
+            verifytyperoom();
+            GlobalsSingleton.getInstance().cleantableservice(dftablert);
+
         } catch (SQLException ex) {
-            Logger.getLogger(Rooms.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Rooms.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         GlobalsSingleton.getInstance().cleantableservice(dftablert);
@@ -720,16 +726,24 @@ public class Rooms extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rooms.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -738,8 +752,10 @@ public class Rooms extends javax.swing.JFrame {
             public void run() {
                 try {
                     new Rooms().setVisible(true);
+
                 } catch (SQLException ex) {
-                    Logger.getLogger(Rooms.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Rooms.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
