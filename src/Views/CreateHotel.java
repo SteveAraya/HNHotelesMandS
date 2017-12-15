@@ -227,7 +227,7 @@ public class CreateHotel extends javax.swing.JFrame {
                 useridverification = result.getInt("id_user");
 
                 if (useridverification == GlobalsSingleton.getInstance().getUserID()) {
-                    
+
                     JOptionPane.showMessageDialog(rootPane, "Welcome ");
                     String hotel_name = result.getString("hotel_name");
                     String country = result.getString("country");
@@ -240,7 +240,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     int checkingtime = result.getInt("checkingtime");
                     int chekouttimetime = result.getInt("chekouttime");
                     String requirementCheckin = result.getString("requirementCheckin");
-                    
+
                     txt_hotelName.setText(hotel_name);
                     txt_telephone.setText(telephone);
                     txt_checkin.setText("" + checkingtime);
@@ -256,7 +256,7 @@ public class CreateHotel extends javax.swing.JFrame {
                     txt_country.setText(country);
                     btn_createAccount.setEnabled(false);
                     return;
-                } 
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error\n"
@@ -284,7 +284,7 @@ public class CreateHotel extends javax.swing.JFrame {
         try {
             String url = ("update hotel SET id_hotel=?,hotel_name=?,country=?,telephone=?,address=?,construcctionyears=?,starnumbers=?,lodgingtype=?,"
                     + "hotelsize=?,checkingtime=?,chekouttime=?,requirementCheckin=?"
-                    + "where id_user= " + GlobalsSingleton.getInstance().getUserID() + " ");
+                    + "where id_user=? ");
 
             PreparedStatement inserthotel = conect.prepareStatement(url);
             inserthotel.setInt(1, id_hotel);
@@ -299,7 +299,7 @@ public class CreateHotel extends javax.swing.JFrame {
             inserthotel.setString(10, checkin);
             inserthotel.setString(11, chekout);
             inserthotel.setString(12, checkinrequeriment);
-//            inserthotel.setInt(13, GlobalsSingleton.getInstance().getUserID());
+            inserthotel.setInt(13, GlobalsSingleton.getInstance().getUserID());
 
             if (inserthotel.executeUpdate() > 0) {
 

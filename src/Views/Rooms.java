@@ -208,19 +208,20 @@ public class Rooms extends javax.swing.JFrame {
         int roomprice = Integer.parseInt(txt_roomprice.getText());
 
         try {
-            String url = ("update room SET floornumber=?,description=?,roomsize=?,room_attractive=?,id_type=?,roomstatus=?,roomprice=?,id_hotel=?"
-                    + "where id_hotel= " + GlobalsSingleton.getInstance().getIdHotel() + " ");
+            String url = ("update room SET num_room=?,floornumber=?,description=?,roomsize=?,room_attractive=?,id_type=?,roomstatus=?,roomprice=?,id_hotel=?"
+                    + "where id_hotel=? ");
 
             PreparedStatement insertroom = conect.prepareStatement(url);
-
-            insertroom.setString(1, floornumber);
-            insertroom.setString(2, description);
-            insertroom.setString(3, roomsize);
-            insertroom.setString(4, room_attractive);
-            insertroom.setString(5, room_type);
-            insertroom.setInt(6, roomstatus);
-            insertroom.setInt(7, roomprice);
-            insertroom.setInt(8, GlobalsSingleton.getInstance().getIdHotel());
+            
+            insertroom.setInt(1, num_room);
+            insertroom.setString(2, floornumber);
+            insertroom.setString(3, description);
+            insertroom.setString(4, roomsize);
+            insertroom.setString(5, room_attractive);
+            insertroom.setString(6, room_type);
+            insertroom.setInt(7, roomstatus);
+            insertroom.setInt(8, roomprice);
+            insertroom.setInt(9, GlobalsSingleton.getInstance().getIdHotel());
 
             if (insertroom.executeUpdate() > 0) {
 
