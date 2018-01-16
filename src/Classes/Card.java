@@ -70,16 +70,6 @@ public class Card {
     public void setMonth(int month) {
         this.month = month;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+      
     
 }
